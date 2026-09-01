@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: deposit-guidelines
+    runtime: static
+    # The site is a single self-contained HTML file; nothing to build.
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: X-Robots-Tag
+        value: noindex, nofollow
+    routes:
+      - type: rewrite
+        source: /
+        destination: /index.html
