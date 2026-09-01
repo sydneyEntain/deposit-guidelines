@@ -314,17 +314,59 @@
 
       <hr />
 
-      <h2 id="errors">Error States</h2>
-      <p>Errors surface as inline alerts within the amount screen or as dialogs, depending on the failure.</p>
+      <h2 id="errors">Error &amp; Edge-Case States</h2>
+      <p>Errors and edge cases fall into three groups: <strong>validation</strong> (amount limits, before submit), <strong>payment/processing declines</strong> (returned by the payment provider or risk checks), and <strong>Responsible Gambling interventions</strong> (soft warnings and hard blocks). Depending on severity they appear as an inline alert within the amount screen, a dialog, or a full-screen state.</p>
+
+      <h3 id="err-validation">1. Amount validation</h3>
       <table>
-        <thead><tr><th>Configuration</th><th>Error display</th></tr></thead>
+        <thead><tr><th>State</th><th>Behaviour</th></tr></thead>
         <tbody>
-          <tr><td>Amount below minimum</td><td>Amount component enters Min error ("Min deposit £5"); CTA stays disabled</td></tr>
-          <tr><td>Amount above maximum</td><td>Amount component enters Max error</td></tr>
-          <tr><td>Card/payment declined</td><td>Alert within the deposit module; retry or change method</td></tr>
-          <tr><td>PayPal error</td><td>Dedicated PayPal error state on the method</td></tr>
+          <tr><td>Below minimum</td><td>Amount component enters Min error; limit shown as "£20 min | £200 max" / "Min deposit £5"; "Deposit" stays disabled.</td></tr>
+          <tr><td>Above maximum</td><td>Amount component enters Max error; "Deposit" stays disabled until the amount is within range.</td></tr>
         </tbody>
       </table>
+
+      <h3 id="err-declines">2. Payment declines</h3>
+
+      <div class="callout error">
+        <strong>Deposit declined — funds not accepted</strong>
+        "We cannot accept funds for this account from this card, please use a different method. If funds were deducted from your account they will be refunded in 1–3 days." — actions: <em>Contact Support</em> · <em>Change Payment Method</em>. Shown as an inline alert on the amount screen.
+      </div>
+
+      <div class="callout error">
+        <strong>Deposit declined — card blocked (name mismatch)</strong>
+        "The name on this card doesn't match your account details, so it has been blocked. To unblock your card, please visit the 'My Account Details' page within 'My Account' and upload clear copies of the front and back of your card, ensuring the middle 6-digits of the card number and the 3-digit CVV code are covered. Please contact Customer Support if you believe there is an error." — actions: <em>Account Details</em> · <em>Contact Support</em>. Shown as a dialog.
+      </div>
+
+      <div class="callout info">
+        <strong>Pop-up / window blocked</strong>
+        "Window blocked from opening — We have detected that your pop-up blocker has stopped the new browser window from opening." — action: <em>Open window</em>. (Ties to the 3DS/SCA external check below.)
+      </div>
+
+      <p>Method-specific: <strong>PayPal</strong> has a dedicated error state on the method row.</p>
+
+      <h3 id="err-rg">3. Responsible Gambling interventions</h3>
+      <p>These are distinct from payment errors — the deposit could process, but the customer is warned or blocked for safer-gambling reasons. They escalate from soft (dismissible) to hard (blocking).</p>
+
+      <div class="callout info">
+        <strong>Deposit check (unusual frequency) — soft</strong>
+        "You've made more deposits than usual in the past 24 hours. To help you stay in control, you may want to set a Gambling Control to limit how much you deposit. Do you want to continue with this deposit?" — actions: <em>Cancel</em> · <em>Continue</em>.
+      </div>
+
+      <div class="callout info">
+        <strong>Close to monthly loss limit — soft</strong>
+        "You're close to your monthly loss limit. Your monthly loss limit of £500 will be reset on the first of next month. Your maximum allowed deposit is £XX." — actions: <em>Increase limit</em> · <em>Continue with deposit</em>.
+      </div>
+
+      <div class="callout warn">
+        <strong>Monthly loss limit reached — hard block</strong>
+        "You've reached your monthly loss limit — Your monthly loss limit of £500 has been reached. This limit will be reset on the first of next month, or you can request an increase to your limit." — action: <em>Increase limit</em>. Deposits are paused; any increase is subject to review, not applied instantly. (See <a href="#rg-limits">RG — Deposit Limits</a>.)
+      </div>
+
+      <div class="callout warn">
+        <strong>Deposits temporarily blocked (higher-than-usual activity) — hard block</strong>
+        "Deposits blocked — We've temporarily blocked deposits until 07-09-2025 at 13:32 due to higher-than-usual activity. If you'd like more control over how much you deposit, you can set limits with our Gambling Control tools." Shown as a banner, including on the success screen when a prior deposit went through before the block.
+      </div>
 
       <hr />
 
@@ -402,7 +444,10 @@
       <a href="#add-method" class="h3">Add Payment Method</a>
       <a href="#change-method" class="h3">Change Method</a>
       <a href="#card-details">Card Details</a>
-      <a href="#errors">Error States</a>
+      <a href="#errors">Error &amp; Edge-Case States</a>
+      <a href="#err-validation" class="h3">Amount validation</a>
+      <a href="#err-declines" class="h3">Payment declines</a>
+      <a href="#err-rg" class="h3">RG interventions</a>
       <a href="#3ds-sca">3DS / SCA</a>
       <a href="#bonus">Bonus Signposting</a>
       <a href="#success">Deposit Success</a>
