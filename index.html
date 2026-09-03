@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
 <title>Deposit — Experience Design Guidelines</title>
 <style>
   :root {
@@ -22,88 +23,56 @@
     --code-bg: #f0f0f3;
     --radius: 10px;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    font-family: var(--sans);
-    color: var(--text);
-    background: var(--bg);
-    line-height: 1.6;
-    font-size: 15px;
-  }
+  body { margin: 0; font-family: var(--sans); color: var(--text); background: var(--bg); line-height: 1.6; font-size: 15px; }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  /* Top bar */
-  .topbar {
-    background: var(--panel);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 32px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
+  .topbar { background: var(--panel); border-bottom: 1px solid var(--border); padding: 14px 32px; position: sticky; top: 0; z-index: 10; }
   .topbar h1 { margin: 0; font-size: 16px; font-weight: 600; }
   .topbar .sub { color: var(--muted); font-size: 12.5px; }
 
-  /* Layout */
-  .layout { display: flex; align-items: flex-start; max-width: 1180px; margin: 0 auto; }
-  .content {
-    flex: 1;
-    min-width: 0;
-    padding: 32px 40px 120px;
-  }
-  .toc {
-    width: 260px;
-    flex-shrink: 0;
-    position: sticky;
-    top: 61px;
-    align-self: flex-start;
-    max-height: calc(100vh - 61px);
-    overflow-y: auto;
-    padding: 32px 20px 60px;
-    border-left: 1px solid var(--border);
-  }
+  .layout { display: flex; align-items: flex-start; max-width: 1220px; margin: 0 auto; }
+  .content { flex: 1; min-width: 0; padding: 32px 40px 140px; }
+  .toc { width: 268px; flex-shrink: 0; position: sticky; top: 61px; align-self: flex-start; max-height: calc(100vh - 61px); overflow-y: auto; padding: 32px 20px 60px; border-left: 1px solid var(--border); }
   .toc h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; }
-  .toc a { display: block; color: var(--muted); font-size: 13px; padding: 4px 0; border-left: 2px solid transparent; padding-left: 10px; margin-left: -2px; }
+  .toc a { display: block; color: var(--muted); font-size: 13px; padding: 4px 0 4px 10px; border-left: 2px solid transparent; margin-left: -2px; }
   .toc a:hover { color: var(--text); text-decoration: none; }
   .toc a.h3 { padding-left: 22px; font-size: 12.5px; }
   .toc a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
 
-  /* Breadcrumb */
   .breadcrumb { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
   .breadcrumb span { margin: 0 6px; }
 
-  /* Meta card */
   .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
   h2.title { font-size: 34px; margin: 4px 0 12px; }
   .lead { color: #333; font-size: 15.5px; }
-  .metagrid {
-    display: flex; flex-wrap: wrap; gap: 8px 24px;
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 14px 18px; margin: 20px 0 8px;
-    font-size: 13px;
-  }
-  .metagrid div span { color: var(--muted); }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 0; }
-  .tag { background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 3px 10px; font-size: 12px; }
 
-  h2 { font-size: 22px; margin: 40px 0 12px; padding-top: 8px; }
-  h3 { font-size: 17px; margin: 26px 0 8px; }
-  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+  h2 { font-size: 22px; margin: 44px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+  h2:first-of-type { border-top: none; }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  h3 .adapt { font-size: 11px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 2px 8px; vertical-align: middle; margin-left: 8px; }
 
-  table { border-collapse: collapse; width: 100%; margin: 12px 0; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 14px; }
-  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
   th { background: #fafafb; font-weight: 600; }
   tr:last-child td { border-bottom: none; }
+  td code, th code { white-space: nowrap; }
 
-  code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; font-size: 13px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; font-size: 13px; font-family: var(--mono); }
+  .src { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .rid { font-family: var(--mono); font-weight: 600; font-size: 12.5px; white-space: nowrap; }
+  .rid.r { color: var(--red); }
+  .rid.a { color: var(--accent); }
+  .rid.b { color: var(--green); }
 
   blockquote { margin: 14px 0; padding: 12px 16px; background: var(--accent-soft); border-radius: 8px; color: #3a3357; font-size: 14px; }
+  blockquote strong { color: #2a2350; }
 
-  .callout { border-radius: 8px; padding: 12px 16px; margin: 14px 0; font-size: 14px; border: 1px solid transparent; }
+  .callout { border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 14px; border: 1px solid transparent; }
   .callout.info { background: var(--accent-soft); }
   .callout.warn { background: var(--amber-soft); color: var(--amber-text); }
   .callout.error { background: var(--red-soft); color: var(--red); }
@@ -114,150 +83,127 @@
   .badge.amber { background: var(--amber-soft); color: var(--amber-text); }
   .badge.grey { background: #ededf0; color: var(--muted); }
 
-  .status-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--green-soft); color: var(--green); border-radius: 999px; padding: 3px 12px; font-size: 12.5px; font-weight: 600; }
-  .yes { color: var(--green); font-weight: 700; }
+  .status-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--amber-soft); color: var(--amber-text); border-radius: 999px; padding: 3px 12px; font-size: 12.5px; font-weight: 600; }
 
   ul { padding-left: 20px; }
   li { margin: 4px 0; }
 
+  .todo { background: #fffbe6; border: 1px dashed #e0c200; border-radius: 6px; padding: 1px 6px; font-size: 12.5px; color: #6b5a00; font-family: var(--mono); }
+  .inferred { background: #eef4ff; border: 1px dashed #7ea2e0; border-radius: 6px; padding: 1px 6px; font-size: 12.5px; color: #2f4d80; font-family: var(--mono); }
+
+  .fm { background: #1e1e28; color: #d6d6df; border-radius: var(--radius); padding: 16px 18px; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; overflow-x: auto; margin: 14px 0; }
+  .fm .k { color: #9db6ff; }
+  .fm .v { color: #e6d09a; }
+  .fm .c { color: #6de08a; }
+
   .note-editing { background: #fffbe6; border: 1px dashed #e0c200; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #6b5a00; margin: 20px 0; }
+  .constraint { background: var(--red-soft); border-left: 3px solid var(--red); border-radius: 6px; padding: 8px 14px; margin: 8px 0; font-size: 14px; }
+  .constraint .layer { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .ex { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .ex .good, .ex .bad { border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+  .ex .good { background: var(--green-soft); }
+  .ex .bad { background: var(--red-soft); }
+  .ex h5 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .ex .good h5 { color: var(--green); }
+  .ex .bad h5 { color: var(--red); }
+  .ex-title { font-weight: 600; margin: 16px 0 2px; }
+  @media (max-width: 720px) { .ex { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
   <div class="topbar">
     <h1>Experience Design Guidelines</h1>
-    <div class="sub">Cross-Pillar Knowledge Architecture · local preview</div>
+    <div class="sub">Cross-Pillar Knowledge Architecture · Feature Document</div>
   </div>
 
   <div class="layout">
     <main class="content">
-      <div class="breadcrumb">
-        Home <span>/</span> Player Experience <span>/</span> Payments <span>/</span> Deposit <span>/</span> <strong>Overview</strong>
-      </div>
+      <div class="breadcrumb">Home <span>/</span> Player Experience <span>/</span> Payments <span>/</span> <strong>Deposit</strong></div>
 
-      <div class="note-editing">📝 Local preview for review. Content is generated from the Ladbrokes Refresh — Payments Figma file. Edit <code>deposit-overview.md</code> (source) and this page as we refine together.</div>
+      <div class="note-editing">📝 Merged source of truth — combines the feature-template structure with the verified content from the Ladbrokes Refresh — Payments Figma file. Source: <code>deposit-overview.md</code>.</div>
 
-      <div class="kicker">overview</div>
+      <div class="kicker">Feature Document · Player Experience › Payments</div>
       <h2 class="title">Deposit</h2>
-      <p class="lead">Complete documentation for the Deposit feature — the money-in flow that lets a customer add funds to their account. Covers first-time deposit (FTD) at onboarding and regular deposits, amount entry with quick-amount chips and min/max limits, payment method selection and management, card entry and scanning, 3DS/SCA verification, error and edge-case states, bonus/offer signposting, deposit success, and Responsible Gambling deposit limits (Spending Limits / Deposit Cap).</p>
+      <p class="lead">The money-in flow that lets a customer add funds to their account. Covers FTD at onboarding and regular deposits, amount entry, payment method selection and management, card entry/scanning, 3DS/SCA, error and edge-case states, bonus signposting, deposit success, and Responsible Gambling deposit limits.</p>
+      <p style="margin-top:10px"><strong>Status:</strong> <span class="status-pill">🛠 In build — not shipped</span> &nbsp; <span class="src">frontmatter status: draft</span></p>
 
-      <div class="metagrid">
-        <div><span>Subdomain</span> payments</div>
-        <div><span>Area</span> deposit</div>
-        <div><span>Owner</span> Payments UX Team</div>
-        <div><span>Updated</span> 2026-09-01</div>
-        <div><span>Status</span> published</div>
-        <div><span>Region</span> UK (Ladbrokes / Coral / bwin)</div>
+      <div class="fm">
+<span class="c">--- frontmatter ---</span>
+<span class="k">title:</span> <span class="v">Deposit</span>
+<span class="k">pillar:</span> <span class="v">playerExperience</span>
+<span class="k">subdomain:</span> <span class="v">payments</span>
+<span class="k">feature:</span> <span class="v">Deposit</span>
+<span class="k">status:</span> <span class="v">draft</span>
+<span class="k">guardrails_version:</span> <span class="v">"1.0"</span>
+<span class="k">last_reviewed:</span> <span class="v">2026-09-03</span>
+<span class="k">reviewed_by:</span> <span class="v">[TODO: Lead Designer name]</span>
+<span class="k">regulatory_touch:</span> <span class="v">true</span>
+<span class="k">accessibility_reviewed:</span> <span class="v">false</span>
+<span class="k">contributing_team:</span> <span class="v">Payments UX Team</span>
+<span class="k">related_features:</span> <span class="v">[withdrawals, payment-methods, responsible-gambling, onboarding, promotions]</span>
+<span class="k">sections_present:</span> <span class="v">[overview, principles, guidelines, patterns, research, decisions, examples]</span>
+<span class="k">sections_approved:</span> <span class="v">[]</span>
       </div>
-      <div class="tags">
-        <span class="tag">deposit</span><span class="tag">payments</span><span class="tag">mobile</span><span class="tag">money-in</span><span class="tag">uk</span>
-      </div>
 
-      <p style="margin-top:18px"><strong>Figma source:</strong> <a href="https://www.figma.com/design/7iVvdIcvnrk32QwPAoBok8/Ladbrokes-Refresh-%7C-Payments-Design-%7C-Delivery-File?node-id=14487-23976" target="_blank" rel="noopener">Ladbrokes Refresh — Payments Design / Delivery File</a></p>
-      <p><strong>Status:</strong> <span class="status-pill" style="background:var(--amber-soft);color:var(--amber-text)">🛠 In build — not shipped</span></p>
+      <blockquote>
+        <strong>Template adaptations (agreed for this feature):</strong> two extra Guidelines sub-sections — <em>Entry points &amp; routing</em> and <em>Payment methods</em> — carry feature-critical rules that don't fit the six standard sub-sections. Everything else follows the standard schema. Region: UK — Ladbrokes / Coral / bwin (Entain multi-brand), GBP (£).
+      </blockquote>
 
-      <hr />
+      <p><strong>Figma source:</strong> <a href="https://www.figma.com/design/7iVvdIcvnrk32QwPAoBok8/Ladbrokes-Refresh-%7C-Payments-Design-%7C-Delivery-File?node-id=14487-23976" target="_blank" rel="noopener">Ladbrokes Refresh — Payments Design / Delivery File</a></p>
 
-      <h2 id="when-to-use">When to Show Regular Deposit vs Quick Deposit vs My Payment Methods</h2>
+      <h2 id="overview">Overview</h2>
+      <p>Complete documentation for the Deposit feature — the money-in flow that lets a customer add funds to their account. It covers first-time deposit (FTD) at onboarding and regular deposits, amount entry with quick-amount chips and min/max limits, payment method selection and management, card entry and scanning, 3DS/SCA verification, error and edge-case states, bonus/offer signposting, deposit success, and Responsible Gambling deposit limits (Spending Limits / Deposit Cap).</p>
+      <p>Deposit lives in <strong>Player Experience › Payments</strong> and is surfaced from several entry points (onboarding, Home/Menu, Quick Deposit in the betslip or in-game menu, and the Rewards drawer). The header adapts per entry point (progress bar during onboarding, brand header in-app) but the amount-entry module stays consistent.</p>
+
+      <h2 id="principles">Principles</h2>
+      <p class="src">Derived from the source content's recurring intent; confirm with the feature lead before approval.</p>
+      <ul>
+        <li>Keep amount entry consistent across every entry point, even when the surrounding header changes.</li>
+        <li>Make the valid deposit range unmissable, and never let an invalid amount progress.</li>
+        <li>Treat Responsible Gambling interventions as first-class, distinct from payment errors, and escalate proportionately from soft (dismissible) to hard (blocking).</li>
+        <li>Preserve the customer's entered amount and selected method across interruptions (e.g. failed SCA) so they can retry immediately.</li>
+      </ul>
+
+      <h2 id="guidelines">Guidelines</h2>
+
+      <h3 id="feature-intent">Feature intent</h3>
+      <p>The customer wants to add funds to their account quickly and with confidence — whether it's their first-ever deposit during onboarding or a routine top-up from the betslip. The flow must make the valid amount range and selected method obvious, support adding/verifying payment methods, and clear regulatory and safer-gambling checks without losing the customer's progress.</p>
+
+      <h3 id="mental-model">User mental model</h3>
+      <ul>
+        <li>Customers think in terms of "how much do I want to add and with which method" — the amount and the payment method are the two things they expect to control.</li>
+        <li>They expect quick-amount chips to be shortcuts, not commitments, and expect the primary CTA to stay inert until the amount is valid.</li>
+        <li>Returning customers expect their default/stored method to be pre-selected.</li>
+        <li>Customers distinguish "the payment failed" from "I'm being asked to slow down for safer-gambling reasons".</li>
+        <li>When launched from the betslip or in-game, customers expect a compact Quick Deposit rather than the full flow.</li>
+      </ul>
+
+      <h3 id="entry-points">Entry points &amp; routing <span class="adapt">adaptation</span></h3>
+      <p>The same amount-entry module is reached from several places; the surrounding surface and whether Quick Deposit or the full flow appears depends on the entry point and method eligibility.</p>
+      <table>
+        <thead><tr><th>Entry point</th><th>Context</th><th>Surface</th></tr></thead>
+        <tbody>
+          <tr><td>Onboarding (FTD)</td><td>New customer, first deposit</td><td>Full flow, progress bar + bonus signposting in header</td></tr>
+          <tr><td>Home / Menu</td><td>Logged-in customer</td><td>Full flow, brand header</td></tr>
+          <tr><td>Quick Deposit (QD Window)</td><td>Betslip or in-game menu</td><td>Compact Quick Deposit (QD-eligible methods only)</td></tr>
+          <tr><td>Rewards drawer</td><td>Offer requires a deposit</td><td>Full flow; "You'll only see offers that can be applied to a deposit."</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Where each journey happens:</strong></p>
       <table>
         <thead><tr><th>Scenario</th><th>Where it happens</th></tr></thead>
         <tbody>
-          <tr>
-            <td>Adding funds with a saved payment method</td>
-            <td>
-              <span class="yes">✅</span> in <strong>regular deposit</strong> if the payment method isn't QD eligible, or if the customer navigated to deposit from the top or side nav.<br /><br />
-              <span class="yes">✅</span> in <strong>quick deposit</strong> if the customer is adding funds within the betslip or from the in-game menu.
-            </td>
-          </tr>
-          <tr>
-            <td>First deposit during onboarding (FTD)</td>
-            <td><span class="yes">✅</span> in <strong>regular deposit</strong> (with bonus signposting).</td>
-          </tr>
-          <tr>
-            <td>First deposit if launched from in-game or betslip</td>
-            <td><span class="yes">✅</span> in <strong>regular deposit</strong>.</td>
-          </tr>
-          <tr>
-            <td>Adding or verifying a new payment method only</td>
-            <td>
-              <span class="yes">✅</span> in <strong>regular deposit</strong> (cannot add a payment method without processing a deposit).<br /><br />
-              <span class="yes">✅</span> in <strong>quick deposit</strong> if they launch from the correct place and are attempting to add a QD-approved method such as Apple Pay.
-            </td>
-          </tr>
-          <tr>
-            <td>Editing or deleting a payment method</td>
-            <td><span class="yes">✅</span> in <strong>my payment methods</strong>.</td>
-          </tr>
+          <tr><td>Adding funds with a saved payment method</td><td>Regular deposit if the method isn't QD eligible, or if reached from the top/side nav. Quick deposit if adding funds within the betslip or from the in-game menu.</td></tr>
+          <tr><td>First deposit during onboarding (FTD)</td><td>Regular deposit (with bonus signposting).</td></tr>
+          <tr><td>First deposit launched from in-game or betslip</td><td>Regular deposit.</td></tr>
+          <tr><td>Adding or verifying a new payment method only</td><td>Regular deposit (cannot add a method without processing a deposit). Quick deposit if launched from the correct place and adding a QD-approved method such as Apple Pay.</td></tr>
+          <tr><td>Editing or deleting a payment method</td><td>My payment methods.</td></tr>
         </tbody>
       </table>
 
-      <hr />
-
-      <h2 id="entry-points">Entry Points</h2>
-      <p>Deposit can be launched from several places. The header adapts (progress bar for onboarding, brand header in-app), but the amount-entry module is consistent.</p>
-      <table>
-        <thead><tr><th>Entry point</th><th>Context</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>Onboarding (FTD)</td><td>New customer, first deposit</td><td>Shows bonus signposting and progress bar in the header</td></tr>
-          <tr><td>Home / Menu</td><td>Logged-in customer</td><td>"Deposit" from the account menu or balance area</td></tr>
-          <tr><td>Quick Deposit (QD Window)</td><td>In-app, contextual</td><td>Compact deposit surfaced from the betslip or in-game menu</td></tr>
-          <tr><td>Rewards drawer</td><td>Offer requires a deposit</td><td>"You'll only see offers that can be applied to a deposit."</td></tr>
-        </tbody>
-      </table>
-
-      <hr />
-
-      <h2 id="component-states">Component States</h2>
-      <p>The Deposit surface adapts based on customer type (FTD vs returning), stored payment methods, the amount entered, and verification status.</p>
-
-      <h3 id="customer-method">Customer &amp; Method</h3>
-      <table>
-        <thead><tr><th>State</th><th>Amount field</th><th>Payment method row</th><th>CTA</th></tr></thead>
-        <tbody>
-          <tr><td>Returning + default method</td><td>Empty, awaiting entry</td><td>Pre-selected (e.g. "Mastercard • 5555 / Revolut")</td><td>"Deposit" (disabled until valid)</td></tr>
-          <tr><td>Returning + multiple methods</td><td>Empty, awaiting entry</td><td>Selected method with change affordance</td><td>"Deposit"</td></tr>
-          <tr><td>Returning + no stored method</td><td>Empty</td><td>"Add payment method" prompt</td><td>Disabled until a method is added</td></tr>
-          <tr><td>First-time deposit (FTD)</td><td>Empty</td><td>Method selection or add</td><td>"Deposit" + bonus signposting</td></tr>
-        </tbody>
-      </table>
-
-      <h3 id="amount-context">Amount Context (Deposit Amount component)</h3>
-      <p>The amount display is a shared component with four states:</p>
-      <table>
-        <thead><tr><th>State</th><th>Behaviour</th></tr></thead>
-        <tbody>
-          <tr><td>Valid or Zero</td><td>Default entry; large £ value, min/max shown below</td></tr>
-          <tr><td>Min error</td><td>Amount below the method minimum (e.g. "Min deposit £5")</td></tr>
-          <tr><td>Max error</td><td>Amount above the allowed maximum for the method/limit</td></tr>
-        </tbody>
-      </table>
-      <p>Each amount-entry screen has variants with and without the custom keypad and quick-amount chips visible.</p>
-
-      <hr />
-
-      <h2 id="amount-entry">Amount Entry</h2>
-      <p>The core screen. Heading "Deposit", a large centred £ amount, the active limits shown as e.g. "£20 min | £200 max" (per-method minimums such as "Min deposit £5" also appear), the selected payment method row, a primary "Deposit" CTA, and a custom numeric keypad.</p>
-
-      <h3 id="quick-chips">With Quick-Amount Chips</h3>
-      <p>Quick-amount chips set common values in one tap. Two chip sets appear across layouts:</p>
-      <ul>
-        <li>£20 / £50 / £100</li>
-        <li>£5 / £10 / £20</li>
-      </ul>
-      <p>Chips sit above the keypad and populate the amount field.</p>
-
-      <h3 id="empty-entered">Empty vs Entered Value</h3>
-      <ul>
-        <li><strong>Empty:</strong> amount shows the zero/placeholder state; "Deposit" is disabled.</li>
-        <li><strong>Enter value:</strong> amount updates live via the keypad; "Deposit" enables once the amount is at or above the method minimum.</li>
-      </ul>
-
-      <hr />
-
-      <h2 id="payment-methods">Payment Method Selection</h2>
-      <p>Methods are chosen from the amount screen (inline row) or the "Add payment method" sheet/screen. Each method shows its own minimum deposit and, where relevant, a bonus-eligibility badge.</p>
-
-      <h3 id="methods">Available Methods (UK)</h3>
+      <h3 id="payment-methods">Payment methods <span class="adapt">adaptation</span></h3>
+      <p>Methods are chosen inline on the amount screen or from the "Add payment method" sheet/screen. Each method has its own minimum deposit and may carry a bonus-eligibility badge.</p>
       <table>
         <thead><tr><th>Method</th><th>Min deposit</th><th>Notes</th></tr></thead>
         <tbody>
@@ -276,196 +222,153 @@
           <tr><td>Prepaid</td><td>—</td><td><span class="badge grey">Disabled</span></td></tr>
         </tbody>
       </table>
-
-      <h3 id="add-method">Add Payment Method</h3>
       <ul>
-        <li><strong>Short list:</strong> most relevant methods (e.g. Apple Pay "Popular", Debit/credit cards, Pay by bank) with a "More Payment Methods" button.</li>
-        <li><strong>Full list:</strong> the complete method list on its own screen.</li>
-        <li><strong>Bonus eligibility:</strong> methods that disqualify an active offer show a "Bonus Ineligible" badge before selection.</li>
+        <li><strong>Add payment method:</strong> short list (e.g. Apple Pay "Popular", Debit/credit cards, Pay by bank) with a "More Payment Methods" button; or the full list on its own screen.</li>
+        <li><strong>Change method (bottom sheet):</strong> <em>My payment methods</em> (stored), <em>Add payment method</em> (each with min deposit), and <em>Inactive methods</em> grouped under an informational alert.</li>
+        <li><strong>Card details:</strong> Card Number (<code>XXXX XXXX XXXX XXXX</code>), Expiry (<code>MM/YY</code>), CVV (with a card illustration), Cardholder's Name, "Set as default payment methods" checkbox, Scan Card, storage-consent line, "Continue" CTA. Footer: Mastercard FAQs · Deposit Limits · Live chat.</li>
       </ul>
 
-      <h3 id="change-method">Change Method</h3>
-      <p>Opened as a bottom sheet from the amount screen. Contains:</p>
-      <ul>
-        <li><strong>My payment methods</strong> — the customer's stored methods.</li>
-        <li><strong>Add payment method</strong> — methods available to add, each with its min deposit.</li>
-        <li><strong>Inactive methods</strong> — methods that can't currently be used, grouped under an informational alert.</li>
-      </ul>
-
-      <hr />
-
-      <h2 id="card-details">Card Details</h2>
-      <p>Entering a new card (New Card / Enter card details).</p>
-      <p><strong>Fields:</strong></p>
-      <ul>
-        <li>Card Number (<code>XXXX XXXX XXXX XXXX</code>)</li>
-        <li>Expiry Date (<code>MM/YY</code>)</li>
-        <li>CVV (with a card illustration showing where to find it)</li>
-        <li>Cardholder's Name</li>
-        <li>"Set as default payment methods" checkbox</li>
-      </ul>
-      <p><strong>Supporting elements:</strong></p>
-      <ul>
-        <li><strong>Scan Card</strong> — camera capture to auto-fill card details.</li>
-        <li><strong>Storage consent:</strong> "Continuing with this deposit confirms your agreement for us to securely store your card details."</li>
-        <li><strong>CTA:</strong> "Continue".</li>
-        <li><strong>Footer links:</strong> Mastercard FAQs · Deposit Limits · Live chat.</li>
-      </ul>
-
-      <hr />
-
-      <h2 id="errors">Error &amp; Edge-Case States</h2>
-      <p>Errors and edge cases fall into three groups: <strong>validation</strong> (amount limits, before submit), <strong>payment/processing declines</strong> (returned by the payment provider or risk checks), and <strong>Responsible Gambling interventions</strong> (soft warnings and hard blocks). Depending on severity they appear as an inline alert within the amount screen, a dialog, or a full-screen state.</p>
-
-      <h3 id="err-validation">1. Amount validation</h3>
+      <h3 id="ux-behaviour">UX behaviour</h3>
+      <p>Rules use the WHEN/SHALL form. Each rule is tagged by source (<span class="rid r">R-</span> regulatory, <span class="rid a">A-</span> accessibility, <span class="rid b">B-</span> product behaviour); regulatory rules lead.</p>
       <table>
-        <thead><tr><th>State</th><th>Behaviour</th></tr></thead>
+        <thead><tr><th>ID</th><th>Rule</th><th>Source</th></tr></thead>
         <tbody>
-          <tr><td>Below minimum</td><td>Amount component enters Min error; limit shown as "£20 min | £200 max" / "Min deposit £5"; "Deposit" stays disabled.</td></tr>
-          <tr><td>Above maximum</td><td>Amount component enters Max error; "Deposit" stays disabled until the amount is within range.</td></tr>
+          <tr><td class="rid r">R-001</td><td>WHEN a customer has reached their monthly loss limit, the system SHALL block further deposits and offer only a limit-increase request that is subject to review.</td><td class="src">RG — Deposit Limits <span class="todo">TODO: cite LCCP clause</span></td></tr>
+          <tr><td class="rid r">R-002</td><td>WHEN unusual deposit frequency is detected in the past 24 hours, the system SHALL present a dismissible safer-gambling check before the deposit continues.</td><td class="src">RG interventions <span class="todo">TODO: cite source</span></td></tr>
+          <tr><td class="rid r">R-003</td><td>WHEN a deposit requires Strong Customer Authentication, the system SHALL route the customer through the external 3DS/SCA check before the deposit is processed.</td><td class="src">PSD2 SCA <span class="todo">TODO: confirm reference</span></td></tr>
+          <tr><td class="rid r">R-004</td><td>WHEN deposits are temporarily blocked due to higher-than-usual activity, the system SHALL prevent deposits until the stated date and surface the block on the success screen if a prior deposit had already gone through.</td><td class="src">RG interventions</td></tr>
+          <tr><td class="rid a">A-001</td><td>WHEN a validation, decline, or intervention state changes, the system SHALL announce the change to assistive technology via an aria-live region.</td><td class="src"><span class="inferred">INFERRED — confirm</span></td></tr>
+          <tr><td class="rid b">B-001</td><td>WHEN the entered amount is below the selected method's minimum, the system SHALL keep the Deposit CTA disabled and show the Min error.</td><td class="src">Amount validation</td></tr>
+          <tr><td class="rid b">B-002</td><td>WHEN the entered amount is above the allowed maximum, the system SHALL keep the Deposit CTA disabled until the amount is within range.</td><td class="src">Amount validation</td></tr>
+          <tr><td class="rid b">B-003</td><td>WHEN a returning customer has no stored payment method, the system SHALL require a method to be added before enabling Deposit.</td><td class="src">Component states</td></tr>
+          <tr><td class="rid b">B-004</td><td>WHEN the customer launches deposit from the betslip or in-game menu with a QD-eligible method, the system SHALL surface Quick Deposit rather than the full flow.</td><td class="src">Entry points &amp; routing</td></tr>
+          <tr><td class="rid b">B-005</td><td>WHEN a selected payment method would void an active offer, the system SHALL badge it "Bonus Ineligible" before selection.</td><td class="src">Payment methods</td></tr>
+          <tr><td class="rid b">B-006</td><td>WHEN a card's name does not match the account, the system SHALL block the card and direct the customer to My Account Details to verify it.</td><td class="src">Payment declines</td></tr>
+          <tr><td class="rid b">B-007</td><td>WHEN the pop-up window for the security check is blocked, the system SHALL surface an "Open window" action and retain the entered amount and method.</td><td class="src">3DS/SCA &amp; verification</td></tr>
+          <tr><td class="rid b">B-008</td><td>WHEN a deposit is accepted, the system SHALL confirm success with the new balance and any applicable offer reminder.</td><td class="src">Deposit success</td></tr>
         </tbody>
       </table>
 
-      <h3 id="err-declines">2. Payment declines</h3>
+      <h3 id="ux-states">UX states</h3>
+      <p>Covers all seven states. Use <code>N/A — justification</code> where a state is explicitly impossible.</p>
+      <table>
+        <thead><tr><th>State</th><th>Trigger</th><th>UI behaviour</th><th>Copy</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Default</strong></td><td>Returning customer opens deposit with a default method</td><td>Amount empty awaiting entry, method pre-selected, Deposit disabled until valid</td><td>"£20 min | £200 max"</td></tr>
+          <tr><td><strong>Loading</strong></td><td>Deposit submitted, awaiting provider or SCA response</td><td><span class="inferred">INFERRED — confirm processing/pending treatment</span></td><td><span class="todo">TODO</span></td></tr>
+          <tr><td><strong>Success</strong></td><td>Deposit accepted</td><td>Confirmation with new-balance pill and offer reminder where applicable</td><td>"Deposit success!" / "£{amount} has been added to your account" / "New Balance £35.00"</td></tr>
+          <tr><td><strong>Error</strong></td><td>Amount validation fails or the provider declines</td><td>Inline alert, dialog, or full-screen by severity</td><td>"We cannot accept funds for this account from this card, please use a different method. If funds were deducted from your account they will be refunded in 1–3 days."</td></tr>
+          <tr><td><strong>Warning</strong></td><td>Soft safer-gambling check (unusual frequency / close to loss limit)</td><td>Dismissible dialog with Cancel / Continue</td><td>"You've made more deposits than usual in the past 24 hours…"</td></tr>
+          <tr><td><strong>Empty</strong></td><td>No amount entered</td><td>Zero/placeholder amount shown, Deposit disabled</td><td>Zero/placeholder amount state</td></tr>
+          <tr><td><strong>Disabled</strong></td><td>Amount invalid or method unavailable (e.g. Prepaid)</td><td>CTA and/or method row shown inactive</td><td>"Deposit" disabled; Prepaid listed as Disabled</td></tr>
+        </tbody>
+      </table>
+      <p class="src">Amount component states (shared with Withdrawals): Valid or Zero · Min error · Max error. Large centred £ value with min/max shown below.</p>
 
-      <div class="callout error">
-        <strong>Deposit declined — funds not accepted</strong>
-        "We cannot accept funds for this account from this card, please use a different method. If funds were deducted from your account they will be refunded in 1–3 days." — actions: <em>Contact Support</em> · <em>Change Payment Method</em>. Shown as an inline alert on the amount screen.
-      </div>
+      <h3 id="hard-constraints">Hard constraints</h3>
+      <div class="constraint"><strong>NEVER</strong> allow a deposit that breaches a customer's monthly loss limit or deposit cap. <span class="layer">(Layer 1)</span></div>
+      <div class="constraint"><strong>NEVER</strong> process a deposit that requires SCA without completing the external 3DS/SCA check. <span class="layer">(Layer 1)</span></div>
+      <div class="constraint"><strong>NEVER</strong> apply a customer-requested limit increase instantly — increases are subject to review. <span class="layer">(Layer 1)</span></div>
+      <div class="constraint"><strong>NEVER</strong> enable the Deposit CTA when the entered amount is outside the method's min/max range. <span class="layer">(Layer 3)</span></div>
+      <div class="constraint"><strong>NEVER</strong> allow a new payment method to be added without processing a deposit, except via My Payment Methods. <span class="layer">(Layer 3)</span></div>
 
-      <div class="callout error">
-        <strong>Deposit declined — card blocked (name mismatch)</strong>
-        "The name on this card doesn't match your account details, so it has been blocked. To unblock your card, please visit the 'My Account Details' page within 'My Account' and upload clear copies of the front and back of your card, ensuring the middle 6-digits of the card number and the 3-digit CVV code are covered. Please contact Customer Support if you believe there is an error." — actions: <em>Account Details</em> · <em>Contact Support</em>. Shown as a dialog.
-      </div>
+      <h3 id="content-messaging">Content &amp; messaging</h3>
+      <p><strong>Verbatim copy (retain exactly):</strong></p>
+      <div class="callout error"><strong>Decline — funds not accepted</strong>"We cannot accept funds for this account from this card, please use a different method. If funds were deducted from your account they will be refunded in 1–3 days." — Contact Support · Change Payment Method.</div>
+      <div class="callout error"><strong>Decline — card blocked (name mismatch)</strong>"The name on this card doesn't match your account details, so it has been blocked. To unblock your card, please visit the 'My Account Details' page within 'My Account' and upload clear copies of the front and back of your card, ensuring the middle 6-digits of the card number and the 3-digit CVV code are covered. Please contact Customer Support if you believe there is an error." — Account Details · Contact Support.</div>
+      <div class="callout info"><strong>Pop-up blocked</strong>"Window blocked from opening — We have detected that your pop-up blocker has stopped the new browser window from opening." — Open window.</div>
+      <div class="callout error"><strong>SCA not completed</strong>"Deposit not completed — You didn't complete the external security check, so this deposit didn't process. Please try again and complete the check, or use a different method."</div>
+      <div class="callout info"><strong>Unusual frequency (soft)</strong>"You've made more deposits than usual in the past 24 hours. To help you stay in control, you may want to set a Gambling Control to limit how much you deposit. Do you want to continue with this deposit?" — Cancel · Continue.</div>
+      <div class="callout info"><strong>Close to loss limit (soft)</strong>"You're close to your monthly loss limit. Your monthly loss limit of £500 will be reset on the first of next month. Your maximum allowed deposit is £XX." — Increase limit · Continue with deposit.</div>
+      <div class="callout warn"><strong>Loss limit reached (hard)</strong>"You've reached your monthly loss limit — Your monthly loss limit of £500 has been reached. This limit will be reset on the first of next month, or you can request an increase to your limit." — Increase limit.</div>
+      <div class="callout warn"><strong>Deposits blocked (hard)</strong>"Deposits blocked — We've temporarily blocked deposits until 07-09-2025 at 13:32 due to higher-than-usual activity. If you'd like more control over how much you deposit, you can set limits with our Gambling Control tools."</div>
+      <div class="callout info"><strong>Success</strong>"Deposit success!" / "£{amount} has been added to your account" / "New Balance £35.00".</div>
 
-      <div class="callout info">
-        <strong>Pop-up / window blocked</strong>
-        "Window blocked from opening — We have detected that your pop-up blocker has stopped the new browser window from opening." — action: <em>Open window</em>. (Ties to the 3DS/SCA external check below.)
-      </div>
-
-      <p>Method-specific: <strong>PayPal</strong> has a dedicated error state on the method row.</p>
-
-      <h3 id="err-rg">3. Responsible Gambling interventions</h3>
-      <p>These are distinct from payment errors — the deposit could process, but the customer is warned or blocked for safer-gambling reasons. They escalate from soft (dismissible) to hard (blocking).</p>
-
-      <div class="callout info">
-        <strong>Deposit check (unusual frequency) — soft</strong>
-        "You've made more deposits than usual in the past 24 hours. To help you stay in control, you may want to set a Gambling Control to limit how much you deposit. Do you want to continue with this deposit?" — actions: <em>Cancel</em> · <em>Continue</em>.
-      </div>
-
-      <div class="callout info">
-        <strong>Close to monthly loss limit — soft</strong>
-        "You're close to your monthly loss limit. Your monthly loss limit of £500 will be reset on the first of next month. Your maximum allowed deposit is £XX." — actions: <em>Increase limit</em> · <em>Continue with deposit</em>.
-      </div>
-
-      <div class="callout warn">
-        <strong>Monthly loss limit reached — hard block</strong>
-        "You've reached your monthly loss limit — Your monthly loss limit of £500 has been reached. This limit will be reset on the first of next month, or you can request an increase to your limit." — action: <em>Increase limit</em>. Deposits are paused; any increase is subject to review, not applied instantly. (See <a href="#rg-limits">RG — Deposit Limits</a>.)
-      </div>
-
-      <div class="callout warn">
-        <strong>Deposits temporarily blocked (higher-than-usual activity) — hard block</strong>
-        "Deposits blocked — We've temporarily blocked deposits until 07-09-2025 at 13:32 due to higher-than-usual activity. If you'd like more control over how much you deposit, you can set limits with our Gambling Control tools." Shown as a banner, including on the success screen when a prior deposit went through before the block.
-      </div>
-
-      <hr />
-
-      <h2 id="3ds-sca">3DS / SCA &amp; Verification</h2>
-      <p>Deposits requiring Strong Customer Authentication route through an external security check (a pop-up browser window).</p>
-      <div class="callout error">
-        <strong>Check not completed</strong>
-        "Deposit not completed — You didn't complete the external security check, so this deposit didn't process. Please try again and complete the check, or use a different method."
-      </div>
-      <div class="callout info">
-        <strong>Pop-up blocked</strong>
-        "Window blocked from opening — We have detected that your pop-up blocker has stopped the new browser window from opening." with an "Open window" action.
-      </div>
-      <p>In both cases the customer stays on the deposit screen with their amount and method retained so they can retry immediately.</p>
-
-      <hr />
-
-      <h2 id="bonus">Bonus / Offer Signposting</h2>
+      <p style="margin-top:16px"><strong>Required disclosures:</strong></p>
       <ul>
-        <li><strong>Header signpost:</strong> e.g. "£20 in Free Bets — When you bet £5 on football", with a progress bar tracking onboarding/deposit steps and an "18+ T&Cs apply" reference.</li>
-        <li><strong>Method-level eligibility:</strong> methods that void the offer are badged "Bonus Ineligible".</li>
+        <li>"18+ T&amp;Cs apply" on bonus signposting.</li>
+        <li>Card storage consent: "Continuing with this deposit confirms your agreement for us to securely store your card details."</li>
+        <li>Cross-brand limits note: "These limits protect your spending across all Entain accounts. You can request a review, but changes are not guaranteed."</li>
+      </ul>
+      <p><strong>Tone:</strong> supportive and control-oriented for RG interventions; factual and specific for declines (state the reason and the next action).</p>
+      <p><strong>Avoid list:</strong> <span class="todo">TODO — confirm prohibited terms with content design.</span></p>
+
+      <h2 id="patterns">Patterns</h2>
+      <p class="src">Reusable interaction mechanisms this feature relies on. Link to patterns rather than describing them inline where possible.</p>
+      <ul>
+        <li><strong>Amount component</strong> — shared with Withdrawals; three states (Valid/Zero, Min error, Max error) with a large centred £ value and min/max shown below. <span class="todo">TODO: link pattern</span></li>
+        <li><strong>Quick-amount chips</strong> — one-tap common values (£20 / £50 / £100 and £5 / £10 / £20) that populate the amount field, sitting above the keypad. <span class="todo">TODO: link pattern</span></li>
+        <li><strong>Custom numeric keypad</strong> — bespoke amount entry. <span class="todo">TODO: link pattern</span></li>
+        <li><strong>Change-method bottom sheet</strong> — stored methods, add-method list (each with its min deposit), and grouped inactive methods under an informational alert. <span class="todo">TODO: link pattern</span></li>
+        <li><strong>Escalating feedback surface</strong> — inline alert → dialog → full-screen, chosen by severity. <span class="todo">TODO: link pattern</span></li>
+        <li><strong>Bonus signposting</strong> — header signpost with progress bar and 18+ T&amp;Cs; method-level "Bonus Ineligible" badging. <span class="todo">TODO: link pattern</span></li>
       </ul>
 
-      <hr />
+      <h2 id="research">Research</h2>
+      <p><span class="todo">TODO — cite the evidence that shaped this design: user tests, analytics, regulatory consultations, or prior art. None captured from the Figma source; owner to supply.</span></p>
 
-      <h2 id="success">Deposit Success</h2>
+      <h2 id="decisions">Decisions</h2>
+      <p class="src">Record non-obvious choices. Each entry: decision, alternatives considered, rationale, date, author.</p>
       <ul>
-        <li>Confirmation: "Deposit success!" with "£{amount} has been added to your account" (e.g. "£35 has been added to your account").</li>
-        <li><strong>New balance pill:</strong> e.g. "New Balance £35.00".</li>
-        <li><strong>Offer reminder</strong> where applicable: e.g. "Bet £5+ on sports to get £20 in Free Bets. Take me to offer details."</li>
-        <li><strong>Full T&Cs modal</strong> — "General Terms and Conditions" bottom sheet: How the offer works, Promotional Terms and Conditions, Promotional Period, Who qualifies, How to claim, Restrictions on your free bet, Important Terms.</li>
+        <li><em>Custom numeric keypad instead of the native keyboard.</em> Alternatives: native keyboard. Rationale: <span class="todo">TODO</span>. Date/author: <span class="todo">TODO</span>.</li>
+        <li><em>Quick Deposit surfaced only for QD-eligible methods from betslip/in-game.</em> Alternatives: full flow everywhere. Rationale: <span class="todo">TODO</span>. Date/author: <span class="todo">TODO</span>.</li>
       </ul>
 
-      <hr />
+      <h2 id="examples">Examples</h2>
+      <p class="src">Every positive example is paired with a counter-example that cites the rule or principle it violates (Req 8.6).</p>
 
-      <h2 id="rg-limits">Responsible Gambling — Deposit Limits (Spending Limits)</h2>
-      <p>Deposit is gated by Responsible Gambling controls. The "Spending Limits" screen (Deposit Cap) shows current limits and their status.</p>
-      <div class="callout error">
-        <strong>Deposits paused</strong>
-        "Monthly loss limit reached. Resets 1 July 2026."
+      <div class="ex-title">Amount below method minimum</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>For a £15-minimum method, entering £5 keeps the amount in Min error and the Deposit CTA disabled with "Min deposit £15".</div>
+        <div class="bad"><h5>Counter-example</h5>Showing a £5 quick-amount chip that populates the field and enables Deposit below the method minimum — violates <strong>B-001</strong>.</div>
       </div>
-      <ul>
-        <li><strong>Monthly loss limit:</strong> e.g. "500 / 500 GBP", "Limit reached", with reset date and "Manage limit &gt;".</li>
-        <li><strong>Annual deposit cap:</strong> e.g. "125 / 7,500 GBP", "2% used", with reset date and "Manage limit &gt;".</li>
-        <li><strong>Cross-brand note:</strong> "These limits protect your spending across all Entain accounts. You can request a review, but changes are not guaranteed."</li>
-        <li><strong>What you can do:</strong> "Request a limit review" (secondary CTA) — "We will review your request within 24 hours" — and "Set additional limits".</li>
-        <li><strong>Support link:</strong> "Responsible gambling support".</li>
-      </ul>
-      <blockquote>When a limit is reached during a deposit attempt, the customer sees an alert such as "You've reached your monthly loss limit — Your monthly loss limit of £500 has been reached. This limit will be reset on the first of next month, or you can request an increase to your limit." with an "Increase limit" action. Any increase is subject to review, not applied instantly.</blockquote>
 
-      <hr />
+      <div class="ex-title">Monthly loss limit reached</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>Deposits are paused and only an "Increase limit" request (subject to review) is offered.</div>
+        <div class="bad"><h5>Counter-example</h5>Applying the requested limit increase instantly and letting the deposit through — violates <strong>R-001</strong> and the Layer 1 hard constraint.</div>
+      </div>
 
-      <h2 id="related">Related Areas</h2>
-      <ul>
-        <li><strong>Withdrawals</strong> — shares the amount component (Withdrawal state) and payment method management.</li>
-        <li><strong>Payment Methods</strong> — managing stored cards and methods outside a deposit.</li>
-        <li><strong>Responsible Gambling / Spending Limits</strong> — deposit and loss limits that gate this flow.</li>
-        <li><strong>Onboarding</strong> — FTD occurs within the onboarding journey.</li>
-        <li><strong>Promotions / Offers</strong> — bonus signposting and offer eligibility shown during deposit.</li>
-      </ul>
+      <div class="ex-title">SCA interruption</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>After a blocked pop-up, the customer sees "Open window", and their amount and method are retained for immediate retry.</div>
+        <div class="bad"><h5>Counter-example</h5>Discarding the entered amount and method after a failed security check — violates <strong>B-007</strong>.</div>
+      </div>
+
+      <div class="ex-title">Bonus-ineligible method</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>Selecting Skrill while an offer is active shows a "Bonus Ineligible" badge before the customer commits.</div>
+        <div class="bad"><h5>Counter-example</h5>Letting the customer deposit with a bonus-ineligible method and silently voiding the offer — violates <strong>B-005</strong>.</div>
+      </div>
     </main>
 
     <nav class="toc" id="toc">
       <h4>On this page</h4>
-      <a href="#when-to-use">When to Use Deposit</a>
-      <a href="#entry-points">Entry Points</a>
-      <a href="#component-states">Component States</a>
-      <a href="#customer-method" class="h3">Customer &amp; Method</a>
-      <a href="#amount-context" class="h3">Amount Context</a>
-      <a href="#amount-entry">Amount Entry</a>
-      <a href="#quick-chips" class="h3">Quick-Amount Chips</a>
-      <a href="#empty-entered" class="h3">Empty vs Entered</a>
-      <a href="#payment-methods">Payment Method Selection</a>
-      <a href="#methods" class="h3">Available Methods</a>
-      <a href="#add-method" class="h3">Add Payment Method</a>
-      <a href="#change-method" class="h3">Change Method</a>
-      <a href="#card-details">Card Details</a>
-      <a href="#errors">Error &amp; Edge-Case States</a>
-      <a href="#err-validation" class="h3">Amount validation</a>
-      <a href="#err-declines" class="h3">Payment declines</a>
-      <a href="#err-rg" class="h3">RG interventions</a>
-      <a href="#3ds-sca">3DS / SCA</a>
-      <a href="#bonus">Bonus Signposting</a>
-      <a href="#success">Deposit Success</a>
-      <a href="#rg-limits">RG — Deposit Limits</a>
-      <a href="#related">Related Areas</a>
+      <a href="#overview">Overview</a>
+      <a href="#principles">Principles</a>
+      <a href="#guidelines">Guidelines</a>
+      <a href="#feature-intent" class="h3">Feature intent</a>
+      <a href="#mental-model" class="h3">User mental model</a>
+      <a href="#entry-points" class="h3">Entry points &amp; routing</a>
+      <a href="#payment-methods" class="h3">Payment methods</a>
+      <a href="#ux-behaviour" class="h3">UX behaviour</a>
+      <a href="#ux-states" class="h3">UX states</a>
+      <a href="#hard-constraints" class="h3">Hard constraints</a>
+      <a href="#content-messaging" class="h3">Content &amp; messaging</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#research">Research</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#examples">Examples</a>
     </nav>
   </div>
 
   <script>
-    // Scroll-spy for the table of contents
     const links = Array.from(document.querySelectorAll('.toc a'));
     const map = links.map(a => ({ a, el: document.querySelector(a.getAttribute('href')) })).filter(x => x.el);
     function onScroll() {
       let current = null;
-      const top = window.scrollY + 120;
-      for (const item of map) {
-        if (item.el.offsetTop <= top) current = item;
-      }
+      const top = window.scrollY + 130;
+      for (const item of map) { if (item.el.offsetTop <= top) current = item; }
       links.forEach(a => a.classList.remove('active'));
       if (current) current.a.classList.add('active');
     }
