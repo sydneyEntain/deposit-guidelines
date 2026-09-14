@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Login — Experience Design Guidelines</title>
+<style>
+  :root {
+    --bg: #f7f7f8;
+    --panel: #ffffff;
+    --border: #e6e6ea;
+    --text: #1c1c22;
+    --muted: #6b6b76;
+    --accent: #6b4eff;
+    --accent-soft: #efeaff;
+    --green: #1f9d55;
+    --green-soft: #e6f5ec;
+    --amber-soft: #fff4e0;
+    --amber-text: #8a5a00;
+    --red: #d92d20;
+    --red-soft: #fdecea;
+    --code-bg: #f0f0f3;
+    --radius: 10px;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--sans); color: var(--text); background: var(--bg); line-height: 1.6; font-size: 15px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .topbar { background: var(--panel); border-bottom: 1px solid var(--border); padding: 14px 32px; }
+  .topbar h1 { margin: 0; font-size: 16px; font-weight: 600; }
+  .topbar .sub { color: var(--muted); font-size: 12.5px; }
+
+  .layout { display: flex; align-items: flex-start; max-width: 1220px; margin: 0 auto; }
+  .content { flex: 1; min-width: 0; padding: 32px 40px 140px; }
+  .toc { width: 268px; flex-shrink: 0; position: sticky; top: 45px; align-self: flex-start; max-height: calc(100vh - 45px); overflow-y: auto; padding: 32px 20px 60px; border-left: 1px solid var(--border); }
+  .toc h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; }
+  .toc a { display: block; color: var(--muted); font-size: 13px; padding: 4px 0 4px 10px; border-left: 2px solid transparent; margin-left: -2px; }
+  .toc a:hover { color: var(--text); text-decoration: none; }
+  .toc a.h3 { padding-left: 22px; font-size: 12.5px; }
+  .toc a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
+
+  .breadcrumb { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .breadcrumb span { margin: 0 6px; }
+
+  .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  h2.title { font-size: 34px; margin: 4px 0 12px; }
+  .lead { color: #333; font-size: 15.5px; }
+
+  h2 { font-size: 22px; margin: 44px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+  h2:first-of-type { border-top: none; }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  h3 .adapt { font-size: 11px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 2px 8px; vertical-align: middle; margin-left: 8px; }
+
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: #fafafb; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  td code, th code { white-space: nowrap; }
+
+  code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; font-size: 13px; font-family: var(--mono); }
+  .src { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .rid { font-family: var(--mono); font-weight: 600; font-size: 12.5px; white-space: nowrap; }
+  .rid.r { color: var(--red); }
+  .rid.a { color: var(--accent); }
+  .rid.b { color: var(--green); }
+
+  blockquote { margin: 14px 0; padding: 12px 16px; background: var(--accent-soft); border-radius: 8px; color: #3a3357; font-size: 14px; }
+  blockquote strong { color: #2a2350; }
+
+  .callout { border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 14px; border: 1px solid transparent; }
+  .callout.info { background: var(--accent-soft); }
+  .callout.warn { background: var(--amber-soft); color: var(--amber-text); }
+  .callout.error { background: var(--red-soft); color: var(--red); }
+  .callout strong { display: block; margin-bottom: 2px; }
+
+  .badge { display: inline-block; border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 600; vertical-align: middle; }
+  .badge.green { background: var(--green-soft); color: var(--green); }
+  .badge.amber { background: var(--amber-soft); color: var(--amber-text); }
+  .badge.grey { background: #ededf0; color: var(--muted); }
+
+  ul { padding-left: 20px; }
+  li { margin: 4px 0; }
+
+  .todo { background: #fffbe6; border: 1px dashed #e0c200; border-radius: 6px; padding: 1px 6px; font-size: 12.5px; color: #6b5a00; font-family: var(--mono); }
+  .inferred { background: #eef4ff; border: 1px dashed #7ea2e0; border-radius: 6px; padding: 1px 6px; font-size: 12.5px; color: #2f4d80; font-family: var(--mono); }
+
+  .note-editing { background: #fffbe6; border: 1px dashed #e0c200; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #6b5a00; margin: 20px 0; }
+  .constraint { background: var(--red-soft); border-left: 3px solid var(--red); border-radius: 6px; padding: 8px 14px; margin: 8px 0; font-size: 14px; }
+  .constraint .layer { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .scope-out { background: #f4f4f7; border: 1px dashed #b9b9c6; border-radius: var(--radius); padding: 14px 18px; margin: 12px 0; }
+  .scope-out .tag { display: inline-block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: #e4e4ea; border-radius: 999px; padding: 2px 10px; margin-bottom: 6px; }
+
+  .ex { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .ex .good, .ex .bad { border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+  .ex .good { background: var(--green-soft); }
+  .ex .bad { background: var(--red-soft); }
+  .ex h5 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .ex .good h5 { color: var(--green); }
+  .ex .bad h5 { color: var(--red); }
+  .ex-title { font-weight: 600; margin: 16px 0 2px; }
+  @media (max-width: 720px) { .ex { grid-template-columns: 1fr; } }
+
+  .sitenav { background: var(--panel); border-bottom: 1px solid var(--border); padding: 0 32px; position: sticky; top: 0; z-index: 11; display: flex; align-items: center; gap: 4px; overflow-x: auto; }
+  .sitenav .home { font-weight: 600; color: var(--text); margin-right: 8px; padding: 11px 0; white-space: nowrap; }
+  .sitenav a.tab { color: var(--muted); font-size: 13.5px; padding: 12px 12px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .sitenav a.tab:hover { color: var(--text); text-decoration: none; }
+  .sitenav a.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .sitenav .spacer { flex: 1; }
+  .sitenav .env { font-size: 11px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+</style>
+</head>
+<body>
+  <nav class="sitenav" aria-label="Site">
+    <span class="home">Experience Design Guidelines</span>
+    <a class="tab" href="/">Deposit</a>
+    <a class="tab" href="/features/withdrawals-overview.html">Withdrawals</a>
+    <a class="tab" href="/features/registration-overview.html">Registration</a>
+    <a class="tab active" href="/features/login-overview.html" aria-current="page">Login</a>
+    <span class="spacer"></span>
+    <span class="env">Player Experience · Login and Access</span>
+  </nav>
+  <div class="topbar">
+    <h1>Experience Design Guidelines</h1>
+    <div class="sub">Cross-Pillar Knowledge Architecture · Feature Document</div>
+  </div>
+
+  <div class="layout">
+    <main class="content">
+      <div class="breadcrumb">Home <span>/</span> Player Experience <span>/</span> Login and Access <span>/</span> <strong>Login</strong></div>
+
+      <div class="note-editing">📝 Authored from the <code>live ladbrokes.com</code> Login experience (not Figma). On-screen copy is verbatim; non-observable behaviour is tagged <span class="inferred">[INFERRED]</span> / <span class="todo">[TODO]</span>. Markdown source: <code>login-overview.md</code>.</div>
+
+      <div class="kicker">Feature Document · Player Experience › Login and Access</div>
+      <h2 class="title">Login</h2>
+      <p class="lead">The live UK sign-in journey for Ladbrokes. An existing customer signs in with email/username and password, can stay signed in, recover a forgotten password, or route to account creation. Appears as a modal on desktop web and a full-screen sheet on mobile web; native apps add biometric login.</p>
+
+      <h2 id="overview">Overview</h2>
+      <p>Login lives in <strong>Player Experience › Login and Access</strong> and is the shipped, live authentication journey for Ladbrokes (UK). It lets an existing customer sign in with an email/username and password, stay signed in, recover a forgotten password, and reach account creation if they don't yet have an account. On web it appears as a <strong>modal</strong> on desktop and a <strong>full-screen sheet</strong> on mobile — the same component at different screen sizes. Native apps additionally offer <strong>biometric login</strong> (see the native section).</p>
+      <blockquote><strong>Source note.</strong> Unlike the Figma-sourced feature docs, this page was authored by observing the <strong>live production</strong> ladbrokes.com login. On-screen copy is transcribed verbatim; anything not directly observable (native biometrics, session/2FA/SCA behaviour, lockout, success routing) is tagged <span class="inferred">[INFERRED — confirm]</span> or <span class="todo">[TODO]</span> for the feature lead / compliance.</blockquote>
+      <p><strong>Live source:</strong> <a href="https://www.ladbrokes.com/en/labelhost/login">ladbrokes.com — Login</a> · <a href="https://www.ladbrokes.com/en/mobileportal/lostpassword">Forgotten Password</a></p>
+
+      <h2 id="principles">Principles</h2>
+      <p class="src">Derived from the observed experience's recurring intent; confirm with the feature lead before approval.</p>
+      <ul>
+        <li>Keep sign-in fast and single-screen: two fields, one primary action, everything else secondary.</li>
+        <li>Never dead-end a customer: a failed login always offers a next step (check details, reset password, or create an account).</li>
+        <li>Offer persistence on the customer's terms ("Keep me logged in" is off by default and explicit).</li>
+        <li>Make recovery reachable from the point of failure (forgotten-password and live-chat help are one tap away).</li>
+        <li>Keep authentication secure and honest — never reveal more than necessary about why a sign-in failed.</li>
+      </ul>
+
+      <h2 id="guidelines">Guidelines</h2>
+
+      <h3 id="feature-intent">Feature intent</h3>
+      <p>An existing customer wants to get into their account quickly and securely. The flow must accept an email or username plus password, validate input before enabling submission, communicate failure clearly without over-disclosing, offer password recovery, keep the customer signed in only when they choose, and route new users to registration — while satisfying the security and regulatory obligations of account access.</p>
+
+      <h3 id="mental-model">User mental model</h3>
+      <ul>
+        <li>Customers think "enter my details and get in" — they expect two fields and a button, nothing more up front.</li>
+        <li>They expect to use either an email or a username interchangeably in the first field.</li>
+        <li>They distinguish "I typed something wrong" from "I don't have an account" and expect the message to tell them which.</li>
+        <li>They expect a way back in if they've forgotten their password, and expect "keep me logged in" to be their choice.</li>
+        <li>Returning app users expect to use biometrics rather than retype credentials.</li>
+      </ul>
+
+      <h3 id="surfaces">Login surfaces &amp; variants <span class="adapt">adaptation</span></h3>
+      <p>The same login logic is presented across three surfaces:</p>
+      <ul>
+        <li><strong>Desktop web (modal):</strong> opened from the header "Login"; overlays the page with a dimmed background and a close (X).</li>
+        <li><strong>Mobile web (full-screen sheet):</strong> the same fields and actions rendered full-screen with a close (X). Field set and copy are identical to desktop.</li>
+        <li><strong>Native app (biometric):</strong> in addition to email/username + password, native apps offer biometric sign-in (Face ID / fingerprint). <span class="inferred">[INFERRED — confirm affordance, enrolment, and fallback; not observable from web]</span></li>
+      </ul>
+
+      <h3 id="forgotten-password">Forgotten password <span class="adapt">adaptation</span></h3>
+      <p>Recovery is a separate screen reached from "I forgot my Password".</p>
+      <ul>
+        <li>Heading: "Forgotten Password".</li>
+        <li>Fields: Email ("Please enter your email") and Date of birth as DD / MM / YYYY ("Please enter your date of birth").</li>
+        <li>Primary CTA: "SUBMIT" (disabled until valid).</li>
+        <li>Help: "Need help? Start Live Chat" and "Need more information on this? Have a look at our Password reset FAQ".</li>
+        <li>Post-submit confirmation copy is <span class="todo">[TODO — not observed]</span>.</li>
+      </ul>
+
+      <h3 id="club-ladbrokes">Out of scope: Log in with Club Ladbrokes</h3>
+      <div class="scope-out">
+        <span class="tag">Out of scope</span>
+        <p style="margin:0">The login screen offers a secondary "<strong>Log in with Club Ladbrokes</strong>" action (retail loyalty-card sign-in). It exists and is surfaced here for completeness, but its requirements, flow, and copy are <strong>not</strong> detailed in this document. <span class="todo">[TODO — owner to confirm where Club Ladbrokes login is specified]</span></p>
+      </div>
+
+      <h3 id="ux-behaviour">UX behaviour</h3>
+      <p class="src">WHEN/SHALL rules tagged by source (R- regulatory, A- accessibility, B- behaviour); regulatory leads.</p>
+      <table>
+        <thead><tr><th>ID</th><th>Rule</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td><span class="rid r">R-001</span></td><td>WHEN a customer authenticates, the system SHALL protect credentials in transit and at rest and SHALL NOT expose whether the password specifically was wrong beyond what is necessary.</td><td class="src">Account security <span class="todo">[TODO: cite policy]</span></td></tr>
+          <tr><td><span class="rid r">R-002</span></td><td>WHEN repeated failed login attempts are detected, the system SHALL rate-limit or lock the account to prevent brute-force access.</td><td class="src"><span class="inferred">[INFERRED — confirm lockout]</span></td></tr>
+          <tr><td><span class="rid r">R-003</span></td><td>WHEN strong customer authentication / two-factor is required, the system SHALL complete the additional factor before granting access.</td><td class="src"><span class="inferred">[INFERRED — confirm SCA/2FA]</span></td></tr>
+          <tr><td><span class="rid a">A-001</span></td><td>WHEN a validation or login error is shown, the system SHALL associate it with the field and announce it to assistive technology (aria-live / aria-describedby).</td><td class="src"><span class="inferred">[INFERRED — confirm a11y]</span></td></tr>
+          <tr><td><span class="rid a">A-002</span></td><td>WHEN the password field is shown, the system SHALL provide an accessible show/hide control labelled for screen readers.</td><td class="src">Observed show/hide</td></tr>
+          <tr><td><span class="rid b">B-001</span></td><td>WHEN either the email/username or password field is empty, the system SHALL keep the "LOG IN" button disabled.</td><td class="src">Observed default/disabled</td></tr>
+          <tr><td><span class="rid b">B-002</span></td><td>WHEN a required field is left empty on submit, the system SHALL show inline messages "Please enter your email or username" and/or "Please enter your password".</td><td class="src">Observed validation</td></tr>
+          <tr><td><span class="rid b">B-003</span></td><td>WHEN no registered account matches the entered email/userID, the system SHALL show "Account doesn't exist" with a route to create an account.</td><td class="src">Observed error</td></tr>
+          <tr><td><span class="rid b">B-004</span></td><td>WHEN the customer enables "Keep me logged in", the system SHALL persist the session; the toggle SHALL default to off.</td><td class="src">Observed default</td></tr>
+          <tr><td><span class="rid b">B-005</span></td><td>WHEN the customer selects "I forgot my Password", the system SHALL open the Forgotten Password recovery flow (email + date of birth).</td><td class="src">Observed</td></tr>
+          <tr><td><span class="rid b">B-006</span></td><td>WHEN the customer has no account, the system SHALL offer "Create an account" routing to registration.</td><td class="src">Observed</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="ux-states">UX states</h3>
+      <table>
+        <thead><tr><th>State</th><th>Trigger</th><th>UI behaviour</th><th>Copy</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td>Login opened</td><td>Two empty fields, "Keep me logged in" off, "LOG IN" disabled</td><td>"Login" / "Email or Username" / "Password" / "Keep me logged in" / "LOG IN" / "I forgot my Password" / "Or" / "Log in with Club Ladbrokes" / "New user? Create an account"</td></tr>
+          <tr><td>Loading</td><td>Credentials submitted</td><td>Awaiting auth response</td><td><span class="inferred">[INFERRED — confirm loading treatment]</span></td></tr>
+          <tr><td>Success</td><td>Valid credentials (+ any 2FA)</td><td>Modal closes, customer signed in</td><td><span class="todo">[TODO — confirm success routing; not observed]</span></td></tr>
+          <tr><td>Error</td><td>No matching account</td><td>Error banner + create-account route</td><td>"Account doesn't exist" / "We can't find a registered account with this email or userID. Check your details and try again or Create an account."</td></tr>
+          <tr><td>Warning</td><td>Wrong password / lockout risk</td><td><span class="inferred">[INFERRED — wrong-password vs no-account and lockout not observed]</span></td><td><span class="todo">[TODO — confirm wrong-password and lockout copy]</span></td></tr>
+          <tr><td>Empty</td><td>Submit with empty field(s)</td><td>Field(s) marked invalid with inline message</td><td>"Please enter your email or username" / "Please enter your password."</td></tr>
+          <tr><td>Disabled</td><td>One or both fields empty</td><td>"LOG IN" inactive</td><td>"LOG IN" (disabled)</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="hard-constraints">Hard constraints</h3>
+      <div class="constraint"><strong>NEVER</strong> reveal whether it was specifically the password that was wrong in a way that aids account enumeration beyond the observed messaging. <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> grant access before any required additional authentication factor is completed. <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> persist the session unless the customer has explicitly enabled "Keep me logged in". <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> enable "LOG IN" while a required field is empty. <span class="layer">Layer 3</span></div>
+      <div class="constraint"><strong>NEVER</strong> dead-end a failed login — always offer recovery or account creation. <span class="layer">Layer 3</span></div>
+
+      <h3 id="content-messaging">Content &amp; messaging</h3>
+      <p><strong>Verbatim copy (retain exactly — observed on live web):</strong></p>
+      <div class="callout info"><strong>Modal</strong>"Login" · "Email or Username" · "Password" · "Keep me logged in" · "LOG IN" · "I forgot my Password" · "Or" · "Log in with Club Ladbrokes" · "New user? Create an account".</div>
+      <div class="callout error"><strong>No-account error</strong>"Account doesn't exist" / "We can't find a registered account with this email or userID. Check your details and try again or Create an account."</div>
+      <div class="callout warn"><strong>Required-field validation</strong>"Please enter your email or username" / "Please enter your password."</div>
+      <div class="callout info"><strong>Forgotten Password</strong>"Forgotten Password" · "Please enter your email" · "Please enter your date of birth" (DD / MM / YYYY) · "SUBMIT" · "Need help? Start Live Chat" · "Need more information on this? Have a look at our Password reset FAQ".</div>
+      <p><strong>Required disclosures:</strong></p>
+      <ul><li><span class="todo">[TODO — confirm any account-security / privacy disclosures required at sign-in]</span></li></ul>
+      <p><strong>Tone:</strong> brisk and functional; error copy factual and non-alarming, always pointing to a next step.</p>
+      <p><strong>Avoid list:</strong> <span class="todo">[TODO — confirm prohibited terms with content design]</span></p>
+
+      <h2 id="patterns">Patterns</h2>
+      <ul>
+        <li><strong>Auth modal / full-screen sheet</strong> — the login container, modal on desktop and full-screen on mobile. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Credential fields</strong> — email/username + password with show/hide toggle and inline validation. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Persistence toggle</strong> — "Keep me logged in" switch (default off) with info affordance. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Inline + banner error</strong> — field-level validation plus a top-of-form error banner. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Recovery form</strong> — Forgotten Password (email + DOB) with live-chat and FAQ help. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Biometric login (native)</strong> — Face ID / fingerprint entry on native apps. <span class="todo">[TODO: link pattern]</span> <span class="inferred">[INFERRED — confirm]</span></li>
+      </ul>
+
+      <h2 id="research">Research</h2>
+      <p><span class="todo">[TODO — cite evidence: user tests, analytics, security/regulatory consultations, prior art. Not captured from the live observation; owner to supply.]</span></p>
+
+      <h2 id="decisions">Decisions</h2>
+      <ul>
+        <li><em>Authored from live-site observation rather than Figma.</em> Alternatives: wait for a Figma source. Rationale: no Figma provided; live UK site is the shipped source of truth. Non-observable behaviour flagged for confirmation. Date/author: 2026-09-01 / <span class="todo">[TODO]</span>.</li>
+        <li><em>Club Ladbrokes login documented as out of scope.</em> Alternatives: fully spec it here. Rationale: separate concern (retail loyalty); noted for completeness only. Date/author: 2026-09-01 / <span class="todo">[TODO]</span>.</li>
+      </ul>
+
+      <h2 id="examples">Examples</h2>
+
+      <div class="ex-title">No matching account</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>The customer sees "Account doesn't exist" and a "Create an account" route.</div>
+        <div class="bad"><h5>Counter-example</h5>A generic "login failed" with no explanation or next step — violates B-003 and the no-dead-end principle.</div>
+      </div>
+
+      <div class="ex-title">Empty fields</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>Submitting with an empty field shows "Please enter your email or username" / "Please enter your password." and keeps the CTA disabled.</div>
+        <div class="bad"><h5>Counter-example</h5>Allowing submit with empty fields or failing silently — violates B-001 / B-002.</div>
+      </div>
+
+      <div class="ex-title">Session persistence</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>"Keep me logged in" is off by default; the session persists only when the customer turns it on.</div>
+        <div class="bad"><h5>Counter-example</h5>Persisting the session by default without consent — violates B-004 and the Layer 1 constraint.</div>
+      </div>
+
+      <div class="ex-title">Forgotten password</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>"I forgot my Password" opens recovery (email + date of birth) with live-chat help.</div>
+        <div class="bad"><h5>Counter-example</h5>Hiding recovery or requiring a call to support — violates B-005 and the recovery principle.</div>
+      </div>
+    </main>
+
+    <nav class="toc">
+      <h4>On this page</h4>
+      <a href="#overview">Overview</a>
+      <a href="#principles">Principles</a>
+      <a href="#guidelines">Guidelines</a>
+      <a href="#feature-intent" class="h3">Feature intent</a>
+      <a href="#mental-model" class="h3">User mental model</a>
+      <a href="#surfaces" class="h3">Login surfaces &amp; variants</a>
+      <a href="#forgotten-password" class="h3">Forgotten password</a>
+      <a href="#club-ladbrokes" class="h3">Out of scope: Club Ladbrokes</a>
+      <a href="#ux-behaviour" class="h3">UX behaviour</a>
+      <a href="#ux-states" class="h3">UX states</a>
+      <a href="#hard-constraints" class="h3">Hard constraints</a>
+      <a href="#content-messaging" class="h3">Content &amp; messaging</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#research">Research</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#examples">Examples</a>
+    </nav>
+  </div>
+
+  <script>
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    function onScroll() {
+      var pos = window.scrollY + 120, idx = 0;
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i] && targets[i].offsetTop <= pos) idx = i;
+      }
+      links.forEach(function (a) { a.classList.remove('active'); });
+      if (links[idx]) links[idx].classList.add('active');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
