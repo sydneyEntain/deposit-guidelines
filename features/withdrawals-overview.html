@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Withdrawals — Experience Design Guidelines</title>
+<style>
+  :root {
+    --bg: #f7f7f8;
+    --panel: #ffffff;
+    --border: #e6e6ea;
+    --text: #1c1c22;
+    --muted: #6b6b76;
+    --accent: #6b4eff;
+    --accent-soft: #efeaff;
+    --green: #1f9d55;
+    --green-soft: #e6f5ec;
+    --amber-soft: #fff4e0;
+    --amber-text: #8a5a00;
+    --red: #d92d20;
+    --red-soft: #fdecea;
+    --code-bg: #f0f0f3;
+    --radius: 10px;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--sans); color: var(--text); background: var(--bg); line-height: 1.6; font-size: 15px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .topbar { background: var(--panel); border-bottom: 1px solid var(--border); padding: 14px 32px; }
+  .topbar h1 { margin: 0; font-size: 16px; font-weight: 600; }
+  .topbar .sub { color: var(--muted); font-size: 12.5px; }
+
+  .layout { display: flex; align-items: flex-start; max-width: 1220px; margin: 0 auto; }
+  .content { flex: 1; min-width: 0; padding: 32px 40px 140px; }
+  .toc { width: 268px; flex-shrink: 0; position: sticky; top: 45px; align-self: flex-start; max-height: calc(100vh - 45px); overflow-y: auto; padding: 32px 20px 60px; border-left: 1px solid var(--border); }
+  .toc h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; }
+  .toc a { display: block; color: var(--muted); font-size: 13px; padding: 4px 0 4px 10px; border-left: 2px solid transparent; margin-left: -2px; }
+  .toc a:hover { color: var(--text); text-decoration: none; }
+  .toc a.h3 { padding-left: 22px; font-size: 12.5px; }
+  .toc a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
+
+  .breadcrumb { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .breadcrumb span { margin: 0 6px; }
+
+  .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  h2.title { font-size: 34px; margin: 4px 0 12px; }
+  .lead { color: #333; font-size: 15.5px; }
+
+  h2 { font-size: 22px; margin: 44px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+  h2:first-of-type { border-top: none; }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  h3 .adapt { font-size: 11px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 2px 8px; vertical-align: middle; margin-left: 8px; }
+
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: #fafafb; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  td code, th code { white-space: nowrap; }
+
+  code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; font-size: 13px; font-family: var(--mono); }
+  .src { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .rid { font-family: var(--mono); font-weight: 600; font-size: 12.5px; white-space: nowrap; }
+  .rid.r { color: var(--red); }
+  .rid.a { color: var(--accent); }
+  .rid.b { color: var(--green); }
+
+  blockquote { margin: 14px 0; padding: 12px 16px; background: var(--accent-soft); border-radius: 8px; color: #3a3357; font-size: 14px; }
+  blockquote strong { color: #2a2350; }
+
+  .callout { border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 14px; border: 1px solid transparent; }
+  .callout.info { background: var(--accent-soft); }
+  .callout.warn { background: var(--amber-soft); color: var(--amber-text); }
+  .callout.error { background: var(--red-soft); color: var(--red); }
+  .callout strong { display: block; margin-bottom: 2px; }
+
+  .badge { display: inline-block; border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 600; vertical-align: middle; }
+  .badge.green { background: var(--green-soft); color: var(--green); }
+  .badge.amber { background: var(--amber-soft); color: var(--amber-text); }
+  .badge.grey { background: #ededf0; color: var(--muted); }
+
+  .status-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--amber-soft); color: var(--amber-text); border-radius: 999px; padding: 3px 12px; font-size: 12.5px; font-weight: 600; }
+
+  ul { padding-left: 20px; }
+  li { margin: 4px 0; }
+
+  .todo { background: #fffbe6; border: 1px dashed #e0c200; border-radius: 6px; padding: 1px 6px; font-size: 12.5px; color: #6b5a00; font-family: var(--mono); }
+  .inferred { background: #eef4ff; border: 1px dashed #7ea2e0; border-radius: 6px; padding: 1px 6px; font-size: 12.5px; color: #2f4d80; font-family: var(--mono); }
+
+  .fm { background: #1e1e28; color: #d6d6df; border-radius: var(--radius); padding: 16px 18px; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; overflow-x: auto; margin: 14px 0; }
+  .fm .k { color: #9db6ff; }
+  .fm .v { color: #e6d09a; }
+  .fm .c { color: #6de08a; }
+
+  .note-editing { background: #fffbe6; border: 1px dashed #e0c200; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #6b5a00; margin: 20px 0; }
+  .constraint { background: var(--red-soft); border-left: 3px solid var(--red); border-radius: 6px; padding: 8px 14px; margin: 8px 0; font-size: 14px; }
+  .constraint .layer { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .ex { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .ex .good, .ex .bad { border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+  .ex .good { background: var(--green-soft); }
+  .ex .bad { background: var(--red-soft); }
+  .ex h5 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .ex .good h5 { color: var(--green); }
+  .ex .bad h5 { color: var(--red); }
+  .ex-title { font-weight: 600; margin: 16px 0 2px; }
+  @media (max-width: 720px) { .ex { grid-template-columns: 1fr; } }
+
+  .sitenav { background: var(--panel); border-bottom: 1px solid var(--border); padding: 0 32px; position: sticky; top: 0; z-index: 11; display: flex; align-items: center; gap: 4px; overflow-x: auto; }
+  .sitenav .home { font-weight: 600; color: var(--text); margin-right: 8px; padding: 11px 0; white-space: nowrap; }
+  .sitenav .home:hover { text-decoration: none; color: var(--accent); }
+  .sitenav a.tab { color: var(--muted); font-size: 13.5px; padding: 12px 12px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .sitenav a.tab:hover { color: var(--text); text-decoration: none; }
+  .sitenav a.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .sitenav .spacer { flex: 1; }
+  .sitenav .env { font-size: 11px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+</style>
+</head>
+<body>
+  <nav class="sitenav" aria-label="Site">
+    <span class="home">Experience Design Guidelines</span>
+    <a class="tab" href="/">Deposit</a>
+    <a class="tab active" href="/features/withdrawals-overview.html" aria-current="page">Withdrawals</a>
+    <a class="tab" href="/features/registration-overview.html">Registration</a>
+    <span class="spacer"></span>
+    <span class="env">Player Experience · Payments</span>
+  </nav>
+  <div class="topbar">
+    <h1>Experience Design Guidelines</h1>
+    <div class="sub">Cross-Pillar Knowledge Architecture · Feature Document</div>
+  </div>
+
+  <div class="layout">
+    <main class="content">
+      <div class="breadcrumb">Home <span>/</span> Player Experience <span>/</span> Payments <span>/</span> <strong>Withdrawals</strong></div>
+
+      <div class="note-editing">📝 Source of truth generated from the <code>Ladbrokes Refresh — Payments</code> Figma file (Withdrawals page). Markdown source: <code>withdrawals-overview.md</code>.</div>
+
+      <div class="kicker">Feature Document · Player Experience › Payments</div>
+      <h2 class="title">Withdrawals</h2>
+      <p class="lead">The money-out flow that lets a customer take funds off their account. Covers amount entry (shared with Deposit), withdrawal-method selection, Money-In-Money-Out (MIMO) routing that splits withdrawals back to original deposit sources, adding/managing bank accounts, the no-eligible-method edge case, and the approved / requested / partially-approved / declined outcome states.</p>
+      <!-- OVERVIEW -->
+      <h2 id="overview">Overview</h2>
+      <p>Withdrawals lives in <strong>Player Experience › Payments</strong> and is the sibling of Deposit — it reuses the same amount-entry module, custom keypad, and payment-method rows, adapted for money-out. It covers amount entry, withdrawal-method selection, Money-In-Money-Out (MIMO) routing that splits withdrawals back to original deposit sources, adding and managing bank accounts, the no-eligible-method edge case, and the approved / requested / partially-approved / declined / failed outcome states. The header shows the account <strong>Balance</strong> (e.g. "Balance: £350.00"), and on success the <strong>New balance</strong> (e.g. "New balance: £305.00").</p>
+      <p><strong>Figma source:</strong> <a href="https://www.figma.com/design/7iVvdIcvnrk32QwPAoBok8/Ladbrokes-Refresh-%7C-Payments-Design-%7C-Delivery-File?node-id=16521-10510">Ladbrokes Refresh — Payments Design / Delivery File — Withdrawals</a></p>
+
+      <!-- PRINCIPLES -->
+      <h2 id="principles">Principles</h2>
+      <p class="src">Derived from the source content's recurring intent; confirm with the feature lead before approval.</p>
+      <ul>
+        <li>Reuse the deposit amount-entry model so money-out feels consistent with money-in; only the direction and constraints change.</li>
+        <li>Return funds to where they came from by default (MIMO), splitting a withdrawal across original deposit sources so AML / source-of-funds rules are honoured without the customer having to think about it.</li>
+        <li>Never leave the customer without a path: when no method is eligible, explain plainly why and what unlocks withdrawals.</li>
+        <li>Be honest about timing and partial outcomes — approved, requested (pending), partially approved, declined, or failed — and always state where the customer's money is.</li>
+      </ul>
+
+      <!-- GUIDELINES -->
+      <h2 id="guidelines">Guidelines</h2>
+
+      <h3 id="feature-intent">Feature intent</h3>
+      <p>The customer wants to take money out of their account and understand when they'll receive it. The flow must make the withdrawable amount and range obvious, route funds back to eligible sources (MIMO), let the customer add or change a bank account where needed, and clearly communicate the outcome — including pending, partial, and declined cases — without ever misrepresenting whether their money has left the account.</p>
+
+      <h3 id="mental-model">User mental model</h3>
+      <ul>
+        <li>Customers think "how much do I want to take out, and where does it go" — amount and destination are the two things they expect to control.</li>
+        <li>They expect the money to come back to a method/bank they already use, and may not expect it to be split across several sources (MIMO needs signposting).</li>
+        <li>They distinguish "approved / done" from "requested / still processing" and expect a realistic timeframe.</li>
+        <li>They expect that a declined withdrawal leaves their funds untouched.</li>
+        <li>Returning customers expect their default withdrawal method to be pre-selected; if they have no eligible method they expect to be told why.</li>
+      </ul>
+
+      <h3 id="amount-limits">Amount limits (computed) <span class="adapt">adaptation</span></h3>
+      <p>The <strong>minimum</strong> and <strong>maximum</strong> shown in the amount helper ("£X min | £Y max") are <strong>not fixed</strong> — they are computed for the current session. Any concrete figures in the designs are sample data.</p>
+      <ul>
+        <li><strong>Minimum</strong> = the minimum for the <strong>selected payment method</strong> (each method has its own minimum).</li>
+        <li><strong>Maximum</strong> = the <strong>lowest</strong> of three values: (1) the maximum for the <strong>selected payment method</strong>, (2) any <strong>customer-set limit</strong> that caps withdrawals, and (3) the customer's <strong>withdrawable balance</strong>.</li>
+      </ul>
+      <p class="src">Both bounds depend on the selected method, so the helper updates when the method changes. The max can be driven by a Responsible Gambling / account limit or by available balance — whichever is smallest wins.</p>
+
+      <h3 id="methods-mimo">Withdrawal methods &amp; MIMO <span class="adapt">adaptation</span></h3>
+      <p>Withdrawals use <strong>Money-In-Money-Out (MIMO)</strong>: funds are returned to the sources they were deposited from, and a single withdrawal may be <strong>split</strong> across multiple destinations.</p>
+      <ul>
+        <li><strong>Split behaviour:</strong> the change-method / confirmation sheet shows "<strong>Withdrawal will be split to:</strong>" with a per-destination breakdown (e.g. Apple Pay • 2345 → £5.00, another method → £40.00).</li>
+        <li><strong>Destinations seen in the designs:</strong> bank accounts labelled "<strong>Withdraw to bank</strong>" / "<strong>Bank transfer</strong>" (e.g. Monzo • 7890, Barclays • 2271, HSBC • 8633), plus <strong>Pay by Bank</strong> (TrueLayer) and card/wallet returns.</li>
+        <li><strong>Payment methods list:</strong> VISA, Mastercard, Apple Pay, TrueLayer, Bank Transfer, PayPal, Google Pay, X — Cash OTC, PaySafeCard, Skrill, LuxonPay, Neteller <span class="src">(each has its own withdrawal-method screen variant)</span>.</li>
+      </ul>
+      <div class="callout info"><strong>No eligible method</strong>"You currently have no eligible withdrawal methods. To withdraw, you must first deposit using a payment method that allows deposits and withdrawals."</div>
+
+      <h3 id="bank-accounts">Bank account management <span class="adapt">adaptation</span></h3>
+      <p>Bank accounts are added and managed within the withdrawal flow.</p>
+      <ul>
+        <li><strong>Add bank account</strong> ("Enter Bank details" screen): fields for the bank details (account name, sort code, account number and a paired field), a primary confirm CTA, and FAQs in the footer.</li>
+        <li><strong>My withdrawal methods:</strong> lists stored bank/withdrawal methods with an "Add a withdrawal method" affordance.</li>
+        <li><strong>Max bank accounts:</strong> a hard cap of 5 stored bank accounts — beyond that the customer must contact Customer Support.</li>
+      </ul>
+      <div class="callout info"><strong>Max bank accounts</strong>"Exceeding 5 bank accounts: Info message, contact CS to add a new bank account."</div>
+
+      <h3 id="ux-behaviour">UX behaviour</h3>
+      <p class="src">WHEN/SHALL rules tagged by source (R- regulatory, A- accessibility, B- behaviour); regulatory leads.</p>
+      <table>
+        <thead><tr><th>ID</th><th>Rule</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td><span class="rid r">R-001</span></td><td>WHEN a customer withdraws funds, the system SHALL return them to eligible original deposit sources (MIMO), splitting across sources where required.</td><td class="src">AML / source-of-funds <span class="todo">[TODO: cite clause]</span></td></tr>
+          <tr><td><span class="rid r">R-002</span></td><td>WHEN a method has not been used for a deposit (or is deposit-only), the system SHALL NOT offer it as a withdrawal destination.</td><td class="src">MIMO eligibility <span class="todo">[TODO]</span></td></tr>
+          <tr><td><span class="rid r">R-003</span></td><td>WHEN identity/payment details required for payout are unverified, the system SHALL complete verification before releasing funds.</td><td class="src"><span class="inferred">[INFERRED — confirm KYC]</span></td></tr>
+          <tr><td><span class="rid a">A-001</span></td><td>WHEN an outcome state (approved / requested / partial / declined / failed) is shown, the system SHALL announce it to assistive technology via an aria-live region.</td><td class="src"><span class="inferred">[INFERRED — confirm a11y]</span></td></tr>
+          <tr><td><span class="rid b">B-001</span></td><td>WHEN the entered amount is below the computed minimum or above the computed maximum, the system SHALL keep the Withdraw CTA disabled and show the min/max helper.</td><td class="src">Amount validation</td></tr>
+          <tr><td><span class="rid b">B-008</span></td><td>WHEN the selected payment method changes, the system SHALL recompute the min (method minimum) and max (lowest of method max, customer limit, withdrawable balance) and update the helper.</td><td class="src">Amount limits (computed)</td></tr>
+          <tr><td><span class="rid b">B-002</span></td><td>WHEN the customer has no eligible withdrawal method, the system SHALL block withdrawal and explain that they must first deposit with a method that supports withdrawals.</td><td class="src">No-eligible-method state</td></tr>
+          <tr><td><span class="rid b">B-003</span></td><td>WHEN a withdrawal is split across sources, the system SHALL show the per-destination breakdown before the customer confirms.</td><td class="src">MIMO split sheet</td></tr>
+          <tr><td><span class="rid b">B-004</span></td><td>WHEN a withdrawal is declined, the system SHALL state that the customer's funds remain in their account and offer retry / choose another method.</td><td class="src">Declined state</td></tr>
+          <tr><td><span class="rid b">B-005</span></td><td>WHEN a withdrawal is accepted but still processing, the system SHALL show a "requested" state with a payment-provider timeframe and a "Track withdrawal" action.</td><td class="src">Requested state</td></tr>
+          <tr><td><span class="rid b">B-006</span></td><td>WHEN the customer already has 5 stored bank accounts, the system SHALL prevent adding another in-app and direct them to Customer Support.</td><td class="src">Max bank accounts</td></tr>
+          <tr><td><span class="rid b">B-007</span></td><td>WHEN a withdrawal is partially approved, the system SHALL state the approved amount and the status of the remainder (processing or declined).</td><td class="src">Partial states</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="ux-states">UX states</h3>
+      <table>
+        <thead><tr><th>State</th><th>Trigger</th><th>UI behaviour</th><th>Copy</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td>Opens withdrawal with a default method</td><td>Amount empty (£0), method pre-selected, Withdraw disabled until valid</td><td>Computed helper "£X min | £Y max" (see <a href="#amount-limits">Amount limits</a>); "Balance: £350.00"</td></tr>
+          <tr><td>Loading</td><td>Submitted, awaiting provider</td><td><span class="inferred">[INFERRED — likely the "requested" screen]</span></td><td><span class="todo">[TODO]</span></td></tr>
+          <tr><td>Success</td><td>Withdrawal approved</td><td>Confirmation with tick/clock icon and new balance</td><td>"£45.00 Withdrawal approved"; requested: "£45.00 / Withdrawal requested" + "Processing time relies on your payment provider and may take up to &lt;X time&gt;." — Close / Track withdrawal</td></tr>
+          <tr><td>Error</td><td>Declined or request failed</td><td>Full-screen/dialog by severity; funds retained</td><td>"£45.00 Withdrawal declined" / "Your funds remain in your account. Please check your details and try again, or choose a different withdrawal method."</td></tr>
+          <tr><td>Warning</td><td>Partial approval</td><td>Outcome screen stating approved vs remaining</td><td>"£45.00 Withdrawal partially approved" / "£40 of your withdrawal has been approved. The remaining £5 is still being processed…"</td></tr>
+          <tr><td>Empty</td><td>No amount entered</td><td>£0 shown, Withdraw disabled</td><td>"£ 0" with min/max helper</td></tr>
+          <tr><td>Disabled</td><td>Amount out of range, or no eligible method</td><td>Withdraw inactive; or no-method message</td><td>"You currently have no eligible withdrawal methods…"</td></tr>
+        </tbody>
+      </table>
+      <p class="src">Amount component states (shared with Deposit): Valid or Zero · Min error · Max error. Large centred £ value with the min/max helper and an info icon below.</p>
+
+      <h3 id="hard-constraints">Hard constraints</h3>
+      <div class="constraint"><strong>NEVER</strong> return withdrawn funds to a source that isn't eligible under MIMO. <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> state or imply that funds have left the account when a withdrawal was declined — funds remain in the account. <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> release a payout that requires identity/payment verification before that verification is complete. <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> enable the Withdraw CTA when the amount is outside the allowed range. <span class="layer">Layer 3</span></div>
+      <div class="constraint"><strong>NEVER</strong> allow a 6th stored bank account to be added in-app — route to Customer Support. <span class="layer">Layer 3</span></div>
+
+      <h3 id="content-messaging">Content &amp; messaging</h3>
+      <p><strong>Verbatim copy (retain exactly):</strong></p>
+      <div class="callout info"><strong>Requested (with timeframe)</strong>"£45.00" / "Withdrawal requested" / "Processing time relies on your payment provider and may take up to &lt;X time&gt;." — Close · Track withdrawal.</div>
+      <div class="callout info"><strong>Requested (alt)</strong>"Withdrawal Requested" / "We've received your withdrawal request of £45.00 and are processing it."</div>
+      <div class="callout info"><strong>Approved</strong>"£45.00 Withdrawal approved".</div>
+      <div class="callout error"><strong>Declined</strong>"£45.00 Withdrawal declined" / "Your funds remain in your account. Please check your details and try again, or choose a different withdrawal method."</div>
+      <div class="callout warn"><strong>Partially approved (processing remainder)</strong>"£45.00 Withdrawal partially approved" / "£40 of your withdrawal has been approved. The remaining £5 is still being processed and may take up to &lt;X time&gt;."</div>
+      <div class="callout warn"><strong>Partially approved (declined remainder)</strong>"£40 has been approved. The remaining £5 was declined. Select 'track withdrawal' for more details."</div>
+      <div class="callout info"><strong>MIMO split</strong>"Withdrawal will be split to:" (with per-destination amounts, e.g. £40.00 / £5.00).</div>
+      <div class="callout info"><strong>No eligible method</strong>"You currently have no eligible withdrawal methods. To withdraw, you must first deposit using a payment method that allows deposits and withdrawals."</div>
+      <div class="callout info"><strong>Max bank accounts</strong>"Exceeding 5 bank accounts: Info message, contact CS to add a new bank account."</div>
+      <ul>
+        <li><strong>Method sublabels:</strong> "Withdraw to bank" · "Bank transfer" · "Pay by Bank".</li>
+        <li><strong>Balance:</strong> "Balance: £350.00" (default) / "New balance: £305.00" (post-withdrawal).</li>
+      </ul>
+      <p><strong>Required disclosures:</strong></p>
+      <ul><li>Cross-brand / source-of-funds note (as per Deposit). <span class="todo">[TODO — confirm exact withdrawal disclosure copy]</span></li></ul>
+      <p><strong>Tone:</strong> factual and reassuring for outcomes (always state where the customer's money is); plain and non-alarming for the no-eligible-method and max-accounts cases.</p>
+      <p><strong>Avoid list:</strong> <span class="todo">[TODO — confirm prohibited terms with content design]</span></p>
+
+      <!-- PATTERNS -->
+      <h2 id="patterns">Patterns</h2>
+      <ul>
+        <li><strong>Amount component</strong> — shared with Deposit; three states (Valid/Zero, Min error, Max error) with a large centred £ value + min/max helper and info icon. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Custom numeric keypad</strong> — bespoke amount entry, shared with Deposit. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Withdrawal-method row / change-method sheet</strong> — stored destinations with "Withdraw to bank" sublabels. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>MIMO split sheet</strong> — "Withdrawal will be split to:" with per-destination amounts. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Outcome screen</strong> — icon + amount + status line + timeframe, with Close / Track withdrawal actions; variants for approved, requested, partial, declined. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Add bank account form</strong> — "Enter Bank details" with validated fields + FAQs footer. <span class="todo">[TODO: link pattern]</span></li>
+      </ul>
+
+      <!-- RESEARCH -->
+      <h2 id="research">Research</h2>
+      <p><span class="todo">[TODO — cite evidence: user tests, analytics, regulatory consultations, prior art. None captured from Figma; owner to supply.]</span></p>
+
+      <!-- DECISIONS -->
+      <h2 id="decisions">Decisions</h2>
+      <p><span class="todo">[TODO — record non-obvious choices: decision, alternatives, rationale, date, author.]</span></p>
+      <ul>
+        <li><em>MIMO splitting of a single withdrawal across original deposit sources.</em> Alternatives: single-destination payout. Rationale: <span class="todo">[TODO — likely AML / source-of-funds]</span>.</li>
+        <li><em>Hard cap of 5 stored bank accounts.</em> Alternatives: unlimited. Rationale: <span class="todo">[TODO]</span>.</li>
+      </ul>
+
+      <!-- EXAMPLES -->
+      <h2 id="examples">Examples</h2>
+
+      <div class="ex-title">Declined withdrawal</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>On decline, the screen shows "£45.00 Withdrawal declined" and states "Your funds remain in your account", offering retry or another method.</div>
+        <div class="bad"><h5>Counter-example</h5>A generic "transaction failed" with no confirmation that funds are still in the account — violates B-004 and the Layer 1 constraint.</div>
+      </div>
+
+      <div class="ex-title">MIMO split</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>Before confirming, the customer sees "Withdrawal will be split to:" with £40.00 to one source and £5.00 to another.</div>
+        <div class="bad"><h5>Counter-example</h5>Silently splitting the payout across sources with no breakdown shown — violates B-003.</div>
+      </div>
+
+      <div class="ex-title">No eligible method</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>The customer is told they have no eligible withdrawal methods and that they must first deposit with a withdrawal-capable method.</div>
+        <div class="bad"><h5>Counter-example</h5>An empty method list or a disabled Withdraw button with no explanation — violates B-002.</div>
+      </div>
+
+      <div class="ex-title">Requested (pending) state</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>"Withdrawal requested" with a payment-provider timeframe and a "Track withdrawal" action.</div>
+        <div class="bad"><h5>Counter-example</h5>Showing "Withdrawal approved / complete" while the payout is still processing — violates B-005.</div>
+      </div>
+
+      <div class="ex-title">Sixth bank account</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>With 5 accounts stored, the customer is told to contact Customer Support to add another.</div>
+        <div class="bad"><h5>Counter-example</h5>Letting a 6th bank account be added in-app — violates B-006.</div>
+      </div>
+    </main>
+
+    <nav class="toc">
+      <h4>On this page</h4>
+      <a href="#overview">Overview</a>
+      <a href="#principles">Principles</a>
+      <a href="#guidelines">Guidelines</a>
+      <a href="#feature-intent" class="h3">Feature intent</a>
+      <a href="#mental-model" class="h3">User mental model</a>
+      <a href="#amount-limits" class="h3">Amount limits (computed)</a>
+      <a href="#methods-mimo" class="h3">Withdrawal methods &amp; MIMO</a>
+      <a href="#bank-accounts" class="h3">Bank account management</a>
+      <a href="#ux-behaviour" class="h3">UX behaviour</a>
+      <a href="#ux-states" class="h3">UX states</a>
+      <a href="#hard-constraints" class="h3">Hard constraints</a>
+      <a href="#content-messaging" class="h3">Content &amp; messaging</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#research">Research</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#examples">Examples</a>
+    </nav>
+  </div>
+
+  <script>
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    function onScroll() {
+      var pos = window.scrollY + 120, idx = 0;
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i] && targets[i].offsetTop <= pos) idx = i;
+      }
+      links.forEach(function (a) { a.classList.remove('active'); });
+      if (links[idx]) links[idx].classList.add('active');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>

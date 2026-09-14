@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Registration — Experience Design Guidelines</title>
+<style>
+  :root {
+    --bg: #f7f7f8;
+    --panel: #ffffff;
+    --border: #e6e6ea;
+    --text: #1c1c22;
+    --muted: #6b6b76;
+    --accent: #6b4eff;
+    --accent-soft: #efeaff;
+    --green: #1f9d55;
+    --green-soft: #e6f5ec;
+    --amber-soft: #fff4e0;
+    --amber-text: #8a5a00;
+    --red: #d92d20;
+    --red-soft: #fdecea;
+    --code-bg: #f0f0f3;
+    --radius: 10px;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--sans); color: var(--text); background: var(--bg); line-height: 1.6; font-size: 15px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .topbar { background: var(--panel); border-bottom: 1px solid var(--border); padding: 14px 32px; }
+  .topbar h1 { margin: 0; font-size: 16px; font-weight: 600; }
+  .topbar .sub { color: var(--muted); font-size: 12.5px; }
+
+  .layout { display: flex; align-items: flex-start; max-width: 1220px; margin: 0 auto; }
+  .content { flex: 1; min-width: 0; padding: 32px 40px 140px; }
+  .toc { width: 268px; flex-shrink: 0; position: sticky; top: 45px; align-self: flex-start; max-height: calc(100vh - 45px); overflow-y: auto; padding: 32px 20px 60px; border-left: 1px solid var(--border); }
+  .toc h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; }
+  .toc a { display: block; color: var(--muted); font-size: 13px; padding: 4px 0 4px 10px; border-left: 2px solid transparent; margin-left: -2px; }
+  .toc a:hover { color: var(--text); text-decoration: none; }
+  .toc a.h3 { padding-left: 22px; font-size: 12.5px; }
+  .toc a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
+
+  .breadcrumb { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .breadcrumb span { margin: 0 6px; }
+
+  .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  h2.title { font-size: 34px; margin: 4px 0 12px; }
+  .lead { color: #333; font-size: 15.5px; }
+
+  h2 { font-size: 22px; margin: 44px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+  h2:first-of-type { border-top: none; }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  h3 .adapt { font-size: 11px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 2px 8px; vertical-align: middle; margin-left: 8px; }
+
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: #fafafb; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  td code, th code { white-space: nowrap; }
+
+  code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; font-size: 13px; font-family: var(--mono); }
+  .src { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .rid { font-family: var(--mono); font-weight: 600; font-size: 12.5px; white-space: nowrap; }
+  .rid.r { color: var(--red); }
+  .rid.a { color: var(--accent); }
+  .rid.b { color: var(--green); }
+
+  blockquote { margin: 14px 0; padding: 12px 16px; background: var(--accent-soft); border-radius: 8px; color: #3a3357; font-size: 14px; }
+  blockquote strong { color: #2a2350; }
+
+  .callout { border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 14px; border: 1px solid transparent; }
+  .callout.info { background: var(--accent-soft); }
+  .callout.warn { background: var(--amber-soft); color: var(--amber-text); }
+  .callout.error { background: var(--red-soft); color: var(--red); }
+  .callout strong { display: block; margin-bottom: 2px; }
+
+  .badge { display: inline-block; border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 600; vertical-align: middle; }
+  .badge.green { background: var(--green-soft); color: var(--green); }
+  .badge.amber { background: var(--amber-soft); color: var(--amber-text); }
+  .badge.grey { background: #ededf0; color: var(--muted); }
+
+  ul { padding-left: 20px; }
+  li { margin: 4px 0; }
+
+  .todo { background: #fffbe6; border: 1px dashed #e0c200; border-radius: 6px; padding: 1px 6px; font-size: 12.5px; color: #6b5a00; font-family: var(--mono); }
+  .inferred { background: #eef4ff; border: 1px dashed #7ea2e0; border-radius: 6px; padding: 1px 6px; font-size: 12.5px; color: #2f4d80; font-family: var(--mono); }
+
+  .note-editing { background: #fffbe6; border: 1px dashed #e0c200; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #6b5a00; margin: 20px 0; }
+  .constraint { background: var(--red-soft); border-left: 3px solid var(--red); border-radius: 6px; padding: 8px 14px; margin: 8px 0; font-size: 14px; }
+  .constraint .layer { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .ex { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .ex .good, .ex .bad { border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+  .ex .good { background: var(--green-soft); }
+  .ex .bad { background: var(--red-soft); }
+  .ex h5 { margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .ex .good h5 { color: var(--green); }
+  .ex .bad h5 { color: var(--red); }
+  .ex-title { font-weight: 600; margin: 16px 0 2px; }
+  @media (max-width: 720px) { .ex { grid-template-columns: 1fr; } }
+
+  .sitenav { background: var(--panel); border-bottom: 1px solid var(--border); padding: 0 32px; position: sticky; top: 0; z-index: 11; display: flex; align-items: center; gap: 4px; overflow-x: auto; }
+  .sitenav .home { font-weight: 600; color: var(--text); margin-right: 8px; padding: 11px 0; white-space: nowrap; }
+  .sitenav .home:hover { text-decoration: none; color: var(--accent); }
+  .sitenav a.tab { color: var(--muted); font-size: 13.5px; padding: 12px 12px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .sitenav a.tab:hover { color: var(--text); text-decoration: none; }
+  .sitenav a.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .sitenav .spacer { flex: 1; }
+  .sitenav .env { font-size: 11px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+</style>
+</head>
+<body>
+  <nav class="sitenav" aria-label="Site">
+    <span class="home">Experience Design Guidelines</span>
+    <a class="tab" href="/">Deposit</a>
+    <a class="tab" href="/features/withdrawals-overview.html">Withdrawals</a>
+    <a class="tab active" href="/features/registration-overview.html" aria-current="page">Registration</a>
+    <span class="spacer"></span>
+    <span class="env">Player Experience · Onboarding</span>
+  </nav>
+  <div class="topbar">
+    <h1>Experience Design Guidelines</h1>
+    <div class="sub">Cross-Pillar Knowledge Architecture · Feature Document</div>
+  </div>
+
+  <div class="layout">
+    <main class="content">
+      <div class="breadcrumb">Home <span>/</span> Player Experience <span>/</span> Onboarding <span>/</span> <strong>Registration</strong></div>
+
+      <div class="note-editing">📝 Source of truth generated from the <code>Ladbrokes Refresh — Onboarding</code> Figma file (Registration page). Markdown source: <code>registration-overview.md</code>. Shipped &amp; live for Ladbrokes and Coral (UK).</div>
+
+      <div class="kicker">Feature Document · Player Experience › Onboarding</div>
+      <h2 class="title">Registration</h2>
+      <p class="lead">The live UK sign-up journey for Ladbrokes and Coral. Takes a new customer from Welcome through account creation, identity capture, age &amp; identity verification, optional deposit limits, fund-protection acknowledgement, and marketing preferences, then into their first deposit and the new-customer offer. A persistent progress bar ("Dice") and an offer-signposting banner run across the flow.</p>
+
+      <!-- OVERVIEW -->
+      <h2 id="overview">Overview</h2>
+      <p>Registration lives in <strong>Player Experience › Onboarding</strong> and is the shipped, live sign-up journey for Ladbrokes and Coral in the UK. It takes a new customer from the Welcome screen through account creation, identity capture, age &amp; identity verification, optional deposit-limit setup, fund-protection acknowledgement, and marketing preferences, then into their first deposit and the new-customer offer. Both a <strong>mobile</strong> layout and a <strong>desktop modal</strong> are source of truth — the same flow at different screen sizes.</p>
+      <p>The first-time-deposit (FTD) step is an <strong>entry point into the Deposit flow</strong>, not a separate onboarding-specific payment surface. The card-entry / add-method screens are documented and maintained in the <strong>Deposit</strong> guideline; the FTD frames inside the Onboarding Figma file are outdated.</p>
+      <p><strong>Figma source:</strong> <a href="https://www.figma.com/design/DTiHxqkG3fHqZwUYf7hxs6/Ladbrokes-Refresh-%7C-Onboarding-Design?node-id=23545-14805">Ladbrokes Refresh — Onboarding Design — Registration</a></p>
+
+      <!-- PRINCIPLES -->
+      <h2 id="principles">Principles</h2>
+      <p class="src">Derived from the source content's recurring intent; confirm with the feature lead before approval.</p>
+      <ul>
+        <li>Keep sign-up fast and low-friction ("Fast, secure and in just a few clicks.") while capturing exactly what regulation requires — no more.</li>
+        <li>Verify age and identity as a first-class, non-skippable part of the journey, using details "as shown on your ID".</li>
+        <li>Make responsible-gambling and fund-protection choices visible early: deposit limits and fund protection are surfaced during onboarding, not buried.</li>
+        <li>Give the customer control over how they're contacted — marketing is opt-in per channel, and blank means no marketing.</li>
+        <li>Signpost the new-customer offer consistently across steps without letting variable campaign copy dictate the layout.</li>
+      </ul>
+
+      <!-- GUIDELINES -->
+      <h2 id="guidelines">Guidelines</h2>
+
+      <h3 id="feature-intent">Feature intent</h3>
+      <p>A prospective customer wants to create an account and start playing. The flow must collect account credentials and verifiable identity details, satisfy age &amp; identity verification and responsible-gambling obligations, let the customer set optional deposit limits and marketing preferences, acknowledge fund protection, and hand off to the first deposit and new-customer offer — all without losing the customer to unnecessary friction.</p>
+
+      <h3 id="mental-model">User mental model</h3>
+      <ul>
+        <li>Customers think "sign up, prove who I am, put some money in, start playing" — they expect a short, ordered sequence with visible progress.</li>
+        <li>They expect to enter their real details "as shown on ID" and understand this is for verification, not marketing.</li>
+        <li>They treat deposit limits and marketing as optional set-up they can change later, and expect that to be true.</li>
+        <li>They expect the advertised new-customer offer to still be there at the end, and to know what unlocks it.</li>
+        <li>They distinguish "creating the account" from "getting verified" and "making my first deposit" as separate milestones.</li>
+      </ul>
+
+      <h3 id="onboarding-flow">Onboarding flow &amp; steps <span class="adapt">adaptation</span></h3>
+      <p>The journey is a stepped flow tracked by the progress bar ("Dice"). Ordered steps:</p>
+      <ol>
+        <li><strong>Welcome</strong> — brand landing with the new-customer offer surface, "Log In" for existing customers, and a "Let's get started" CTA.</li>
+        <li><strong>Step 1 — Set up your account</strong> — "Fast, secure and in just a few clicks." Fields: Email, Mobile number (+44 prefix), Username, Password. Footer: "Already have an account? Log In".</li>
+        <li><strong>Step 2 — Let's get to know you</strong> — "Enter your details as shown on your ID." Fields: Title, First name, Last name, Date of birth (DD/MM/YYYY), postcode/address finder with "Enter address manually".</li>
+        <li><strong>Age &amp; identity verification</strong> — verification interstitial(s) after details are submitted. <span class="todo">[TODO — confirm interstitial wording]</span></li>
+        <li><strong>Deposit limits (optional)</strong> — "Set up your deposit limits". Segmented Daily | Weekly | Monthly, "Enter amount", "Submit", or "Set limits later".</li>
+        <li><strong>Fund Protection</strong> — acknowledge the fund-protection policy; CTA "Accept".</li>
+        <li><strong>Marketing preferences</strong> — "Customise how we contact you". Per-channel opt-in; CTA "Accept".</li>
+        <li><strong>First deposit (FTD)</strong> — <strong>entry into the Deposit flow.</strong> See the Deposit guideline for card-entry / add-method screens. On success: deposit-success screen + new-customer offer signpost.</li>
+        <li><strong>Landing / start playing</strong> — customer enters the product with the offer active.</li>
+      </ol>
+      <p class="src">Persistent across steps: the progress bar ("Dice") component, the offer-signposting banner, and a footer with Help &amp; Contact · Safer Gambling · 18+.</p>
+
+      <h3 id="offer-surfaces">Offer surfaces (structure) <span class="adapt">adaptation</span></h3>
+      <p>New-customer <strong>offer copy is variable campaign content</strong> and MUST NOT be transcribed as fixed. Any offer text seen in the designs (free-bet amounts, "when you bet £X", full 18+ terms) is sample data. Document the <strong>container</strong> — slots, limits, and required elements — not the campaign values.</p>
+      <p class="ex-title">Surface 1 — Welcome hero (offer)</p>
+      <table>
+        <thead><tr><th>Slot</th><th>Rule / limit</th></tr></thead>
+        <tbody>
+          <tr><td>Offer pill</td><td>Short label, e.g. "New customer offer". Single line; must not wrap.</td></tr>
+          <tr><td>Headline</td><td>Max <strong>2 lines</strong>. Truncation not permitted — copy must fit the 2-line box at the largest supported text size.</td></tr>
+          <tr><td>Terms paragraph</td><td>Short qualifying line; the "18+ T&amp;Cs apply" disclosure MUST be present (may link to full terms).</td></tr>
+          <tr><td>Primary CTA</td><td>Single action ("Let's get started"). Label is fixed shell copy, not offer copy.</td></tr>
+          <tr><td>Background image</td><td>One hero image slot. Must not carry offer text as baked-in pixels (offer text is live copy, for accessibility and localisation).</td></tr>
+        </tbody>
+      </table>
+      <p class="ex-title">Surface 2 — Bonus signposting banner (persistent)</p>
+      <table>
+        <thead><tr><th>Slot</th><th>Rule / limit</th></tr></thead>
+        <tbody>
+          <tr><td>Icon</td><td>Single leading icon (gift/offer glyph).</td></tr>
+          <tr><td>Headline</td><td>Max <strong>1 line</strong>, e.g. offer name. Must not wrap; must not truncate mid-word.</td></tr>
+          <tr><td>Subline</td><td>Max <strong>1 line</strong> qualifying text.</td></tr>
+          <tr><td>Disclosure</td><td>"18+ T&amp;Cs apply" MUST be present within the banner (may be a linked chip).</td></tr>
+        </tbody>
+      </table>
+      <p class="ex-title">Surface 3 — Deposit-success offer signpost</p>
+      <table>
+        <thead><tr><th>Slot</th><th>Rule / limit</th></tr></thead>
+        <tbody>
+          <tr><td>Success headline</td><td>Fixed shell "[amount] deposit successful!" — amount is variable.</td></tr>
+          <tr><td>Offer subline</td><td>"You're one step away from your new customer offer." (fixed shell).</td></tr>
+          <tr><td>Offer detail row</td><td>Icon + one-line variable offer summary + "offer details" link. Max <strong>2 lines</strong>.</td></tr>
+          <tr><td>Balance pill</td><td>"Total Balance: [amount]" — amount is variable.</td></tr>
+          <tr><td>Primary CTA</td><td>"Start playing" (fixed shell copy).</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="ux-behaviour">UX behaviour</h3>
+      <p class="src">WHEN/SHALL rules tagged by source (R- regulatory, A- accessibility, B- behaviour); regulatory leads.</p>
+      <table>
+        <thead><tr><th>ID</th><th>Rule</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td><span class="rid r">R-001</span></td><td>WHEN a customer submits their personal details, the system SHALL verify age and identity before the account is fully enabled to gamble.</td><td class="src">Age &amp; Identity Verification <span class="todo">[TODO: cite LCCP clause]</span></td></tr>
+          <tr><td><span class="rid r">R-002</span></td><td>WHEN a customer is under 18 or fails identity verification, the system SHALL prevent account activation and gambling.</td><td class="src">Age verification (18+) <span class="todo">[TODO: cite LCCP clause]</span></td></tr>
+          <tr><td><span class="rid r">R-003</span></td><td>WHEN the customer reaches the deposit-limits step, the system SHALL offer Daily / Weekly / Monthly limit setup and allow it to be set now or later (changeable any time in Account Settings › Gambling Controls).</td><td class="src">RG — Deposit Limits <span class="todo">[TODO: cite LCCP clause]</span></td></tr>
+          <tr><td><span class="rid r">R-004</span></td><td>WHEN the customer reaches fund protection, the system SHALL present the fund-protection disclosure and require acknowledgement before continuing.</td><td class="src">Protection of Customer Funds <span class="todo">[TODO: cite clause]</span></td></tr>
+          <tr><td><span class="rid r">R-005</span></td><td>WHEN the customer sets marketing preferences, the system SHALL default to no marketing and only send communications for channels the customer opts into.</td><td class="src">Marketing consent / PECR-GDPR <span class="todo">[TODO: cite source]</span></td></tr>
+          <tr><td><span class="rid r">R-006</span></td><td>WHEN account creation completes, the system SHALL have recorded acceptance of Terms &amp; Conditions, Age &amp; Identity Verification Policy, and Privacy Policy.</td><td class="src">Legal acceptance <span class="todo">[TODO: cite source]</span></td></tr>
+          <tr><td><span class="rid a">A-001</span></td><td>WHEN a step changes or a verification/deposit outcome is shown, the system SHALL announce it to assistive technology via an aria-live region.</td><td class="src"><span class="inferred">[INFERRED — confirm a11y]</span></td></tr>
+          <tr><td><span class="rid a">A-002</span></td><td>WHEN offer text is displayed, the system SHALL render it as live text (not baked into imagery) so it is available to assistive technology.</td><td class="src"><span class="inferred">[INFERRED — confirm a11y]</span></td></tr>
+          <tr><td><span class="rid b">B-001</span></td><td>WHEN a required field is empty or invalid, the system SHALL keep the step CTA disabled and show inline validation.</td><td class="src">Step 1 / Step 2 forms</td></tr>
+          <tr><td><span class="rid b">B-002</span></td><td>WHEN the customer selects "Enter address manually", the system SHALL reveal manual address fields in place of the finder.</td><td class="src">Step 2 address finder</td></tr>
+          <tr><td><span class="rid b">B-003</span></td><td>WHEN the customer selects "Set limits later", the system SHALL continue without setting a deposit limit and keep it changeable later.</td><td class="src">Deposit limits step</td></tr>
+          <tr><td><span class="rid b">B-004</span></td><td>WHEN the customer leaves all marketing options blank, the system SHALL enrol them in no marketing communications.</td><td class="src">Marketing step</td></tr>
+          <tr><td><span class="rid b">B-005</span></td><td>WHEN the customer reaches the first-deposit step, the system SHALL route into the Deposit flow rather than a bespoke onboarding payment surface.</td><td class="src">FTD → Deposit entry point</td></tr>
+          <tr><td><span class="rid b">B-006</span></td><td>WHEN offer headline copy exceeds its line limit (hero 2 lines, banner 1 line), the system SHALL require shorter copy rather than truncate.</td><td class="src">Offer surfaces (structure)</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="ux-states">UX states</h3>
+      <table>
+        <thead><tr><th>State</th><th>Trigger</th><th>UI behaviour</th><th>Copy</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td>Customer lands on a step</td><td>Progress bar shows current step; step CTA disabled until valid</td><td>Per-step headings (e.g. "Set up your account / Fast, secure and in just a few clicks.")</td></tr>
+          <tr><td>Loading</td><td>Details submitted; verification / deposit processing</td><td>Progress / verification interstitial</td><td><span class="inferred">[INFERRED — confirm interstitial copy]</span></td></tr>
+          <tr><td>Success</td><td>Step completed / first deposit made</td><td>Advance to next step; deposit-success screen</td><td>"[amount] deposit successful!" / "You're one step away from your new customer offer." / "Total Balance: [amount]" — Start playing</td></tr>
+          <tr><td>Error</td><td>Invalid field, verification failure, or deposit failure</td><td>Inline validation or full-screen failure</td><td><span class="todo">[TODO — confirm verification/deposit error copy]</span></td></tr>
+          <tr><td>Warning</td><td>Age / eligibility concern</td><td>Blocking message</td><td><span class="todo">[TODO — confirm underage / ineligible copy]</span></td></tr>
+          <tr><td>Empty</td><td>Optional step skipped</td><td>Continue without input</td><td>"Set limits later" (deposit limits); blank marketing = no marketing</td></tr>
+          <tr><td>Disabled</td><td>Required fields incomplete</td><td>Step CTA inactive</td><td>Step CTA (e.g. "Let's get started" / "Submit" / "Accept") disabled</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="hard-constraints">Hard constraints</h3>
+      <div class="constraint"><strong>NEVER</strong> enable an account to gamble before age &amp; identity verification is complete. <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> allow an under-18 customer to create an active gambling account. <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> opt a customer into marketing they did not explicitly select. <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> proceed past fund protection without acknowledgement. <span class="layer">Layer 1</span></div>
+      <div class="constraint"><strong>NEVER</strong> bake offer copy or the "18+ T&amp;Cs apply" disclosure into a background image as pixels. <span class="layer">Layer 3</span></div>
+      <div class="constraint"><strong>NEVER</strong> truncate the offer headline — require shorter copy instead. <span class="layer">Layer 3</span></div>
+      <div class="constraint"><strong>NEVER</strong> transcribe variable campaign offer values into this document as if fixed. <span class="layer">Layer 3</span></div>
+
+      <h3 id="content-messaging">Content &amp; messaging</h3>
+      <p><strong>Verbatim copy (retain exactly — fixed shell):</strong></p>
+      <div class="callout info"><strong>Step 1</strong>"Set up your account" / "Fast, secure and in just a few clicks." Fields: Email, Mobile number (+44), Username, Password. Footer: "Already have an account? Log In".</div>
+      <div class="callout info"><strong>Step 2</strong>"Let's get to know you" / "Enter your details as shown on your ID." Fields: Title, First name, Last name, Date of birth (DD/MM/YYYY), postcode/address finder + "Enter address manually".</div>
+      <div class="callout info"><strong>Step 2 legal</strong>"By creating an account, you accept our Terms &amp; Conditions, Age &amp; Identity Verification Policy, and Privacy Policy."</div>
+      <div class="callout info"><strong>Welcome</strong>"Log In" · "New customer offer" (pill) · "Let's get started" (CTA).</div>
+      <div class="callout info"><strong>Deposit limits</strong>"Set up your deposit limits" / "Change your limits any time in Account Settings under Gambling Controls" · "Daily | Weekly | Monthly" · "Enter amount" · "Submit" · "Set limits later".</div>
+      <div class="callout info"><strong>Fund Protection</strong>"Stay secure with fund protection" / "Our Fund Protection policy means your money is secured in an account managed independently by a trustee and is regularly audited to ensure the level of protection (High). For more information, please refer to the Protection of Customer Funds on the Commission's website." — CTA "Accept".</div>
+      <div class="callout info"><strong>Marketing</strong>"Customise how we contact you" / "Take control of your notifications. We'll only send you the updates you want. You can change this anytime in your communication preferences." · "Subscribe to all" · rows Sports / Casino &amp; Slots / Poker / Bingo (Email + SMS) · "Don't want to hear from us? Leave the options blank and you won't receive any Marketing Communications." — CTA "Accept".</div>
+      <div class="callout info"><strong>Deposit success</strong>"[amount] deposit successful!" / "You're one step away from your new customer offer." / "Total Balance: [amount]" (pill) — CTA "Start playing".</div>
+      <p><strong>Variable (structure only — do not transcribe values):</strong></p>
+      <ul><li>New-customer offer copy (headline, "when you bet £X", free-bet amounts, full 18+ terms paragraph). Documented as slots in <a href="#offer-surfaces">Offer surfaces (structure)</a>.</li></ul>
+      <p><strong>Required disclosures:</strong></p>
+      <ul>
+        <li>"18+ T&amp;Cs apply" MUST appear on every offer surface (hero, banner, deposit-success signpost).</li>
+        <li>Age &amp; Identity Verification Policy, Terms &amp; Conditions, and Privacy Policy acceptance at account creation.</li>
+        <li>Fund-protection disclosure with the level of protection and the Commission reference.</li>
+      </ul>
+      <p><strong>Tone:</strong> brisk and reassuring during sign-up; plain and factual for regulatory and verification content; never pressuring on deposit limits or marketing.</p>
+      <p><strong>Avoid list:</strong> <span class="todo">[TODO — confirm prohibited terms with content design]</span></p>
+
+      <!-- PATTERNS -->
+      <h2 id="patterns">Patterns</h2>
+      <ul>
+        <li><strong>Progress bar ("Dice")</strong> — step tracker persistent across the onboarding flow. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Stepped form</strong> — Step 1 / Step 2 field groups with inline validation and a per-step primary CTA. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Address finder</strong> — postcode lookup with "Enter address manually" fallback. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Segmented control</strong> — Daily | Weekly | Monthly for deposit limits. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Per-channel opt-in list</strong> — Email / SMS checkboxes per product with "Subscribe to all". <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Offer hero / signposting banner</strong> — variable-content offer surfaces with fixed slots and line limits (see <a href="#offer-surfaces">Offer surfaces</a>). <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Deposit flow (FTD entry point)</strong> — first deposit routes into the Deposit guideline's flow. <span class="todo">[TODO: link Deposit doc]</span></li>
+      </ul>
+
+      <!-- RESEARCH -->
+      <h2 id="research">Research</h2>
+      <p><span class="todo">[TODO — cite evidence: user tests, analytics, regulatory consultations, prior art. None captured from Figma; owner to supply.]</span></p>
+
+      <!-- DECISIONS -->
+      <h2 id="decisions">Decisions</h2>
+      <ul>
+        <li><em>FTD documented as an entry point into the Deposit flow rather than re-specced here.</em> Alternatives: duplicate card-entry screens in this doc. Rationale: onboarding FTD frames are outdated; the Deposit guideline is the single source of truth for payment entry. Date/author: 2026-09-01 / Sydney Marcus.</li>
+        <li><em>Offer content expressed as structure (slots/limits), not transcribed values.</em> Alternatives: transcribe current campaign copy. Rationale: offers are variable campaign content and would date the doc. Date/author: 2026-09-01 / Sydney Marcus.</li>
+      </ul>
+
+      <!-- EXAMPLES -->
+      <h2 id="examples">Examples</h2>
+
+      <div class="ex-title">Age &amp; identity verification</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>The account is created but cannot gamble until age &amp; identity are verified from the details entered "as shown on your ID".</div>
+        <div class="bad"><h5>Counter-example</h5>Enabling deposits and betting before verification completes — violates R-001 and the Layer 1 constraint.</div>
+      </div>
+
+      <div class="ex-title">Marketing opt-in</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>The customer leaves the marketing options blank and receives no marketing communications.</div>
+        <div class="bad"><h5>Counter-example</h5>Pre-ticking channels or enrolling the customer by default — violates R-005 / B-004.</div>
+      </div>
+
+      <div class="ex-title">Deposit limits optional</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>The customer selects "Set limits later" and continues; limits stay changeable in Account Settings.</div>
+        <div class="bad"><h5>Counter-example</h5>Forcing a limit to be set before continuing, or hiding where to change it later — violates R-003 / B-003.</div>
+      </div>
+
+      <div class="ex-title">Offer surface (structure)</div>
+      <div class="ex">
+        <div class="good"><h5>Correct</h5>The hero headline fits its 2-line box and the "18+ T&amp;Cs apply" disclosure is present as live text.</div>
+        <div class="bad"><h5>Counter-example</h5>Baking the offer headline and terms into the background image, or truncating the headline — violates A-002 / B-006 and the Layer 3 constraints.</div>
+      </div>
+    </main>
+
+    <nav class="toc">
+      <h4>On this page</h4>
+      <a href="#overview">Overview</a>
+      <a href="#principles">Principles</a>
+      <a href="#guidelines">Guidelines</a>
+      <a href="#feature-intent" class="h3">Feature intent</a>
+      <a href="#mental-model" class="h3">User mental model</a>
+      <a href="#onboarding-flow" class="h3">Onboarding flow &amp; steps</a>
+      <a href="#offer-surfaces" class="h3">Offer surfaces (structure)</a>
+      <a href="#ux-behaviour" class="h3">UX behaviour</a>
+      <a href="#ux-states" class="h3">UX states</a>
+      <a href="#hard-constraints" class="h3">Hard constraints</a>
+      <a href="#content-messaging" class="h3">Content &amp; messaging</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#research">Research</a>
+      <a href="#decisions">Decisions</a>
+      <a href="#examples">Examples</a>
+    </nav>
+  </div>
+
+  <script>
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    function onScroll() {
+      var pos = window.scrollY + 120, idx = 0;
+      for (var i = 0; i < targets.length; i++) {
+        if (targets[i] && targets[i].offsetTop <= pos) idx = i;
+      }
+      links.forEach(function (a) { a.classList.remove('active'); });
+      if (links[idx]) links[idx].classList.add('active');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>

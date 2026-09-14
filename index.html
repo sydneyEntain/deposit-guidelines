@@ -31,13 +31,13 @@
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  .topbar { background: var(--panel); border-bottom: 1px solid var(--border); padding: 14px 32px; position: sticky; top: 0; z-index: 10; }
+  .topbar { background: var(--panel); border-bottom: 1px solid var(--border); padding: 14px 32px; }
   .topbar h1 { margin: 0; font-size: 16px; font-weight: 600; }
   .topbar .sub { color: var(--muted); font-size: 12.5px; }
 
   .layout { display: flex; align-items: flex-start; max-width: 1220px; margin: 0 auto; }
   .content { flex: 1; min-width: 0; padding: 32px 40px 140px; }
-  .toc { width: 268px; flex-shrink: 0; position: sticky; top: 61px; align-self: flex-start; max-height: calc(100vh - 61px); overflow-y: auto; padding: 32px 20px 60px; border-left: 1px solid var(--border); }
+  .toc { width: 268px; flex-shrink: 0; position: sticky; top: 45px; align-self: flex-start; max-height: calc(100vh - 45px); overflow-y: auto; padding: 32px 20px 60px; border-left: 1px solid var(--border); }
   .toc h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; }
   .toc a { display: block; color: var(--muted); font-size: 13px; padding: 4px 0 4px 10px; border-left: 2px solid transparent; margin-left: -2px; }
   .toc a:hover { color: var(--text); text-decoration: none; }
@@ -109,9 +109,26 @@
   .ex .bad h5 { color: var(--red); }
   .ex-title { font-weight: 600; margin: 16px 0 2px; }
   @media (max-width: 720px) { .ex { grid-template-columns: 1fr; } }
+
+  .sitenav { background: var(--panel); border-bottom: 1px solid var(--border); padding: 0 32px; position: sticky; top: 0; z-index: 11; display: flex; align-items: center; gap: 4px; overflow-x: auto; }
+  .sitenav .home { font-weight: 600; color: var(--text); margin-right: 8px; padding: 11px 0; white-space: nowrap; }
+  .sitenav .home:hover { text-decoration: none; color: var(--accent); }
+  .sitenav a.tab { color: var(--muted); font-size: 13.5px; padding: 12px 12px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .sitenav a.tab:hover { color: var(--text); text-decoration: none; }
+  .sitenav a.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .sitenav .spacer { flex: 1; }
+  .sitenav .env { font-size: 11px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
 </style>
 </head>
 <body>
+  <nav class="sitenav" aria-label="Site">
+    <span class="home">Experience Design Guidelines</span>
+    <a class="tab active" href="/" aria-current="page">Deposit</a>
+    <a class="tab" href="/features/withdrawals-overview.html">Withdrawals</a>
+    <a class="tab" href="/features/registration-overview.html">Registration</a>
+    <span class="spacer"></span>
+    <span class="env">Player Experience · Payments</span>
+  </nav>
   <div class="topbar">
     <h1>Experience Design Guidelines</h1>
     <div class="sub">Cross-Pillar Knowledge Architecture · Feature Document</div>
