@@ -226,11 +226,9 @@
         <tbody>
           <tr><td><span class="rid r">R-001</span></td><td>WHEN a customer submits their personal details, the system SHALL verify age and identity before the account is fully enabled to gamble.</td><td class="src">Age &amp; Identity Verification <span class="todo">[TODO: cite LCCP clause]</span></td></tr>
           <tr><td><span class="rid r">R-002</span></td><td>WHEN a customer is under 18 or fails identity verification, the system SHALL prevent account activation and gambling.</td><td class="src">Age verification (18+) <span class="todo">[TODO: cite LCCP clause]</span></td></tr>
-          <tr><td><span class="rid r">R-003</span></td><td>WHEN the customer reaches the deposit-limits step, the system SHALL offer Daily / Weekly / Monthly limit setup and allow it to be set now or later (changeable any time in Account Settings › Gambling Controls).</td><td class="src">RG — Deposit Limits <span class="todo">[TODO: cite LCCP clause]</span></td></tr>
           <tr><td><span class="rid r">R-004</span></td><td>WHEN the customer reaches fund protection, the system SHALL present the fund-protection disclosure and require acknowledgement before continuing.</td><td class="src">Protection of Customer Funds <span class="todo">[TODO: cite clause]</span></td></tr>
           <tr><td><span class="rid r">R-005</span></td><td>WHEN the customer sets marketing preferences, the system SHALL default to no marketing and only send communications for channels the customer opts into.</td><td class="src">Marketing consent / PECR-GDPR <span class="todo">[TODO: cite source]</span></td></tr>
           <tr><td><span class="rid r">R-006</span></td><td>WHEN account creation completes, the system SHALL have recorded acceptance of Terms &amp; Conditions, Age &amp; Identity Verification Policy, and Privacy Policy.</td><td class="src">Legal acceptance <span class="todo">[TODO: cite source]</span></td></tr>
-          <tr><td><span class="rid a">A-001</span></td><td>WHEN a step changes or a verification/deposit outcome is shown, the system SHALL announce it to assistive technology via an aria-live region.</td><td class="src"><span class="inferred">[INFERRED — confirm a11y]</span></td></tr>
           <tr><td><span class="rid a">A-002</span></td><td>WHEN offer text is displayed, the system SHALL render it as live text (not baked into imagery) so it is available to assistive technology.</td><td class="src"><span class="inferred">[INFERRED — confirm a11y]</span></td></tr>
           <tr><td><span class="rid b">B-001</span></td><td>WHEN a required field is empty or invalid, the system SHALL keep the step CTA disabled and show inline validation.</td><td class="src">Step 1 / Step 2 forms</td></tr>
           <tr><td><span class="rid b">B-002</span></td><td>WHEN the customer selects "Enter address manually", the system SHALL reveal manual address fields in place of the finder.</td><td class="src">Step 2 address finder</td></tr>
@@ -240,6 +238,7 @@
           <tr><td><span class="rid b">B-006</span></td><td>WHEN offer headline copy exceeds its line limit (hero 2 lines, banner 1 line), the system SHALL require shorter copy rather than truncate.</td><td class="src">Offer surfaces (structure)</td></tr>
         </tbody>
       </table>
+      <p class="src">Rules for deposit limits will be contained in the Safer Gambling sections. <span class="todo">[TODO: add link]</span></p>
 
       <h3 id="ux-states">UX states</h3>
       <table>
@@ -265,17 +264,6 @@
       <div class="constraint"><strong>NEVER</strong> transcribe variable campaign offer values into this document as if fixed. <span class="layer">Layer 3</span></div>
 
       <h3 id="content-messaging">Content &amp; messaging</h3>
-      <p><strong>Verbatim copy (retain exactly — fixed shell):</strong></p>
-      <div class="callout info"><strong>Step 1</strong>"Set up your account" / "Fast, secure and in just a few clicks." Fields: Email, Mobile number, Username, Password. Footer: "Already have an account? Log In".</div>
-      <div class="callout info"><strong>Step 2</strong>"Let's get to know you" / "Enter your details as shown on your ID." Fields: Title, First name, Last name, Date of birth (DD/MM/YYYY), postcode/address finder + "Enter address manually".</div>
-      <div class="callout info"><strong>Step 2 legal</strong>"By creating an account, you accept our Terms &amp; Conditions, Age &amp; Identity Verification Policy, and Privacy Policy."</div>
-      <div class="callout info"><strong>Welcome</strong>"Log In" · "New customer offer" (pill) · "Let's get started" (CTA).</div>
-      <div class="callout info"><strong>Deposit limits</strong>"Set up your deposit limits" / "Change your limits any time in Account Settings under Gambling Controls" · "Daily | Weekly | Monthly" · "Enter amount" · "Submit" · "Set limits later".</div>
-      <div class="callout info"><strong>Fund Protection</strong>"Stay secure with fund protection" / "Our Fund Protection policy means your money is secured in an account managed independently by a trustee and is regularly audited to ensure the level of protection (High). For more information, please refer to the Protection of Customer Funds on the Commission's website." — CTA "Accept".</div>
-      <div class="callout info"><strong>Marketing</strong>"Customise how we contact you" / "Take control of your notifications. We'll only send you the updates you want. You can change this anytime in your communication preferences." · "Subscribe to all" · rows Sports / Casino &amp; Slots / Poker / Bingo (Email + SMS) · "Don't want to hear from us? Leave the options blank and you won't receive any Marketing Communications." — CTA "Accept".</div>
-      <div class="callout info"><strong>Deposit success</strong>"[amount] deposit successful!" / "You're one step away from your new customer offer." / "Total Balance: [amount]" (pill) — CTA "Start playing".</div>
-      <p><strong>Variable (structure only — do not transcribe values):</strong></p>
-      <ul><li>New-customer offer copy (headline, "when you bet £X", free-bet amounts, full 18+ terms paragraph). Documented as slots in <a href="#offer-surfaces">Offer surfaces (structure)</a>.</li></ul>
       <p><strong>Required disclosures:</strong></p>
       <ul>
         <li>"18+ T&amp;Cs apply" MUST appear on every offer surface (hero, banner, deposit-success signpost).</li>
@@ -283,19 +271,6 @@
         <li>Fund-protection disclosure with the level of protection and the Commission reference.</li>
       </ul>
       <p><strong>Tone:</strong> brisk and reassuring during sign-up; plain and factual for regulatory and verification content; never pressuring on deposit limits or marketing.</p>
-      <p><strong>Avoid list:</strong> <span class="todo">[TODO — confirm prohibited terms with content design]</span></p>
-
-      <!-- PATTERNS -->
-      <h2 id="patterns">Patterns</h2>
-      <ul>
-        <li><strong>Progress bar</strong> — step tracker persistent across the onboarding flow. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Stepped form</strong> — Step 1 / Step 2 field groups with inline validation and a per-step primary CTA. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Address finder</strong> — postcode lookup with "Enter address manually" fallback. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Segmented control</strong> — Daily | Weekly | Monthly for deposit limits. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Per-channel opt-in list</strong> — Email / SMS checkboxes per product with "Subscribe to all". <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Offer hero / signposting banner</strong> — variable-content offer surfaces with fixed slots and line limits (see <a href="#offer-surfaces">Offer surfaces</a>). <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Deposit flow (FTD entry point)</strong> — first deposit routes into the Deposit guideline's flow. <span class="todo">[TODO: link Deposit doc]</span></li>
-      </ul>
 
       <!-- RESEARCH -->
       <h2 id="research">Research</h2>
@@ -306,6 +281,13 @@
       <ul>
         <li><em>FTD documented as an entry point into the Deposit flow rather than re-specced here.</em> Alternatives: duplicate card-entry screens in this doc. Rationale: onboarding FTD frames are outdated; the Deposit guideline is the single source of truth for payment entry. Date/author: 2026-09-01 / Sydney Marcus.</li>
         <li><em>Offer content expressed as structure (slots/limits), not transcribed values.</em> Alternatives: transcribe current campaign copy. Rationale: offers are variable campaign content and would date the doc. Date/author: 2026-09-01 / Sydney Marcus.</li>
+        <li><em>Deposit-limit rules are owned by Safer Gambling, not this page.</em> Alternatives: specify limit rules inline here (former R-003). Rationale: deposit limits are governed by evolving Gross/Net-limit regulation and belong in the Safer Gambling sections as the single source of truth; Registration links out rather than duplicating rules that would drift. Date/author: 2026-09-01 / Sydney Marcus.</li>
+        <li><em>Age &amp; Identity Verification + Account Creation is a conditional, skippable step.</em> Alternatives: document it as an always-shown step. Rationale: the loading/verification pages only appear when backend processing is slow; when it resolves quickly the customer goes straight to the Welcome page, so the step is framed as conditional. Date/author: 2026-09-01 / Sydney Marcus.</li>
+        <li><em>Welcome page is the point of account creation.</em> Alternatives: treat account creation as implicit within the form steps. Rationale: the account is formally created at the Welcome page, which confirms creation, restates the offer, and provides the continue CTA — so it is documented as an explicit, essential step. Date/author: 2026-09-01 / Sydney Marcus.</li>
+        <li><em>FTD is strongly encouraged but technically optional.</em> Alternatives: make first deposit mandatory to complete registration. Rationale: we want to drive deposit at registration for the new-customer offer, but the customer can exit to the landing page without depositing. Date/author: 2026-09-01 / Sydney Marcus.</li>
+        <li><em>Marketing preferences surfaced during onboarding.</em> Alternatives: defer marketing opt-in to post-registration. Rationale: data shows higher customer value for opted-in customers, so it is surfaced here; not a hard requirement and can be re-evaluated. Date/author: 2026-09-01 / Sydney Marcus.</li>
+        <li><em>Verbatim/variable copy blocks removed from Content &amp; messaging.</em> Alternatives: retain per-screen verbatim strings and the variable-offer list in this doc. Rationale: on-screen strings and campaign offer copy drift and are owned elsewhere; the page keeps required disclosures and tone, and defers exact copy to source. Date/author: 2026-09-01 / Sydney Marcus.</li>
+        <li><em>Patterns section removed.</em> Alternatives: keep a list of reusable components with TODO links. Rationale: the pattern entries were unlinked placeholders; component documentation will live in the pattern library rather than being stubbed here. Date/author: 2026-09-01 / Sydney Marcus.</li>
       </ul>
 
       <!-- EXAMPLES -->
@@ -326,7 +308,7 @@
       <div class="ex-title">Deposit limits optional</div>
       <div class="ex">
         <div class="good"><h5>Correct</h5>The customer selects "Set limits later" and continues; limits stay changeable in Account Settings.</div>
-        <div class="bad"><h5>Counter-example</h5>Forcing a limit to be set before continuing, or hiding where to change it later — violates R-003 / B-003.</div>
+        <div class="bad"><h5>Counter-example</h5>Forcing a limit to be set before continuing, or hiding where to change it later — violates B-003.</div>
       </div>
 
       <div class="ex-title">Offer surface (structure)</div>
@@ -349,7 +331,6 @@
       <a href="#ux-states" class="h3">UX states</a>
       <a href="#hard-constraints" class="h3">Hard constraints</a>
       <a href="#content-messaging" class="h3">Content &amp; messaging</a>
-      <a href="#patterns">Patterns</a>
       <a href="#research">Research</a>
       <a href="#decisions">Decisions</a>
       <a href="#examples">Examples</a>
