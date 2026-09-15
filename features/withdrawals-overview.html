@@ -110,6 +110,11 @@
   .ex-title { font-weight: 600; margin: 16px 0 2px; }
   @media (max-width: 720px) { .ex { grid-template-columns: 1fr; } }
 
+  figure.shot { margin: 16px 0; padding: 0; }
+  figure.shot img { max-width: 100%; border: 1px solid var(--border); border-radius: var(--radius); display: block; }
+  figure.shot figcaption { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+  .shot-placeholder { border: 1px dashed var(--border); border-radius: var(--radius); background: #fafafb; color: var(--muted); font-size: 13px; padding: 28px 16px; text-align: center; }
+
   .sitenav { background: var(--panel); border-bottom: 1px solid var(--border); padding: 0 32px; position: sticky; top: 0; z-index: 11; display: flex; align-items: center; gap: 4px; overflow-x: auto; }
   .sitenav .home { font-weight: 600; color: var(--text); margin-right: 8px; padding: 11px 0; white-space: nowrap; }
   .sitenav .home:hover { text-decoration: none; color: var(--accent); }
@@ -184,9 +189,11 @@
       <p>Withdrawals use <strong>Money-In-Money-Out (MIMO)</strong>: funds are returned to the sources they were deposited from, and a single withdrawal may be <strong>split</strong> across multiple destinations.</p>
       <ul>
         <li><strong>Split behaviour:</strong> the change-method / confirmation sheet shows "<strong>Withdrawal will be split to:</strong>" with a per-destination breakdown (e.g. Apple Pay • 2345 → £5.00, another method → £40.00).</li>
-        <li><strong>Destinations seen in the designs:</strong> bank accounts labelled "<strong>Withdraw to bank</strong>" / "<strong>Bank transfer</strong>" (e.g. Monzo • 7890, Barclays • 2271, HSBC • 8633), plus <strong>Pay by Bank</strong> (TrueLayer) and card/wallet returns.</li>
-        <li><strong>Payment methods list:</strong> VISA, Mastercard, Apple Pay, TrueLayer, Bank Transfer, PayPal, Google Pay, X — Cash OTC, PaySafeCard, Skrill, LuxonPay, Neteller <span class="src">(each has its own withdrawal-method screen variant)</span>.</li>
       </ul>
+      <figure class="shot">
+        <div class="shot-placeholder">🖼 [TODO: add withdrawal-methods screenshot — save as <code>features/withdrawal-methods.png</code>]</div>
+        <figcaption>Withdrawal method selection and destinations. [TODO: replace placeholder with screenshot.]</figcaption>
+      </figure>
       <div class="callout info"><strong>No eligible method</strong>"You currently have no eligible withdrawal methods. To withdraw, you must first deposit using a payment method that allows deposits and withdrawals."</div>
 
       <h3 id="bank-accounts">Bank account management <span class="adapt">adaptation</span></h3>
