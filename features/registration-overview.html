@@ -139,7 +139,7 @@
 
       <!-- OVERVIEW -->
       <h2 id="overview">Overview</h2>
-      <p>This page references the registration journey that is currently live for Ladbrokes and Coral in the UK. This journey takes a new customer from "Welcome" through account creation, identity capture, age &amp; identity verification, optional deposit limits, fund-protection acknowledgement, and marketing preferences, then into their first deposit. A persistent progress bar and an offer-signposting banner run across the flow are essential reminders of the new customer offer that the customer will be eligible for upon registration and terms fulfilment.</p>
+      <p>This page references the registration journey that is currently live for Ladbrokes and Coral in the UK. The reg journey takes a new customer from "Welcome" through account creation, identity capture, age &amp; identity verification, optional deposit limits, fund-protection acknowledgement, and marketing preferences, then into their first deposit. The persistent progress bar and offer-signposting banner that run across the flow, are essential reminders of the new customer offer they will be eligible for upon registration and terms fulfilment.</p>
       <p>The first-time-deposit (FTD) step is a mirror image of the standard deposit flow with the exception of the bonus signposting and progress bar at the top of the page. The 'add-method' and deposit flows are documented and maintained in the <a href="/">Deposit guideline page</a>; the FTD frames inside the Onboarding Figma file linked below are out of date and should not be used for reference.</p>
       <p><strong>Figma source:</strong> <a href="https://www.figma.com/design/DTiHxqkG3fHqZwUYf7hxs6/Ladbrokes-Refresh-%7C-Onboarding-Design?node-id=23545-14805">Ladbrokes Refresh — Onboarding Design — Registration</a></p>
 
@@ -169,19 +169,20 @@
       </ul>
 
       <h3 id="onboarding-flow">Onboarding flow &amp; steps <span class="adapt">adaptation</span></h3>
-      <p>The journey is a stepped flow tracked by the progress bar ("Dice"). Ordered steps:</p>
+      <p>The journey is a stepped flow tracked by the progress bar. Ordered steps:</p>
       <ol>
-        <li><strong>Welcome</strong> — brand landing with the new-customer offer surface, "Log In" for existing customers, and a "Let's get started" CTA.</li>
-        <li><strong>Step 1 — Set up your account</strong> — "Fast, secure and in just a few clicks." Fields: Email, Mobile number (+44 prefix), Username, Password. Footer: "Already have an account? Log In".</li>
-        <li><strong>Step 2 — Let's get to know you</strong> — "Enter your details as shown on your ID." Fields: Title, First name, Last name, Date of birth (DD/MM/YYYY), postcode/address finder with "Enter address manually".</li>
-        <li><strong>Age &amp; identity verification</strong> — verification interstitial(s) after details are submitted. <span class="todo">[TODO — confirm interstitial wording]</span></li>
-        <li><strong>Deposit limits (optional)</strong> — "Set up your deposit limits". Segmented Daily | Weekly | Monthly, "Enter amount", "Submit", or "Set limits later".</li>
-        <li><strong>Fund Protection</strong> — acknowledge the fund-protection policy; CTA "Accept".</li>
-        <li><strong>Marketing preferences</strong> — "Customise how we contact you". Per-channel opt-in; CTA "Accept".</li>
-        <li><strong>First deposit (FTD)</strong> — <strong>entry into the Deposit flow.</strong> See the Deposit guideline for card-entry / add-method screens. On success: deposit-success screen + new-customer offer signpost.</li>
-        <li><strong>Landing / start playing</strong> — customer enters the product with the offer active.</li>
+        <li><strong>Splash page</strong> — brand landing with the new-customer offer surface, options for existing customers to Log In or for new customers to continue with account creation.</li>
+        <li><strong>Step 1 — Set up your account</strong> — collection of primary ACCOUNT information fields (email, phone number, username and password).</li>
+        <li><strong>Step 2 — Let's get to know you</strong> — collection of primary customer IDENTIFICATION fields (title, first name, last name, date of birth, address — including address lookup or manual entry).</li>
+        <li><strong>Age &amp; Identity Verification + Account Creation</strong> — loading pages appear while the customer's data is being analyzed, age confirmed and account created. If this step is processed quickly in the backend, then the customer never sees these pages.</li>
+        <li><strong>Welcome page</strong> — formal welcome to the customer and confirmation their account has been created, clear reminder of their new customer offer and CTA that prompts them to continue.</li>
+        <li><strong>Deposit limits</strong> — interacting with this page is optional for customers and design here continues to evolve with the new regulations around Gross and Net limits.</li>
+        <li><strong>Fund Protection</strong> — customers must actively acknowledge the fund protection before being allowed to do anything on our platform.</li>
+        <li><strong>Marketing preferences</strong> — data has shown that customer value is higher for customers who opt-in to marketing so a decision was made to surface it here — this is not a requirement and the decision can be re-evaluated as needed.</li>
+        <li><strong>FTD (first time deposit)</strong> — this directs the customer into the deposit flow; while technically optional we want to strongly encourage the customer to deposit at registration. For details on the functionality and appearance of this page please reference the <a href="/">Deposit page</a>.</li>
+        <li><strong>Landing / start playing</strong> — customer enters the landing/home page after successful deposit completion or after exiting the deposit section.</li>
       </ol>
-      <p class="src">Persistent across steps: the progress bar ("Dice") component, the offer-signposting banner, and a footer with Help &amp; Contact · Safer Gambling · 18+.</p>
+      <p class="src">Persistent across steps: the progress bar component, the offer-signposting banner, and a footer with Help &amp; Contact · Safer Gambling · 18+.</p>
 
       <h3 id="offer-surfaces">Offer surfaces (structure) <span class="adapt">adaptation</span></h3>
       <p>New-customer <strong>offer copy is variable campaign content</strong> and MUST NOT be transcribed as fixed. Any offer text seen in the designs (free-bet amounts, "when you bet £X", full 18+ terms) is sample data. Document the <strong>container</strong> — slots, limits, and required elements — not the campaign values.</p>
@@ -287,7 +288,7 @@
       <!-- PATTERNS -->
       <h2 id="patterns">Patterns</h2>
       <ul>
-        <li><strong>Progress bar ("Dice")</strong> — step tracker persistent across the onboarding flow. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Progress bar</strong> — step tracker persistent across the onboarding flow. <span class="todo">[TODO: link pattern]</span></li>
         <li><strong>Stepped form</strong> — Step 1 / Step 2 field groups with inline validation and a per-step primary CTA. <span class="todo">[TODO: link pattern]</span></li>
         <li><strong>Address finder</strong> — postcode lookup with "Enter address manually" fallback. <span class="todo">[TODO: link pattern]</span></li>
         <li><strong>Segmented control</strong> — Daily | Weekly | Monthly for deposit limits. <span class="todo">[TODO: link pattern]</span></li>
