@@ -145,8 +145,8 @@
       <h2 class="title">Deposit</h2>
 
       <h2 id="overview">Overview</h2>
-      <p>Complete documentation for the Deposit feature — the money-in flow that lets a customer add funds to their account. It covers first-time deposit (FTD) at onboarding and regular deposits, amount entry with quick-amount chips and min/max limits, payment method selection and management, card entry and scanning, 3DS/SCA verification, error and edge-case states, bonus/offer signposting, deposit success, and Responsible Gambling deposit limits (Spending Limits / Deposit Cap).</p>
-      <p>Deposit lives in <strong>Player Experience › Payments</strong> and is surfaced from several entry points (onboarding, Home/Menu, Quick Deposit in the betslip or in-game menu, and the Rewards drawer). The header adapts per entry point (progress bar during onboarding, brand header in-app) but the amount-entry module stays consistent.</p>
+      <p>Deposit allows customers to add funds to their account through first-time deposit (FTD) at onboarding, standard cashier deposits (regular deposit), and contextual deposit (formerly called quick deposit) at betslip and in-game. This documentation also covers amount entry with quick-amount chips, min/max limits, payment method selection and management, card entry and scanning, 3DS/SCA verification, error and edge-case states, bonus/offer signposting, deposit success, and Responsible Gambling deposit limits (Spending Limits / Deposit Cap).</p>
+      <p>Deposit lives in <strong>Player Experience › Payments</strong> and the feature display adapts based on entry point (progress bar during onboarding, brand header in-app, small CD modal when needed) but the amount-entry component stays consistent.</p>
       <p><strong>Figma source:</strong> <a href="https://www.figma.com/design/7iVvdIcvnrk32QwPAoBok8/Ladbrokes-Refresh-%7C-Payments-Design-%7C-Delivery-File?node-id=14487-23976" target="_blank" rel="noopener">Ladbrokes Refresh — Payments Design / Delivery File</a></p>
 
       <h2 id="principles">Principles</h2>
@@ -168,17 +168,17 @@
         <li>They expect quick-amount chips to be shortcuts, not commitments, and expect the primary CTA to stay inert until the amount is valid.</li>
         <li>Returning customers expect their default/stored method to be pre-selected.</li>
         <li>Customers distinguish "the payment failed" from "I'm being asked to slow down for safer-gambling reasons".</li>
-        <li>When launched from the betslip or in-game, customers expect a compact Quick Deposit rather than the full flow.</li>
+        <li>When launched from the betslip or in-game, customers expect a compact Contextual Deposit rather than the full flow.</li>
       </ul>
 
       <h3 id="entry-points">Entry points &amp; routing <span class="adapt">adaptation</span></h3>
-      <p>The same amount-entry module is reached from several places; the surrounding surface and whether Quick Deposit or the full flow appears depends on the entry point and method eligibility.</p>
+      <p>The same amount-entry module is reached from several places; the surrounding surface and whether Contextual Deposit or the full flow appears depends on the entry point and method eligibility.</p>
       <table>
         <thead><tr><th>Entry point</th><th>Context</th><th>Surface</th></tr></thead>
         <tbody>
           <tr><td>Onboarding (FTD)</td><td>New customer, first deposit</td><td>Full flow, progress bar + bonus signposting in header</td></tr>
           <tr><td>Home / Menu</td><td>Logged-in customer</td><td>Full flow, brand header</td></tr>
-          <tr><td>Quick Deposit (QD Window)</td><td>Betslip or in-game menu</td><td>Compact Quick Deposit (QD-eligible methods only)</td></tr>
+          <tr><td>Contextual Deposit (CD Window)</td><td>Betslip or in-game menu</td><td>Compact Contextual Deposit (CD-eligible methods only)</td></tr>
           <tr><td>Rewards drawer</td><td>Offer requires a deposit</td><td>Full flow; "You'll only see offers that can be applied to a deposit."</td></tr>
         </tbody>
       </table>
@@ -186,10 +186,10 @@
       <table>
         <thead><tr><th>Scenario</th><th>Where it happens</th></tr></thead>
         <tbody>
-          <tr><td>Adding funds with a saved payment method</td><td>Regular deposit if the method isn't QD eligible, or if reached from the top/side nav. Quick deposit if adding funds within the betslip or from the in-game menu.</td></tr>
+          <tr><td>Adding funds with a saved payment method</td><td>Regular deposit if the method isn't CD eligible, or if reached from the top/side nav. Contextual deposit if adding funds within the betslip or from the in-game menu.</td></tr>
           <tr><td>First deposit during onboarding (FTD)</td><td>Regular deposit (with bonus signposting).</td></tr>
           <tr><td>First deposit launched from in-game or betslip</td><td>Regular deposit.</td></tr>
-          <tr><td>Adding or verifying a new payment method only</td><td>Regular deposit (cannot add a method without processing a deposit). Quick deposit if launched from the correct place and adding a QD-approved method such as Apple Pay.</td></tr>
+          <tr><td>Adding or verifying a new payment method only</td><td>Regular deposit (cannot add a method without processing a deposit). Contextual deposit if launched from the correct place and adding a CD-approved method such as Apple Pay.</td></tr>
           <tr><td>Editing or deleting a payment method</td><td>My payment methods.</td></tr>
         </tbody>
       </table>
@@ -233,7 +233,7 @@
           <tr><td class="rid b">B-001</td><td>WHEN the entered amount is below the selected method's minimum, the system SHALL keep the Deposit CTA disabled and show the Min error.</td><td class="src">Amount validation</td></tr>
           <tr><td class="rid b">B-002</td><td>WHEN the entered amount is above the allowed maximum, the system SHALL keep the Deposit CTA disabled until the amount is within range.</td><td class="src">Amount validation</td></tr>
           <tr><td class="rid b">B-003</td><td>WHEN a returning customer has no stored payment method, the system SHALL require a method to be added before enabling Deposit.</td><td class="src">Component states</td></tr>
-          <tr><td class="rid b">B-004</td><td>WHEN the customer launches deposit from the betslip or in-game menu with a QD-eligible method, the system SHALL surface Quick Deposit rather than the full flow.</td><td class="src">Entry points &amp; routing</td></tr>
+          <tr><td class="rid b">B-004</td><td>WHEN the customer launches deposit from the betslip or in-game menu with a CD-eligible method, the system SHALL surface Contextual Deposit rather than the full flow.</td><td class="src">Entry points &amp; routing</td></tr>
           <tr><td class="rid b">B-005</td><td>WHEN a selected payment method would void an active offer, the system SHALL badge it "Bonus Ineligible" before selection.</td><td class="src">Payment methods</td></tr>
           <tr><td class="rid b">B-006</td><td>WHEN a card's name does not match the account, the system SHALL block the card and direct the customer to My Account Details to verify it.</td><td class="src">Payment declines</td></tr>
           <tr><td class="rid b">B-007</td><td>WHEN the pop-up window for the security check is blocked, the system SHALL surface an "Open window" action and retain the entered amount and method.</td><td class="src">3DS/SCA &amp; verification</td></tr>
@@ -303,7 +303,7 @@
       <p class="src">Record non-obvious choices. Each entry: decision, alternatives considered, rationale, date, author.</p>
       <ul>
         <li><em>Custom numeric keypad instead of the native keyboard.</em> Alternatives: native keyboard. Rationale: <span class="todo">TODO</span>. Date/author: <span class="todo">TODO</span>.</li>
-        <li><em>Quick Deposit surfaced only for QD-eligible methods from betslip/in-game.</em> Alternatives: full flow everywhere. Rationale: <span class="todo">TODO</span>. Date/author: <span class="todo">TODO</span>.</li>
+        <li><em>Contextual Deposit surfaced only for CD-eligible methods from betslip/in-game.</em> Alternatives: full flow everywhere. Rationale: <span class="todo">TODO</span>. Date/author: <span class="todo">TODO</span>.</li>
       </ul>
 
       <h2 id="examples">Examples</h2>
