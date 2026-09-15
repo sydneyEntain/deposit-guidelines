@@ -140,7 +140,7 @@
 
       <h2 id="overview">Overview</h2>
       <p>Login allows the customer to authenticate themselves so they can gain access to their account and engage with our platform. This document references the shipped journey currently live with Ladbrokes (and other brands) in the UK.</p>
-      <p>Login allows an existing customer sign in with an email/username and password, allows them to select to stay signed in, recover a forgotten password, and reach account creation if they don't yet have an account. It appears as a modal on desktop and as a full-screen sheet on mobile — the same component at different screen sizes. Native apps additionally offer biometric login (see the native section).</p>
+      <p>Login lets an existing customer sign in with an email/username and password, choose to stay signed in, recover a forgotten password, and reach account creation if they don't yet have an account. It appears as a modal on desktop and as a full-screen sheet on mobile — the same component at different screen sizes. Native apps additionally offer biometric login (see the native section).</p>
       <blockquote><strong>Source note.</strong> Unlike the Figma-sourced feature docs, this page was authored by observing the <strong>live production</strong> ladbrokes.com login. On-screen copy is transcribed verbatim; anything not directly observable (native biometrics, session/2FA/SCA behaviour, lockout, success routing) is tagged <span class="inferred">[INFERRED — confirm]</span> or <span class="todo">[TODO]</span> for the feature lead / compliance.</blockquote>
       <p><strong>Live source:</strong> <a href="https://www.ladbrokes.com/en/labelhost/login">ladbrokes.com — Login</a> · <a href="https://www.ladbrokes.com/en/mobileportal/lostpassword">Forgotten Password</a></p>
 
@@ -232,33 +232,17 @@
       <div class="constraint"><strong>NEVER</strong> dead-end a failed login — always offer recovery or account creation. <span class="layer">Layer 3</span></div>
 
       <h3 id="content-messaging">Content &amp; messaging</h3>
-      <p><strong>Verbatim copy (retain exactly — observed on live web):</strong></p>
-      <div class="callout info"><strong>Modal</strong>"Login" · "Email or Username" · "Password" · "Keep me logged in" · "LOG IN" · "I forgot my Password" · "Or" · "Log in with Club Ladbrokes" · "New user? Create an account".</div>
-      <div class="callout error"><strong>No-account error</strong>"Account doesn't exist" / "We can't find a registered account with this email or userID. Check your details and try again or Create an account."</div>
-      <div class="callout warn"><strong>Required-field validation</strong>"Please enter your email or username" / "Please enter your password."</div>
-      <div class="callout info"><strong>Forgotten Password</strong>"Forgotten Password" · "Please enter your email" · "Please enter your date of birth" (DD / MM / YYYY) · "SUBMIT" · "Need help? Start Live Chat" · "Need more information on this? Have a look at our Password reset FAQ".</div>
-      <p><strong>Required disclosures:</strong></p>
-      <ul><li><span class="todo">[TODO — confirm any account-security / privacy disclosures required at sign-in]</span></li></ul>
       <p><strong>Tone:</strong> brisk and functional; error copy factual and non-alarming, always pointing to a next step.</p>
       <p><strong>Avoid list:</strong> <span class="todo">[TODO — confirm prohibited terms with content design]</span></p>
 
       <h2 id="patterns">Patterns</h2>
       <ul>
-        <li><strong>Auth modal / full-screen sheet</strong> — the login container, modal on desktop and full-screen on mobile. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Credential fields</strong> — email/username + password with show/hide toggle and inline validation. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Persistence toggle</strong> — "Keep me logged in" switch (default off) with info affordance. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Inline + banner error</strong> — field-level validation plus a top-of-form error banner. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Recovery form</strong> — Forgotten Password (email + DOB) with live-chat and FAQ help. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Biometric login (native)</strong> — Face ID / fingerprint entry on native apps. <span class="todo">[TODO: link pattern]</span> <span class="inferred">[INFERRED — confirm]</span></li>
-      </ul>
-
-      <h2 id="research">Research</h2>
-      <p><span class="todo">[TODO — cite evidence: user tests, analytics, security/regulatory consultations, prior art. Not captured from the live observation; owner to supply.]</span></p>
-
-      <h2 id="decisions">Decisions</h2>
-      <ul>
-        <li><em>Authored from live-site observation rather than Figma.</em> Alternatives: wait for a Figma source. Rationale: no Figma provided; live UK site is the shipped source of truth. Non-observable behaviour flagged for confirmation. Date/author: 2026-09-01 / <span class="todo">[TODO]</span>.</li>
-        <li><em>Club Ladbrokes login documented as out of scope.</em> Alternatives: fully spec it here. Rationale: separate concern (retail loyalty); noted for completeness only. Date/author: 2026-09-01 / <span class="todo">[TODO]</span>.</li>
+        <li><strong>Auth modal / full-screen sheet</strong> — the login container, modal on desktop and full-screen on mobile.</li>
+        <li><strong>Credential fields</strong> — email/username + password with show/hide toggle and inline validation.</li>
+        <li><strong>Persistence toggle</strong> — "Keep me logged in" switch (default off) with info affordance.</li>
+        <li><strong>Inline + banner error</strong> — field-level validation plus a top-of-form error banner.</li>
+        <li><strong>Recovery form</strong> — Forgotten Password (email + DOB) with live-chat and FAQ help.</li>
+        <li><strong>Biometric login (native)</strong> — Face ID / fingerprint entry on native apps. <span class="inferred">[INFERRED — confirm]</span></li>
       </ul>
 
       <h2 id="examples">Examples</h2>
@@ -303,8 +287,6 @@
       <a href="#hard-constraints" class="h3">Hard constraints</a>
       <a href="#content-messaging" class="h3">Content &amp; messaging</a>
       <a href="#patterns">Patterns</a>
-      <a href="#research">Research</a>
-      <a href="#decisions">Decisions</a>
       <a href="#examples">Examples</a>
     </nav>
   </div>
