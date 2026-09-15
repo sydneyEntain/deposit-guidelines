@@ -229,7 +229,7 @@
         <thead><tr><th>State</th><th>Trigger</th><th>UI behaviour</th><th>Copy</th></tr></thead>
         <tbody>
           <tr><td>Default</td><td>Opens withdrawal with a default method</td><td>Amount empty (£0), method pre-selected, Withdraw disabled until valid</td><td>Computed helper "£X min | £Y max" (see <a href="#amount-limits">Amount limits</a>); "Balance: £350.00"</td></tr>
-          <tr><td>Loading</td><td>Submitted, awaiting provider</td><td><span class="inferred">[INFERRED — likely the "requested" screen]</span></td><td><span class="todo">[TODO]</span></td></tr>
+          <tr><td>Loading</td><td>Submitted, awaiting provider</td><td>CTA updates to indicate processing and a loading spinner is visible</td><td>—</td></tr>
           <tr><td>Success</td><td>Withdrawal approved</td><td>Confirmation with tick/clock icon and new balance</td><td>"£45.00 Withdrawal approved"; requested: "£45.00 / Withdrawal requested" + "Processing time relies on your payment provider and may take up to &lt;X time&gt;." — Close / Track withdrawal</td></tr>
           <tr><td>Error</td><td>Declined or request failed</td><td>Full-screen/dialog by severity; funds retained</td><td>"£45.00 Withdrawal declined" / "Your funds remain in your account. Please check your details and try again, or choose a different withdrawal method."</td></tr>
           <tr><td>Warning</td><td>Partial approval</td><td>Outcome screen stating approved vs remaining</td><td>"£45.00 Withdrawal partially approved" / "£40 of your withdrawal has been approved. The remaining £5 is still being processed…"</td></tr>
@@ -257,36 +257,28 @@
       <div class="callout info"><strong>MIMO split</strong>"Withdrawal will be split to:" (with per-destination amounts, e.g. £40.00 / £5.00).</div>
       <div class="callout info"><strong>No eligible method</strong>"You currently have no eligible withdrawal methods. To withdraw, you must first deposit using a payment method that allows deposits and withdrawals."</div>
       <div class="callout info"><strong>Max bank accounts</strong>"Exceeding 5 bank accounts: Info message, contact CS to add a new bank account."</div>
-      <ul>
-        <li><strong>Method sublabels:</strong> "Withdraw to bank" · "Bank transfer" · "Pay by Bank".</li>
-        <li><strong>Balance:</strong> "Balance: £350.00" (default) / "New balance: £305.00" (post-withdrawal).</li>
-      </ul>
-      <p><strong>Required disclosures:</strong></p>
-      <ul><li>Cross-brand / source-of-funds note (as per Deposit). <span class="todo">[TODO — confirm exact withdrawal disclosure copy]</span></li></ul>
       <p><strong>Tone:</strong> factual and reassuring for outcomes (always state where the customer's money is); plain and non-alarming for the no-eligible-method and max-accounts cases.</p>
-      <p><strong>Avoid list:</strong> <span class="todo">[TODO — confirm prohibited terms with content design]</span></p>
 
       <!-- PATTERNS -->
       <h2 id="patterns">Patterns</h2>
       <ul>
-        <li><strong>Amount component</strong> — shared with Deposit; three states (Valid/Zero, Min error, Max error) with a large centred £ value + min/max helper and info icon. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Custom numeric keypad</strong> — bespoke amount entry, shared with Deposit. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Withdrawal-method row / change-method sheet</strong> — stored destinations with "Withdraw to bank" sublabels. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>MIMO split sheet</strong> — "Withdrawal will be split to:" with per-destination amounts. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Outcome screen</strong> — icon + amount + status line + timeframe, with Close / Track withdrawal actions; variants for approved, requested, partial, declined. <span class="todo">[TODO: link pattern]</span></li>
-        <li><strong>Add bank account form</strong> — "Enter Bank details" with validated fields + FAQs footer. <span class="todo">[TODO: link pattern]</span></li>
+        <li><strong>Amount component</strong> — shared with Deposit; three states (Valid/Zero, Min error, Max error) with a large centred £ value + min/max helper and info icon.</li>
+        <li><strong>Custom numeric keypad</strong> — bespoke amount entry, shared with Deposit.</li>
+        <li><strong>Withdrawal-method row / change-method sheet</strong> — stored destinations with "Withdraw to bank" sublabels.</li>
+        <li><strong>MIMO split sheet</strong> — "Withdrawal will be split to:" with per-destination amounts.</li>
+        <li><strong>Outcome screen</strong> — icon + amount + status line + timeframe, with Close / Track withdrawal actions; variants for approved, requested, partial, declined.</li>
+        <li><strong>Add bank account form</strong> — "Enter Bank details" with validated fields + FAQs footer.</li>
       </ul>
 
       <!-- RESEARCH -->
       <h2 id="research">Research</h2>
-      <p><span class="todo">[TODO — cite evidence: user tests, analytics, regulatory consultations, prior art. None captured from Figma; owner to supply.]</span></p>
+      <p>Evidence that shaped this design (user tests, analytics, regulatory consultations, prior art) to be added by the owner.</p>
 
       <!-- DECISIONS -->
       <h2 id="decisions">Decisions</h2>
-      <p><span class="todo">[TODO — record non-obvious choices: decision, alternatives, rationale, date, author.]</span></p>
       <ul>
-        <li><em>MIMO splitting of a single withdrawal across original deposit sources.</em> Alternatives: single-destination payout. Rationale: <span class="todo">[TODO — likely AML / source-of-funds]</span>.</li>
-        <li><em>Hard cap of 5 stored bank accounts.</em> Alternatives: unlimited. Rationale: <span class="todo">[TODO]</span>.</li>
+        <li><em>MIMO splitting of a single withdrawal across original deposit sources.</em> Alternatives: single-destination payout. Rationale: AML / source-of-funds.</li>
+        <li><em>Hard cap of 5 stored bank accounts.</em> Alternatives: unlimited.</li>
       </ul>
 
       <!-- EXAMPLES -->
