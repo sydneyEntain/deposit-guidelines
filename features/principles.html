@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Principles — Experience Design Guidelines</title>
+<style>
+  :root {
+    --bg: #f7f7f8;
+    --panel: #ffffff;
+    --border: #e6e6ea;
+    --text: #1c1c22;
+    --muted: #6b6b76;
+    --accent: #6b4eff;
+    --accent-soft: #efeaff;
+    --green: #1f9d55;
+    --green-soft: #e6f5ec;
+    --amber-soft: #fff4e0;
+    --amber-text: #8a5a00;
+    --red: #d92d20;
+    --red-soft: #fdecea;
+    --code-bg: #f0f0f3;
+    --radius: 10px;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--sans); color: var(--text); background: var(--bg); line-height: 1.6; font-size: 15px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .topbar { background: var(--panel); border-bottom: 1px solid var(--border); padding: 14px 32px; }
+  .topbar h1 { margin: 0; font-size: 16px; font-weight: 600; }
+  .topbar .sub { color: var(--muted); font-size: 12.5px; }
+
+  .layout { display: flex; align-items: flex-start; max-width: 1220px; margin: 0 auto; }
+  .content { flex: 1; min-width: 0; padding: 32px 40px 140px; }
+  .toc { width: 268px; flex-shrink: 0; position: sticky; top: 45px; align-self: flex-start; max-height: calc(100vh - 45px); overflow-y: auto; padding: 32px 20px 60px; border-left: 1px solid var(--border); }
+  .toc h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; }
+  .toc a { display: block; color: var(--muted); font-size: 13px; padding: 4px 0 4px 10px; border-left: 2px solid transparent; margin-left: -2px; }
+  .toc a:hover { color: var(--text); text-decoration: none; }
+  .toc a.h3 { padding-left: 22px; font-size: 12.5px; }
+  .toc a.active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
+
+  .breadcrumb { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .breadcrumb span { margin: 0 6px; }
+
+  .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  h2.title { font-size: 34px; margin: 4px 0 12px; }
+  .lead { color: #333; font-size: 15.5px; }
+
+  h2 { font-size: 22px; margin: 44px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
+  h2:first-of-type { border-top: none; }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+
+  code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; font-size: 13px; font-family: var(--mono); }
+  .src { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  blockquote { margin: 14px 0; padding: 12px 16px; background: var(--accent-soft); border-radius: 8px; color: #3a3357; font-size: 14px; }
+  blockquote strong { color: #2a2350; }
+
+  .callout { border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 14px; border: 1px solid transparent; }
+  .callout.info { background: var(--accent-soft); }
+  .callout.warn { background: var(--amber-soft); color: var(--amber-text); }
+  .callout strong { display: block; margin-bottom: 2px; }
+
+  code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; font-size: 13px; font-family: var(--mono); }
+
+  ul { padding-left: 20px; }
+  li { margin: 4px 0; }
+
+  /* Principle list */
+  .principle { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin: 12px 0; }
+  .principle h4 { margin: 0 0 8px; font-size: 15.5px; }
+  .principle .num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-size: 12.5px; font-weight: 700; margin-right: 8px; vertical-align: middle; font-family: var(--mono); }
+  .principle ul { margin: 6px 0 0; }
+  .principle li { margin: 3px 0; }
+  .principle li strong { color: #2a2350; }
+
+  .sitenav { background: var(--panel); border-bottom: 1px solid var(--border); padding: 0 32px; position: sticky; top: 0; z-index: 11; display: flex; align-items: center; gap: 4px; overflow-x: auto; }
+  .sitenav .home { font-weight: 600; color: var(--text); margin-right: 8px; padding: 11px 0; white-space: nowrap; }
+  .sitenav .home:hover { text-decoration: none; color: var(--accent); }
+  .sitenav a.tab { color: var(--muted); font-size: 13.5px; padding: 12px 12px; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .sitenav a.tab:hover { color: var(--text); text-decoration: none; }
+  .sitenav a.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .sitenav .spacer { flex: 1; }
+  .sitenav .env { font-size: 11px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+</style>
+</head>
+<body>
+  <nav class="sitenav" aria-label="Site">
+    <a class="home" href="/">Experience Design Guidelines</a>
+    <a class="tab active" href="/features/principles.html" aria-current="page">Principles</a>
+    <a class="tab" href="/">Deposit</a>
+    <a class="tab" href="/features/withdrawals-overview.html">Withdrawals</a>
+    <a class="tab" href="/features/registration-overview.html">Registration</a>
+    <a class="tab" href="/features/login-overview.html">Login</a>
+    <span class="spacer"></span>
+    <span class="env">Player Experience · Foundations</span>
+  </nav>
+  <div class="topbar">
+    <h1>Experience Design Guidelines</h1>
+    <div class="sub">Cross-Pillar Knowledge Architecture · Foundations</div>
+  </div>
+
+  <div class="layout">
+    <main class="content">
+      <div class="breadcrumb">Home <span>/</span> Player Experience <span>/</span> Foundations <span>/</span> <strong>Principles</strong></div>
+
+      <div class="kicker">Foundations · Player Experience</div>
+      <h2 class="title">Principles</h2>
+
+      <h2 id="overview">Overview</h2>
+      <p class="lead">These principles apply to all Player Experience work. The <strong>UX principles</strong> are non-negotiable quality gates for any flow, proposal, or recommendation. The <strong>UI principles</strong> govern layout and interaction so that lower-complexity, well-trodden changes can be made consistently and safely.</p>
+      <p>Where a change can be made within these principles and the per-feature guidance, it is in scope. Where it cannot — a new component, a new region, a new interaction pattern, or anything these pages don't already cover — it should be taken to design rather than invented.</p>
+
+      <h2 id="ux-principles">UX principles</h2>
+      <p class="src">13 non-negotiable rules. Cross-check every screen against these; where a principle conflicts with a specific market regulation, the regulation wins — but document the conflict.</p>
+
+      <div class="principle">
+        <h4><span class="num">1</span>Document the logic first</h4>
+        <ul>
+          <li><strong>Code is law:</strong> design artifacts must map directly to the strict text of the regulation.</li>
+          <li><strong>Traceability is key:</strong> every field, checkbox, and tooltip must link back to a specific legal requirement.</li>
+          <li><strong>No rogue features:</strong> avoid unrequested "delighters" that might accidentally violate compliance.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">2</span>Don't over-optimise for frictionless flow</h4>
+        <ul>
+          <li><strong>Friction is a feature:</strong> speed causes user errors, which lead to compliance breaches.</li>
+          <li><strong>Intentional speedbumps:</strong> use explicit confirmation for irreversible legal actions.</li>
+          <li><strong>Forced reading works:</strong> make users scroll to the bottom of critical disclosures before enabling buttons.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">3</span>Clear beats clever every time</h4>
+        <ul>
+          <li><strong>Ban technical jargon:</strong> translate complex legal mandates into universal, plain language.</li>
+          <li><strong>Eliminate ambiguity:</strong> use absolute terms like "Required" instead of subtle visual hints.</li>
+          <li><strong>No clever UI patterns:</strong> avoid micro-animations or trendy layouts that might confuse vulnerable users.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">4</span>Design for the "worst-case" data scenario</h4>
+        <ul>
+          <li><strong>Stress-test the layout:</strong> design for the longest possible legal names, error states, and disclaimers.</li>
+          <li><strong>No text truncation:</strong> important compliance text must never be hidden behind an ellipsis.</li>
+          <li><strong>Flexibility is required:</strong> layouts must scale gracefully when dynamic, localised legal text shifts in length.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">5</span>Accessibility is non-negotiable</h4>
+        <ul>
+          <li><strong>Compliance means WCAG:</strong> treat accessibility (WCAG 2.2 or current regional standards) as a legal mandate.</li>
+          <li><strong>Check the basics:</strong> enforce colour contrast, logical screen-reader order, and full keyboard navigation.</li>
+          <li><strong>No colour-only indicators:</strong> never convey error or success using colour alone.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">6</span>Make system status absolute</h4>
+        <ul>
+          <li><strong>Concrete receipts:</strong> give unambiguous confirmation when a regulatory step is done.</li>
+          <li><strong>Explicit audit trails:</strong> log exactly what the user saw, clicked, and agreed to, with timestamps.</li>
+          <li><strong>Clear error paths:</strong> tell users exactly why a submission failed and how to fix it.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">7</span>Never use dark patterns</h4>
+        <ul>
+          <li><strong>Opt-in by default:</strong> keep data-sharing, marketing, and optional-agreement checkboxes unchecked.</li>
+          <li><strong>Equal-weight UI:</strong> "Cancel" / "Opt-out" has the same visual prominence as "Accept".</li>
+          <li><strong>Honest microcopy:</strong> labels describe the action ("Authorise Payment", not "Continue").</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">8</span>State management is everything</h4>
+        <ul>
+          <li><strong>Map every edge case:</strong> expired sessions, partial saves, connectivity drops, rejected states.</li>
+          <li><strong>Auto-save safely:</strong> don't lose user data in long forms, but mask sensitive data (PII) on session timeout.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">9</span>Progressive disclosure for complex regulations</h4>
+        <ul>
+          <li>Layer legal information: summary first, detail on demand (expandable sections, info icons, "learn more").</li>
+          <li><strong>Exception:</strong> if the regulation requires the user to have <em>seen</em> the full text first (e.g. T&amp;Cs), use the forced-reading pattern from principle 2.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">10</span>Contextual timing over preemptive walls</h4>
+        <ul>
+          <li>Surface compliance interventions at the moment of relevance, not as a pre-login gate unless legally required.</li>
+          <li>Show deposit-limit warnings when the user is <em>about to deposit</em>, not on app launch. Interceptors are guardrails, not roadblocks.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">11</span>Preserve user agency within legal bounds</h4>
+        <ul>
+          <li>Always give a path forward. If they can't do X, clearly explain what they <em>can</em> do.</li>
+          <li>Never present a dead-end screen without an action (even if it's "contact support" or "come back on [date]").</li>
+          <li>Frame limitations as protection, not punishment.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">12</span>Consistent mental models across journeys</h4>
+        <ul>
+          <li>A concept that appears in multiple places (e.g. a limit) must look and behave identically — same component structure, same copy tone.</li>
+          <li>Users shouldn't learn a new interaction pattern for the same concept in a different context.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">13</span>Localisation as a first-class concern</h4>
+        <ul>
+          <li>Design every screen assuming copy will be 40% longer in another language.</li>
+          <li>Never hardcode currency symbols, date formats, or number formats — these must be dynamic.</li>
+          <li>Regulatory text varies per market; layouts must accommodate text blocks of unpredictable length.</li>
+        </ul>
+      </div>
+
+      <h2 id="ui-principles">UI principles</h2>
+      <p class="src">These sit alongside the UX principles and govern layout and interaction. They reference the <strong>V2 Dice Global Components</strong> design system by name; the design system remains the source of truth for component specs (spacing, colour, size).</p>
+
+      <div class="principle">
+        <h4><span class="num">14</span>Don't stack banners or alerts</h4>
+        <ul>
+          <li>One message zone, one message. If several compete, show the highest-severity one (regulatory &gt; error &gt; warning &gt; info) in a single <code>DsAlert</code>.</li>
+          <li>Never render two or more stacked alerts above the content — it pushes content down unpredictably and trains users to ignore the zone.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">15</span>One primary action per screen</h4>
+        <ul>
+          <li>Exactly one high-emphasis <code>DsButton kind=primary</code> per screen. Everything else is <code>secondary</code> or <code>tertiary</code>.</li>
+          <li>If a screen seems to need two primary actions, the screen is doing too much — that's a design question, not a build decision.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">16</span>Respect the established layout skeleton</h4>
+        <ul>
+          <li>Each surface has a fixed regional structure (header / message zone / content / sticky action). Changes slot into existing regions.</li>
+          <li>Adding a new region, moving the sticky action, or changing the skeleton is not a routine change — take it to design.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">17</span>Validation lives inline, under the field</h4>
+        <ul>
+          <li>Field-level validation uses the input's error state plus <code>DsHelpItem type=error</code> directly beneath the field.</li>
+          <li>The top message zone is for page- or system-level messages, not field errors.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">18</span>Match the message surface to severity</h4>
+        <ul>
+          <li>Inline <code>DsHelpItem</code> / <code>DsAlert</code> for field and page messages; <code>DsModal</code> (or Bottom Sheet) for soft checks that need a decision; full-screen for hard blocks.</li>
+          <li>Never downgrade a hard regulatory block to a dismissible banner, or upgrade a minor hint to a blocking modal.</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">19</span>Equal weight for paired choices</h4>
+        <ul>
+          <li>When a choice has two outcomes (e.g. Cancel / Continue), both use the same <code>DsButton</code> weight — the protective or safer option is never visually de-emphasised.</li>
+          <li>This is the UI expression of UX principle 7 (no dark patterns).</li>
+        </ul>
+      </div>
+
+      <div class="principle">
+        <h4><span class="num">20</span>Use the design system component as-is</h4>
+        <ul>
+          <li>Build from the existing <code>Ds</code> component and its documented variants and states. Don't restyle, fork, or recreate a component to fit a one-off need.</li>
+          <li>If no existing component or documented variant fits, that's a signal the pattern doesn't exist yet — take it to design.</li>
+        </ul>
+      </div>
+
+      <h2 id="applying">Applying these</h2>
+      <ul>
+        <li>Cross-check every screen against the UX principles; flag any violation in your output.</li>
+        <li>Build layout and components within the UI principles, using the design system by name.</li>
+        <li>When a change can't be expressed within these principles and the per-feature guidance, stop and take it to design rather than inventing a new pattern.</li>
+      </ul>
+    </main>
+
+    <nav class="toc" id="toc">
+      <h4>On this page</h4>
+      <a href="#overview">Overview</a>
+      <a href="#ux-principles">UX principles</a>
+      <a href="#ui-principles">UI principles</a>
+      <a href="#applying">Applying these</a>
+    </nav>
+  </div>
+
+  <script>
+    const links = Array.from(document.querySelectorAll('.toc a'));
+    const map = links.map(a => ({ a, el: document.querySelector(a.getAttribute('href')) })).filter(x => x.el);
+    function onScroll() {
+      let current = null;
+      const top = window.scrollY + 130;
+      for (const item of map) { if (item.el.offsetTop <= top) current = item; }
+      links.forEach(a => a.classList.remove('active'));
+      if (current) current.a.classList.add('active');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>

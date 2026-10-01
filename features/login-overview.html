@@ -117,7 +117,8 @@
 </head>
 <body>
   <nav class="sitenav" aria-label="Site">
-    <span class="home">Experience Design Guidelines</span>
+    <a class="home" href="/">Experience Design Guidelines</a>
+    <a class="tab" href="/features/principles.html">Principles</a>
     <a class="tab" href="/">Deposit</a>
     <a class="tab" href="/features/withdrawals-overview.html">Withdrawals</a>
     <a class="tab" href="/features/registration-overview.html">Registration</a>
@@ -151,6 +152,17 @@
         <li>Offer persistence on the customer's terms ("Keep me logged in" is off by default and explicit).</li>
         <li>Make recovery reachable from the point of failure (forgotten-password and live-chat help are one tap away).</li>
         <li>Keep authentication secure and honest — never reveal more than necessary about why a sign-in failed.</li>
+      </ul>
+
+      <h3 id="ui-principles">UI principles</h3>
+      <p class="src">Layout and interaction rules for this surface. They reference the <strong>V2 Dice Global Components</strong> design system by name; the design system owns component specs. See the full set on the <a href="/features/principles.html#ui-principles">Principles</a> page.</p>
+      <ul>
+        <li><strong>Single screen, two fields, one primary action.</strong> Email/username + password stacked, then one <code>DsButton kind=primary</code> ("LOG IN"). Everything else (forgotten password, create account, Club Ladbrokes) is <code>secondary</code>/<code>tertiary</code>.</li>
+        <li><strong>Respect the container per surface.</strong> Same component as a <code>DsModal</code> on desktop and a full-screen sheet on mobile — same fields and copy; don't diverge the layouts.</li>
+        <li><strong>Validation lives inline, under the field.</strong> Empty/invalid fields use the input error state + <code>DsHelpItem type=error</code>; a no-account error uses one <code>DsAlert</code> at the top of the form, not stacked banners.</li>
+        <li><strong>One message zone.</strong> Field errors inline, form-level error in a single <code>DsAlert</code> — never both stacked for the same failure.</li>
+        <li><strong>Persistence is explicit and off by default.</strong> "Keep me logged in" is a <code>DsSwitch</code> defaulting to off (no dark patterns).</li>
+        <li><strong>Never dead-end.</strong> A failed login always surfaces a next step (recovery or create account) as a <code>DsButton</code>/link within the same surface.</li>
       </ul>
 
       <h2 id="guidelines">Guidelines</h2>
@@ -191,6 +203,22 @@
         <p style="margin:0">The login screen offers a secondary "<strong>Log in with Club Ladbrokes</strong>" action (retail loyalty-card sign-in). It exists and is surfaced here for completeness, but its requirements, flow, and copy are <strong>not</strong> detailed in this document. <span class="todo">[TODO — owner to confirm where Club Ladbrokes login is specified]</span></p>
       </div>
 
+      <h3 id="ui-components">UI component mapping</h3>
+      <p class="src">Real <strong>V2 Dice Global Components</strong> names so engineering builds from the right primitives. The design system owns component specs; this maps which component goes where.</p>
+      <table>
+        <thead><tr><th>Element</th><th>Component</th><th>Placement rule</th></tr></thead>
+        <tbody>
+          <tr><td>Login container</td><td><code>DsModal</code> (desktop) / full-screen <code>DsModal</code> Bottom Sheet (mobile)</td><td>Same fields and copy across both surfaces; clear close affordance</td></tr>
+          <tr><td>LOG IN CTA</td><td><code>DsButton kind=primary size=large</code></td><td>The only primary; disabled while either field is empty</td></tr>
+          <tr><td>Email/username &amp; password fields</td><td><code>DsInput</code> (password with show/hide)</td><td>Stacked single column; show/hide control labelled for screen readers</td></tr>
+          <tr><td>Field validation</td><td>input error state + <code>DsHelpItem type=error</code></td><td>Under the field ("Please enter your email or username" / "…your password")</td></tr>
+          <tr><td>No-account error</td><td><code>DsAlert type=error</code></td><td>One alert at the top of the form, with a create-account route</td></tr>
+          <tr><td>Keep me logged in</td><td><code>DsSwitch</code></td><td>Defaults to off; explicit opt-in</td></tr>
+          <tr><td>Forgotten password / create account</td><td><code>DsButton kind=tertiary</code> / link</td><td>Secondary actions; never compete with the primary</td></tr>
+          <tr><td>Processing</td><td><code>DsLoadingSpinner</code></td><td>Shown while awaiting the auth response</td></tr>
+        </tbody>
+      </table>
+
       <h3 id="ux-behaviour">UX behaviour</h3>
       <p class="src">WHEN/SHALL rules tagged by source (R- regulatory, A- accessibility, B- behaviour); regulatory leads.</p>
       <table>
@@ -230,6 +258,7 @@
       <div class="constraint"><strong>NEVER</strong> persist the session unless the customer has explicitly enabled "Keep me logged in". <span class="layer">Layer 1</span></div>
       <div class="constraint"><strong>NEVER</strong> enable "LOG IN" while a required field is empty. <span class="layer">Layer 3</span></div>
       <div class="constraint"><strong>NEVER</strong> dead-end a failed login — always offer recovery or account creation. <span class="layer">Layer 3</span></div>
+      <div class="constraint"><strong>STOP</strong> and route to design when a change needs a new component, a new region, a new interaction pattern, or anything not covered by the skeleton, states, and components documented on this page — build within what's documented rather than inventing. <span class="layer">(UI)</span></div>
 
       <h3 id="content-messaging">Content &amp; messaging</h3>
       <p><strong>Tone:</strong> brisk and functional; error copy factual and non-alarming, always pointing to a next step.</p>
@@ -275,12 +304,14 @@
       <h4>On this page</h4>
       <a href="#overview">Overview</a>
       <a href="#principles">Principles</a>
+      <a href="#ui-principles" class="h3">UI principles</a>
       <a href="#guidelines">Guidelines</a>
       <a href="#feature-intent" class="h3">Feature intent</a>
       <a href="#mental-model" class="h3">User mental model</a>
       <a href="#surfaces" class="h3">Login surfaces &amp; variants</a>
       <a href="#forgotten-password" class="h3">Forgotten password</a>
       <a href="#club-ladbrokes" class="h3">Out of scope: Club Ladbrokes</a>
+      <a href="#ui-components" class="h3">UI component mapping</a>
       <a href="#ux-behaviour" class="h3">UX behaviour</a>
       <a href="#ux-states" class="h3">UX states</a>
       <a href="#hard-constraints" class="h3">Hard constraints</a>

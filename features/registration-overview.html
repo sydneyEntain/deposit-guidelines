@@ -115,7 +115,8 @@
 </head>
 <body>
   <nav class="sitenav" aria-label="Site">
-    <span class="home">Experience Design Guidelines</span>
+    <a class="home" href="/">Experience Design Guidelines</a>
+    <a class="tab" href="/features/principles.html">Principles</a>
     <a class="tab" href="/">Deposit</a>
     <a class="tab" href="/features/withdrawals-overview.html">Withdrawals</a>
     <a class="tab active" href="/features/registration-overview.html" aria-current="page">Registration</a>
@@ -151,6 +152,17 @@
         <li>Make responsible-gambling and fund-protection choices visible early: deposit limits and fund protection are surfaced during onboarding, not buried.</li>
         <li>Give the customer control over how they're contacted — marketing is opt-in per channel, and blank means no marketing.</li>
         <li>Signpost the new-customer offer consistently across steps without letting variable campaign copy dictate the layout.</li>
+      </ul>
+
+      <h3 id="ui-principles">UI principles</h3>
+      <p class="src">Layout and interaction rules for this surface. They reference the <strong>V2 Dice Global Components</strong> design system by name; the design system owns component specs. See the full set on the <a href="/features/principles.html#ui-principles">Principles</a> page.</p>
+      <ul>
+        <li><strong>Single-column form, one step at a time.</strong> Each step is a stacked column of <code>DsInput</code> fields with the persistent progress bar above and one sticky primary action below. Don't introduce two-column field layouts.</li>
+        <li><strong>One primary action per step.</strong> Exactly one <code>DsButton kind=primary</code> (the step CTA), disabled until the step's required fields are valid. "Set limits later" / skip actions are <code>secondary</code>/<code>tertiary</code>.</li>
+        <li><strong>Validation lives inline, under the field.</strong> Required/format errors use the input error state + <code>DsHelpItem type=error</code> beneath each field — not a top banner.</li>
+        <li><strong>Consent is opt-in and equal-weight.</strong> Marketing and optional agreements use <code>DsCheckbox</code> unchecked by default; paired choices use equal <code>DsButton</code> weight (no dark patterns).</li>
+        <li><strong>Don't stack banners.</strong> The offer-signposting banner is the single persistent message surface; don't stack additional alerts above a step. Offer copy is live text, never baked into imagery.</li>
+        <li><strong>Respect the offer-surface containers.</strong> Hero and banner have fixed slot/line limits; copy that exceeds them is shortened, never truncated — and changing those containers is a design decision.</li>
       </ul>
 
       <!-- GUIDELINES -->
@@ -219,6 +231,23 @@
         </tbody>
       </table>
 
+      <h3 id="ui-components">UI component mapping</h3>
+      <p class="src">Real <strong>V2 Dice Global Components</strong> names so engineering builds from the right primitives. The design system owns component specs; this maps which component goes where.</p>
+      <table>
+        <thead><tr><th>Element</th><th>Component</th><th>Placement rule</th></tr></thead>
+        <tbody>
+          <tr><td>Step CTA</td><td><code>DsButton kind=primary size=large</code></td><td>One per step, sticky; disabled until required fields valid</td></tr>
+          <tr><td>Text / email / phone / password fields</td><td><code>DsInput</code> (+ <code>DsInput</code> password show/hide)</td><td>Single column, one field per row; label always visible</td></tr>
+          <tr><td>Field validation</td><td>input error state + <code>DsHelpItem type=error</code></td><td>Directly under the field</td></tr>
+          <tr><td>Address entry</td><td><code>DsInput</code> finder with "Enter address manually" <code>DsButton kind=tertiary</code></td><td>Manual fields replace the finder in place</td></tr>
+          <tr><td>Marketing / optional consents</td><td><code>DsCheckbox</code></td><td>Unchecked by default; one per channel; blank = no marketing</td></tr>
+          <tr><td>Fund-protection acknowledgement</td><td><code>DsCheckbox</code> or acknowledge <code>DsButton</code></td><td>Must be actively acknowledged before continuing</td></tr>
+          <tr><td>Progress</td><td>Progress bar + <code>DsLoadingSpinner</code> for verification interstitials</td><td>Progress bar persistent across steps</td></tr>
+          <tr><td>Offer signposting</td><td>Banner with <code>DsBadge</code> offer pill</td><td>Single persistent banner; live text; "18+ T&amp;Cs apply" present</td></tr>
+          <tr><td>First-time deposit</td><td>Reuses the <a href="/">Deposit</a> components</td><td>Same amount entry + custom keypad; only header signposting differs</td></tr>
+        </tbody>
+      </table>
+
       <h3 id="ux-behaviour">UX behaviour</h3>
       <p class="src">WHEN/SHALL rules tagged by source (R- regulatory, A- accessibility, B- behaviour); regulatory leads.</p>
       <table>
@@ -262,6 +291,7 @@
       <div class="constraint"><strong>NEVER</strong> bake offer copy or the "18+ T&amp;Cs apply" disclosure into a background image as pixels. <span class="layer">Layer 3</span></div>
       <div class="constraint"><strong>NEVER</strong> truncate the offer headline — require shorter copy instead. <span class="layer">Layer 3</span></div>
       <div class="constraint"><strong>NEVER</strong> transcribe variable campaign offer values into this document as if fixed. <span class="layer">Layer 3</span></div>
+      <div class="constraint"><strong>STOP</strong> and route to design when a change needs a new component, a new region, a new interaction pattern, or anything not covered by the skeleton, states, and components documented on this page — build within what's documented rather than inventing. <span class="layer">(UI)</span></div>
 
       <h3 id="content-messaging">Content &amp; messaging</h3>
       <p><strong>Required disclosures:</strong></p>
@@ -320,11 +350,13 @@
       <h4>On this page</h4>
       <a href="#overview">Overview</a>
       <a href="#principles">Principles</a>
+      <a href="#ui-principles" class="h3">UI principles</a>
       <a href="#guidelines">Guidelines</a>
       <a href="#feature-intent" class="h3">Feature intent</a>
       <a href="#mental-model" class="h3">User mental model</a>
       <a href="#onboarding-flow" class="h3">Onboarding flow &amp; steps</a>
       <a href="#offer-surfaces" class="h3">Offer surfaces (structure)</a>
+      <a href="#ui-components" class="h3">UI component mapping</a>
       <a href="#ux-behaviour" class="h3">UX behaviour</a>
       <a href="#ux-states" class="h3">UX states</a>
       <a href="#hard-constraints" class="h3">Hard constraints</a>

@@ -127,7 +127,8 @@
 </head>
 <body>
   <nav class="sitenav" aria-label="Site">
-    <span class="home">Experience Design Guidelines</span>
+    <a class="home" href="/">Experience Design Guidelines</a>
+    <a class="tab" href="/features/principles.html">Principles</a>
     <a class="tab" href="/">Deposit</a>
     <a class="tab active" href="/features/withdrawals-overview.html" aria-current="page">Withdrawals</a>
     <a class="tab" href="/features/registration-overview.html">Registration</a>
@@ -160,6 +161,16 @@
         <li>Return funds to where they came from by default (MIMO), splitting a withdrawal across original deposit sources so AML / source-of-funds rules are honoured without the customer having to think about it.</li>
         <li>Never leave the customer without a path: when no method is eligible, explain plainly why and what unlocks withdrawals.</li>
         <li>Be honest about timing and partial outcomes — approved, requested (pending), partially approved, declined, or failed — and always state where the customer's money is.</li>
+      </ul>
+
+      <h3 id="ui-principles">UI principles</h3>
+      <p class="src">Layout and interaction rules for this surface. They reference the <strong>V2 Dice Global Components</strong> design system by name; the design system owns component specs. See the full set on the <a href="/features/principles.html#ui-principles">Principles</a> page.</p>
+      <ul>
+        <li><strong>Reuse Deposit's amount-entry skeleton.</strong> header → balance → amount display → custom keypad → method/destination selector → sticky Withdraw CTA. Withdrawals changes only direction and constraints; they don't re-lay-out the shared module.</li>
+        <li><strong>One primary action.</strong> The Withdraw CTA is the only <code>DsButton kind=primary</code> on screen; it stays disabled while the amount is out of range.</li>
+        <li><strong>Don't stack banners or alerts.</strong> One message zone, one message in a single <code>DsAlert</code> (highest severity wins). The no-eligible-method and max-accounts notices use <code>DsAlert type=info</code>, not stacked banners.</li>
+        <li><strong>Validation lives inline, under the field.</strong> Amount and bank-detail errors use the input error state + <code>DsHelpItem type=error</code> beneath the field.</li>
+        <li><strong>Match the surface to severity.</strong> Outcome screens (declined / partial) are full-screen or <code>DsModal</code>; the MIMO split confirmation is a <code>DsModal</code> Bottom Sheet. Never reduce a declined-funds message to a dismissible banner.</li>
       </ul>
 
       <!-- GUIDELINES -->
@@ -204,6 +215,22 @@
       </ul>
       <div class="callout info"><strong>Max bank accounts</strong>a hard cap of 5 stored bank accounts — beyond that the customer must contact Customer Support.</div>
 
+      <h3 id="ui-components">UI component mapping</h3>
+      <p class="src">Real <strong>V2 Dice Global Components</strong> names so engineering builds from the right primitives. The amount entry and custom keypad are shared with Deposit; the keypad is a bespoke component built outside the design system.</p>
+      <table>
+        <thead><tr><th>Element</th><th>Component</th><th>Placement rule</th></tr></thead>
+        <tbody>
+          <tr><td>Withdraw CTA</td><td><code>DsButton kind=primary size=large</code></td><td>Sticky at the bottom; the only primary; disabled while the amount is out of range</td></tr>
+          <tr><td>Amount / bank-detail validation</td><td>input error state + <code>DsHelpItem type=error</code></td><td>Directly under the field; never in the top message zone</td></tr>
+          <tr><td>Destination rows &amp; change-method sheet</td><td><code>DsListItem</code> inside a <code>DsModal</code> Bottom Sheet</td><td>Stored destinations with "Withdraw to bank" sublabels</td></tr>
+          <tr><td>MIMO split confirmation</td><td><code>DsModal</code> Bottom Sheet</td><td>Per-destination breakdown shown before the customer confirms</td></tr>
+          <tr><td>No eligible method / max bank accounts</td><td><code>DsAlert type=info</code></td><td>Single alert in the message zone; explains the block and the next step</td></tr>
+          <tr><td>Outcome (approved / requested / partial / declined)</td><td>Full-screen, or <code>DsModal</code></td><td>Icon + amount + status + timeframe; declined always states funds remain in the account</td></tr>
+          <tr><td>Processing</td><td><code>DsLoadingSpinner</code></td><td>Shown on the CTA / screen while awaiting the provider</td></tr>
+          <tr><td>Amount entry &amp; keypad</td><td><strong>Custom payments keypad</strong> (bespoke, outside the design system)</td><td>Shared with Deposit; single-row integrated controls that do not overflow or wrap</td></tr>
+        </tbody>
+      </table>
+
       <h3 id="ux-behaviour">UX behaviour</h3>
       <p class="src">WHEN/SHALL rules tagged by source (R- regulatory, A- accessibility, B- behaviour); regulatory leads.</p>
       <table>
@@ -245,6 +272,7 @@
       <div class="constraint"><strong>NEVER</strong> release a payout that requires identity/payment verification before that verification is complete. <span class="layer">Layer 1</span></div>
       <div class="constraint"><strong>NEVER</strong> enable the Withdraw CTA when the amount is outside the allowed range. <span class="layer">Layer 3</span></div>
       <div class="constraint"><strong>NEVER</strong> allow a 6th stored bank account to be added in-app — route to Customer Support. <span class="layer">Layer 3</span></div>
+      <div class="constraint"><strong>STOP</strong> and route to design when a change needs a new component, a new region, a new interaction pattern, or anything not covered by the skeleton, states, and components documented on this page — build within what's documented rather than inventing. <span class="layer">(UI)</span></div>
 
       <h3 id="content-messaging">Content &amp; messaging</h3>
       <p><strong>Verbatim copy (retain exactly):</strong></p>
@@ -319,12 +347,14 @@
       <h4>On this page</h4>
       <a href="#overview">Overview</a>
       <a href="#principles">Principles</a>
+      <a href="#ui-principles" class="h3">UI principles</a>
       <a href="#guidelines">Guidelines</a>
       <a href="#feature-intent" class="h3">Feature intent</a>
       <a href="#mental-model" class="h3">User mental model</a>
       <a href="#amount-limits" class="h3">Amount limits (computed)</a>
       <a href="#methods-mimo" class="h3">Withdrawal methods &amp; MIMO</a>
       <a href="#bank-accounts" class="h3">Bank account management</a>
+      <a href="#ui-components" class="h3">UI component mapping</a>
       <a href="#ux-behaviour" class="h3">UX behaviour</a>
       <a href="#ux-states" class="h3">UX states</a>
       <a href="#hard-constraints" class="h3">Hard constraints</a>

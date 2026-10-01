@@ -122,7 +122,8 @@
 </head>
 <body>
   <nav class="sitenav" aria-label="Site">
-    <span class="home">Experience Design Guidelines</span>
+    <a class="home" href="/">Experience Design Guidelines</a>
+    <a class="tab" href="/features/principles.html">Principles</a>
     <a class="tab active" href="/" aria-current="page">Deposit</a>
     <a class="tab" href="/features/withdrawals-overview.html">Withdrawals</a>
     <a class="tab" href="/features/registration-overview.html">Registration</a>
@@ -155,6 +156,17 @@
         <li>Make the valid deposit range unmissable, and never let an invalid amount progress.</li>
         <li>Treat Responsible Gambling interventions as first-class, distinct from payment errors, and escalate proportionately from soft (dismissible) to hard (blocking).</li>
         <li>Preserve the customer's entered amount and selected method across interruptions (e.g. failed SCA) so they can retry immediately.</li>
+      </ul>
+
+      <h3 id="ui-principles">UI principles</h3>
+      <p class="src">Layout and interaction rules for this surface. They complement the principles above and reference the <strong>V2 Dice Global Components</strong> design system by name. See the full set on the <a href="/features/principles.html#ui-principles">Principles</a> page.</p>
+      <ul>
+        <li><strong>Don't stack banners or alerts.</strong> One message zone, one message — the highest-severity one (regulatory &gt; error &gt; warning &gt; info) in a single <code>DsAlert</code>. Never stack alerts above the amount entry.</li>
+        <li><strong>One primary action.</strong> The Deposit CTA is the only <code>DsButton kind=primary</code> on screen; it stays disabled while the amount is invalid.</li>
+        <li><strong>Respect the amount-entry skeleton:</strong> header → message zone → amount display → custom keypad (with integrated quick-amount chips) → method selector → sticky Deposit CTA. Routine changes slot into these regions without adding, moving, or reordering them.</li>
+        <li><strong>Validation lives inline, under the field.</strong> Amount and card-field errors use the input error state + <code>DsHelpItem type=error</code> beneath the field — not the top message zone.</li>
+        <li><strong>Match the surface to severity.</strong> Inline <code>DsHelpItem</code>/<code>DsAlert</code> for messages; <code>DsModal</code> (or Bottom Sheet) for soft safer-gambling checks; full-screen for hard blocks. Never downgrade a hard block to a dismissible banner.</li>
+        <li><strong>Equal weight for paired choices.</strong> Cancel / Continue use the same <code>DsButton</code> weight; the protective option is never de-emphasised.</li>
       </ul>
 
       <h2 id="guidelines">Guidelines</h2>
@@ -220,6 +232,21 @@
         <li><strong>Card details:</strong> Card Number (<code>XXXX XXXX XXXX XXXX</code>), Expiry (<code>MM/YY</code>), CVV (with a card illustration), Cardholder's Name, "Set as default payment methods" checkbox, Scan Card, storage-consent line, "Continue" CTA. Footer: Mastercard FAQs · Deposit Limits · Live chat.</li>
       </ul>
 
+      <h3 id="ui-components">UI component mapping</h3>
+      <p class="src">Real <strong>V2 Dice Global Components</strong> names so engineering builds from the right primitives. The design system owns the component specs (spacing, colour, size); this maps <em>which</em> component goes <em>where</em>, and the placement restrictions. The payments keypad is a bespoke component built outside the design system.</p>
+      <table>
+        <thead><tr><th>Element</th><th>Component</th><th>Placement rule</th></tr></thead>
+        <tbody>
+          <tr><td>Deposit CTA</td><td><code>DsButton kind=primary size=large</code></td><td>Sticky at the bottom; the only primary on screen; disabled while the amount is invalid</td></tr>
+          <tr><td>Amount / card validation</td><td>input error state + <code>DsHelpItem type=error</code></td><td>Directly under the field; never in the top message zone</td></tr>
+          <tr><td>Soft RG check (unusual frequency, close to limit)</td><td><code>DsModal</code> with Cancel / Continue</td><td>Dismissible; two equal-weight <code>DsButton</code>s; the protective action is never de-emphasised</td></tr>
+          <tr><td>Hard RG block (limit reached, deposits blocked)</td><td>Full-screen, or non-dismissible <code>DsModal</code></td><td>Blocks progression; never a dismissible banner</td></tr>
+          <tr><td>Method rows &amp; change-method sheet</td><td><code>DsListItem</code> inside a <code>DsModal</code> Bottom Sheet</td><td>Inactive methods grouped under one <code>DsAlert type=info</code></td></tr>
+          <tr><td>Bonus-ineligible flag</td><td><code>DsBadge variant=orange</code></td><td>On the method row, shown before selection</td></tr>
+          <tr><td>Amount entry, quick-amount chips &amp; keypad</td><td><strong>Custom payments keypad</strong> (bespoke, outside the design system)</td><td>Chips are integrated into the keypad, one row; values cannot overflow or wrap to a second row</td></tr>
+        </tbody>
+      </table>
+
       <h3 id="ux-behaviour">UX behaviour</h3>
       <p>Rules use the WHEN/SHALL form. Each rule is tagged by source (<span class="rid r">R-</span> regulatory, <span class="rid a">A-</span> accessibility, <span class="rid b">B-</span> product behaviour); regulatory rules lead.</p>
       <table>
@@ -263,6 +290,8 @@
       <div class="constraint"><strong>NEVER</strong> apply a customer-requested limit increase instantly — increases are subject to review. <span class="layer">(Layer 1)</span></div>
       <div class="constraint"><strong>NEVER</strong> enable the Deposit CTA when the entered amount is outside the method's min/max range. <span class="layer">(Layer 3)</span></div>
       <div class="constraint"><strong>NEVER</strong> allow a new payment method to be added without processing a deposit, except via My Payment Methods. <span class="layer">(Layer 3)</span></div>
+      <div class="constraint"><strong>STOP</strong> and route to design when a change needs a new component, a new region, a new interaction pattern, or anything not covered by the skeleton, states, and components documented on this page — build within what's documented rather than inventing. <span class="layer">(UI)</span></div>
+
 
       <h3 id="content-messaging">Content &amp; messaging</h3>
       <p><strong>Verbatim copy (retain exactly):</strong></p>
@@ -338,11 +367,13 @@
       <h4>On this page</h4>
       <a href="#overview">Overview</a>
       <a href="#principles">Principles</a>
+      <a href="#ui-principles" class="h3">UI principles</a>
       <a href="#guidelines">Guidelines</a>
       <a href="#feature-intent" class="h3">Feature intent</a>
       <a href="#mental-model" class="h3">User mental model</a>
       <a href="#entry-points" class="h3">Entry points &amp; routing</a>
       <a href="#payment-methods" class="h3">Payment methods</a>
+      <a href="#ui-components" class="h3">UI component mapping</a>
       <a href="#ux-behaviour" class="h3">UX behaviour</a>
       <a href="#ux-states" class="h3">UX states</a>
       <a href="#hard-constraints" class="h3">Hard constraints</a>
