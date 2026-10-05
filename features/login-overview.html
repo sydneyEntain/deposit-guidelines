@@ -142,13 +142,12 @@
       <h2 id="overview">Overview</h2>
       <p>Login allows the customer to authenticate themselves so they can gain access to their account and engage with our platform. This document references the shipped journey currently live with Ladbrokes (and other brands) in the UK.</p>
       <p>Login lets an existing customer sign in with an email/username and password, choose to stay signed in, recover a forgotten password, and reach account creation if they don't yet have an account. It appears as a modal on desktop and as a full-screen sheet on mobile — the same component at different screen sizes. Native apps additionally offer biometric login (see the native section).</p>
-      <blockquote><strong>Source note.</strong> Unlike the Figma-sourced feature docs, this page was authored by observing the <strong>live production</strong> ladbrokes.com login. On-screen copy is transcribed verbatim; anything not directly observable (native biometrics, session/2FA/SCA behaviour, lockout, success routing) is tagged <span class="inferred">[INFERRED — confirm]</span> or <span class="todo">[TODO]</span> for the feature lead / compliance.</blockquote>
       <p><strong>Live source:</strong> <a href="https://www.ladbrokes.com/en/labelhost/login">ladbrokes.com — Login</a> · <a href="https://www.ladbrokes.com/en/mobileportal/lostpassword">Forgotten Password</a></p>
 
       <h2 id="principles">Principles</h2>
       <ul>
         <li>Keep sign-in fast and single-screen: two fields, one primary action, everything else secondary.</li>
-        <li>Never dead-end a customer: a failed login always offers a next step (check details, reset password, or create an account).</li>
+        <li>Never dead-end a customer unless we suspect fraud or need to prevent all actions, otherwise a failed login should always offer a next step (check details, reset password, or create an account).</li>
         <li>Offer persistence on the customer's terms ("Keep me logged in" is off by default and explicit).</li>
         <li>Make recovery reachable from the point of failure (forgotten-password and live-chat help are one tap away).</li>
         <li>Keep authentication secure and honest — never reveal more than necessary about why a sign-in failed.</li>
@@ -187,20 +186,19 @@
         <li><strong>Native app (biometric):</strong> in addition to email/username + password, native apps offer biometric sign-in (Face ID / fingerprint). <span class="inferred">[INFERRED — confirm affordance, enrolment, and fallback; not observable from web]</span></li>
       </ul>
 
-      <h3 id="forgotten-password">Forgotten password <span class="adapt">adaptation</span></h3>
-      <p>Recovery is a separate screen reached from "I forgot my Password".</p>
+      <h3 id="forgotten-password">Account recovery <span class="adapt">adaptation</span></h3>
+      <p>Recovery is a separate screen reached from the "I forgot my password" button on the login page.</p>
       <ul>
         <li>Heading: "Forgotten Password".</li>
-        <li>Fields: Email ("Please enter your email") and Date of birth as DD / MM / YYYY ("Please enter your date of birth").</li>
-        <li>Primary CTA: "SUBMIT" (disabled until valid).</li>
+        <li>Fields: At this time, email and date of birth are the fields required to submit a password recovery, but this can change over time.</li>
+        <li>Primary CTA: "Submit" (disabled until valid).</li>
         <li>Help: "Need help? Start Live Chat" and "Need more information on this? Have a look at our Password reset FAQ".</li>
-        <li>Post-submit confirmation copy is <span class="todo">[TODO — not observed]</span>.</li>
       </ul>
 
       <h3 id="club-ladbrokes">Out of scope: Log in with Club Ladbrokes</h3>
       <div class="scope-out">
         <span class="tag">Out of scope</span>
-        <p style="margin:0">The login screen offers a secondary "<strong>Log in with Club Ladbrokes</strong>" action (retail loyalty-card sign-in). It exists and is surfaced here for completeness, but its requirements, flow, and copy are <strong>not</strong> detailed in this document. <span class="todo">[TODO — owner to confirm where Club Ladbrokes login is specified]</span></p>
+        <p style="margin:0">The login screen offers a secondary "<strong>Log in with Club Ladbrokes</strong>" action (retail loyalty-card sign-in). It exists and is surfaced here for completeness, but its requirements, flow, and copy are <strong>not</strong> detailed in this document.</p>
       </div>
 
       <h3 id="ui-components">UI component mapping</h3>
@@ -243,10 +241,10 @@
         <thead><tr><th>State</th><th>Trigger</th><th>UI behaviour</th><th>Copy</th></tr></thead>
         <tbody>
           <tr><td>Default</td><td>Login opened</td><td>Two empty fields, "Keep me logged in" off, "LOG IN" disabled</td><td>"Login" / "Email or Username" / "Password" / "Keep me logged in" / "LOG IN" / "I forgot my Password" / "Or" / "Log in with Club Ladbrokes" / "New user? Create an account"</td></tr>
-          <tr><td>Loading</td><td>Credentials submitted</td><td>Awaiting auth response</td><td><span class="inferred">[INFERRED — confirm loading treatment]</span></td></tr>
-          <tr><td>Success</td><td>Valid credentials (+ any 2FA)</td><td>Modal closes, customer signed in</td><td><span class="todo">[TODO — confirm success routing; not observed]</span></td></tr>
-          <tr><td>Error</td><td>No matching account</td><td>Error banner + create-account route</td><td>"Account doesn't exist" / "We can't find a registered account with this email or userID. Check your details and try again or Create an account."</td></tr>
-          <tr><td>Warning</td><td>Wrong password / lockout risk</td><td><span class="inferred">[INFERRED — wrong-password vs no-account and lockout not observed]</span></td><td><span class="todo">[TODO — confirm wrong-password and lockout copy]</span></td></tr>
+          <tr><td>Loading</td><td>Credentials submitted</td><td>Awaiting auth response</td><td>No copy, just visual loader</td></tr>
+          <tr><td>Success</td><td>Valid credentials (+ any 2FA)</td><td>Modal closes, customer signed in</td><td>No copy</td></tr>
+          <tr><td>Error</td><td>No matching account</td><td>Error banner + create-account route</td><td>"Account doesn't exist" / "We can't find a registered account with this email or userID. Check your details and try again or create an account."</td></tr>
+          <tr><td>Warning</td><td>Wrong password / lockout risk</td><td>Requires validation</td><td>Copy determined by risk team</td></tr>
           <tr><td>Empty</td><td>Submit with empty field(s)</td><td>Field(s) marked invalid with inline message</td><td>"Please enter your email or username" / "Please enter your password."</td></tr>
           <tr><td>Disabled</td><td>One or both fields empty</td><td>"LOG IN" inactive</td><td>"LOG IN" (disabled)</td></tr>
         </tbody>
@@ -259,9 +257,6 @@
       <div class="constraint"><strong>NEVER</strong> enable "LOG IN" while a required field is empty. <span class="layer">Layer 3</span></div>
       <div class="constraint"><strong>NEVER</strong> dead-end a failed login — always offer recovery or account creation. <span class="layer">Layer 3</span></div>
       <div class="constraint"><strong>STOP</strong> and route to design when a change needs a new component, a new region, a new interaction pattern, or anything not covered by the skeleton, states, and components documented on this page — build within what's documented rather than inventing. <span class="layer">(UI)</span></div>
-
-      <h3 id="content-messaging">Content &amp; messaging</h3>
-      <p><strong>Tone:</strong> brisk and functional; error copy factual and non-alarming, always pointing to a next step.</p>
 
       <h2 id="patterns">Patterns</h2>
       <ul>
@@ -309,13 +304,12 @@
       <a href="#feature-intent" class="h3">Feature intent</a>
       <a href="#mental-model" class="h3">User mental model</a>
       <a href="#surfaces" class="h3">Login surfaces &amp; variants</a>
-      <a href="#forgotten-password" class="h3">Forgotten password</a>
+      <a href="#forgotten-password" class="h3">Account recovery</a>
       <a href="#club-ladbrokes" class="h3">Out of scope: Club Ladbrokes</a>
       <a href="#ui-components" class="h3">UI component mapping</a>
       <a href="#ux-behaviour" class="h3">UX behaviour</a>
       <a href="#ux-states" class="h3">UX states</a>
       <a href="#hard-constraints" class="h3">Hard constraints</a>
-      <a href="#content-messaging" class="h3">Content &amp; messaging</a>
       <a href="#patterns">Patterns</a>
       <a href="#examples">Examples</a>
     </nav>
