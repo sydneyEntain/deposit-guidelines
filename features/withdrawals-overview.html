@@ -157,7 +157,7 @@
       <!-- PRINCIPLES -->
       <h2 id="principles">Principles</h2>
       <ul>
-        <li>Reuse the deposit amount-entry model so money-out feels consistent with money-in; only the direction and constraints change.</li>
+        <li>Reuse as much of the deposit visuals / functional language as possible so the customer can use all the patterns they have already learned to operate in both flows. The deposit amount-entry "model" should be consistent between the two so money-out feels the same as money-in; only the direction and constraints change.</li>
         <li>Return funds to where they came from by default (MIMO), splitting a withdrawal across original deposit sources so AML / source-of-funds rules are honoured without the customer having to think about it.</li>
         <li>Never leave the customer without a path: when no method is eligible, explain plainly why and what unlocks withdrawals.</li>
         <li>Be honest about timing and partial outcomes — approved, requested (pending), partially approved, declined, or failed — and always state where the customer's money is.</li>
@@ -264,7 +264,6 @@
           <tr><td>Disabled</td><td>Amount out of range, or no eligible method</td><td>Withdraw inactive; or no-method message</td><td>"You currently have no eligible withdrawal methods…"</td></tr>
         </tbody>
       </table>
-      <p class="src">Amount component states (shared with Deposit): Valid or Zero · Min error · Max error. Large centred £ value with the min/max helper and an info icon below.</p>
 
       <h3 id="hard-constraints">Hard constraints</h3>
       <div class="constraint"><strong>NEVER</strong> return withdrawn funds to a source that isn't eligible under MIMO. <span class="layer">Layer 1</span></div>
@@ -275,16 +274,6 @@
       <div class="constraint"><strong>STOP</strong> and route to design when a change needs a new component, a new region, a new interaction pattern, or anything not covered by the skeleton, states, and components documented on this page — build within what's documented rather than inventing. <span class="layer">(UI)</span></div>
 
       <h3 id="content-messaging">Content &amp; messaging</h3>
-      <p><strong>Verbatim copy (retain exactly):</strong></p>
-      <div class="callout info"><strong>Requested (with timeframe)</strong>"£45.00" / "Withdrawal requested" / "Processing time relies on your payment provider and may take up to &lt;X time&gt;." — Close · Track withdrawal.</div>
-      <div class="callout info"><strong>Requested (alt)</strong>"Withdrawal Requested" / "We've received your withdrawal request of £45.00 and are processing it."</div>
-      <div class="callout info"><strong>Approved</strong>"£45.00 Withdrawal approved".</div>
-      <div class="callout error"><strong>Declined</strong>"£45.00 Withdrawal declined" / "Your funds remain in your account. Please check your details and try again, or choose a different withdrawal method."</div>
-      <div class="callout warn"><strong>Partially approved (processing remainder)</strong>"£45.00 Withdrawal partially approved" / "£40 of your withdrawal has been approved. The remaining £5 is still being processed and may take up to &lt;X time&gt;."</div>
-      <div class="callout warn"><strong>Partially approved (declined remainder)</strong>"£40 has been approved. The remaining £5 was declined. Select 'track withdrawal' for more details."</div>
-      <div class="callout info"><strong>MIMO split</strong>"Withdrawal will be split to:" (with per-destination amounts, e.g. £40.00 / £5.00).</div>
-      <div class="callout info"><strong>No eligible method</strong>"You currently have no eligible withdrawal methods. To withdraw, you must first deposit using a payment method that allows deposits and withdrawals."</div>
-      <div class="callout info"><strong>Max bank accounts</strong>"Exceeding 5 bank accounts: Info message, contact CS to add a new bank account."</div>
       <p><strong>Tone:</strong> factual and reassuring for outcomes (always state where the customer's money is); plain and non-alarming for the no-eligible-method and max-accounts cases.</p>
 
       <!-- PATTERNS -->

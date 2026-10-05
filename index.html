@@ -147,8 +147,7 @@
 
       <h2 id="overview">Overview</h2>
       <p>Deposit allows customers to add funds to their account through first-time deposit (FTD) at onboarding, standard cashier deposits (regular deposit), and contextual deposit (formerly called quick deposit) at betslip and in-game. This documentation also covers amount entry with quick-amount chips, min/max limits, payment method selection and management, card entry and scanning, 3DS/SCA verification, error and edge-case states, bonus/offer signposting, deposit success, and Responsible Gambling deposit limits (Spending Limits / Deposit Cap).</p>
-      <p>Deposit lives in <strong>Player Experience › Payments</strong> and the feature display adapts based on entry point (progress bar during onboarding, brand header in-app, small CD modal when needed) but the amount-entry component stays consistent.</p>
-      <p><strong>Figma source:</strong> <a href="https://www.figma.com/design/7iVvdIcvnrk32QwPAoBok8/Ladbrokes-Refresh-%7C-Payments-Design-%7C-Delivery-File?node-id=14487-23976" target="_blank" rel="noopener">Ladbrokes Refresh — Payments Design / Delivery File</a></p>
+      <p><strong>Figma source:</strong> Ladbrokes Refresh — Payments Design / Delivery File</p>
 
       <h2 id="principles">Principles</h2>
       <ul>
@@ -189,8 +188,8 @@
         <thead><tr><th>Entry point</th><th>Context</th><th>Surface</th></tr></thead>
         <tbody>
           <tr><td>Onboarding (FTD)</td><td>New customer, first deposit</td><td>Full flow, progress bar + bonus signposting in header</td></tr>
-          <tr><td>Home / Menu</td><td>Logged-in customer</td><td>Full flow, brand header</td></tr>
-          <tr><td>Contextual Deposit (CD Window)</td><td>Betslip or in-game menu</td><td>Compact Contextual Deposit (CD-eligible methods only)</td></tr>
+          <tr><td>Home Menu</td><td>Logged-in customer</td><td>Full flow, brand header</td></tr>
+          <tr><td>Betslip or in-game</td><td>Contextual Deposit (CD Window)</td><td>Compact Contextual Deposit (CD-eligible methods only)</td></tr>
           <tr><td>Rewards drawer</td><td>Offer requires a deposit</td><td>Full flow; "You'll only see offers that can be applied to a deposit."</td></tr>
         </tbody>
       </table>
@@ -208,28 +207,9 @@
 
       <h3 id="payment-methods">Payment methods <span class="adapt">adaptation</span></h3>
       <p>Methods are chosen inline on the amount screen or from the "Add payment method" sheet/screen. Each method has its own minimum deposit and may carry a bonus-eligibility badge.</p>
-      <table>
-        <thead><tr><th>Method</th><th>Min deposit</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td>Debit/credit cards (Visa, Mastercard, Maestro)</td><td>£5</td><td>Core method; card entry and Scan Card</td></tr>
-          <tr><td>Apple Pay</td><td>£5</td><td><span class="badge green">Popular</span></td></tr>
-          <tr><td>Google Pay</td><td>£5</td><td></td></tr>
-          <tr><td>Pay by bank (TrueLayer / Monzo)</td><td>£10</td><td>Open-banking</td></tr>
-          <tr><td>PayPal</td><td>£5</td><td>Has a dedicated error state</td></tr>
-          <tr><td>Stripe</td><td>£15</td><td></td></tr>
-          <tr><td>Skrill</td><td>£15</td><td><span class="badge amber">Bonus Ineligible</span> (when applicable)</td></tr>
-          <tr><td>Paysafe</td><td>—</td><td></td></tr>
-          <tr><td>Neteller</td><td>—</td><td></td></tr>
-          <tr><td>Bitpay</td><td>—</td><td></td></tr>
-          <tr><td>Amazon Pay</td><td>—</td><td></td></tr>
-          <tr><td>Pay in shop / Coral Shop</td><td>—</td><td>Retail top-up</td></tr>
-          <tr><td>Prepaid</td><td>—</td><td><span class="badge grey">Disabled</span></td></tr>
-        </tbody>
-      </table>
       <ul>
-        <li><strong>Add payment method:</strong> short list (e.g. Apple Pay "Popular", Debit/credit cards, Pay by bank) with a "More Payment Methods" button; or the full list on its own screen.</li>
-        <li><strong>Change method (bottom sheet):</strong> <em>My payment methods</em> (stored), <em>Add payment method</em> (each with min deposit), and <em>Inactive methods</em> grouped under an informational alert.</li>
-        <li><strong>Card details:</strong> Card Number (<code>XXXX XXXX XXXX XXXX</code>), Expiry (<code>MM/YY</code>), CVV (with a card illustration), Cardholder's Name, "Set as default payment methods" checkbox, Scan Card, storage-consent line, "Continue" CTA. Footer: Mastercard FAQs · Deposit Limits · Live chat.</li>
+        <li><strong>Add payment method:</strong> show a short list initially of 2–4 payment methods (preferably 3) that Entain wants to encourage customers to use (e.g. Apple Pay, Debit/credit cards, Pay by bank). Offer the ability to see the other payment method options via a "More Payment Methods" CTA.</li>
+        <li><strong>Change method (bottom sheet):</strong> if the customer wants to "swap" what payment method is being used for a transaction or add a new payment method to process the transaction they can do so via this bottom sheet — it contains: my payment methods (ones that are already stored), add payment method (methods not yet added), and Inactive methods grouped under an informational alert (when applicable).</li>
       </ul>
 
       <h3 id="ui-components">UI component mapping</h3>
@@ -271,18 +251,17 @@
       <h3 id="ux-states">UX states</h3>
       <p>Covers all seven states. Use <code>N/A — justification</code> where a state is explicitly impossible.</p>
       <table>
-        <thead><tr><th>State</th><th>Trigger</th><th>UI behaviour</th><th>Copy</th></tr></thead>
+        <thead><tr><th>State</th><th>Trigger</th><th>UI behaviour</th><th>Copy examples</th></tr></thead>
         <tbody>
-          <tr><td><strong>Default</strong></td><td>Returning customer opens deposit with a default method</td><td>Amount empty awaiting entry, method pre-selected, Deposit disabled until valid</td><td>"£20 min | £200 max"</td></tr>
-          <tr><td><strong>Loading</strong></td><td>Deposit submitted, awaiting provider or SCA response</td><td><span class="inferred">INFERRED — confirm processing/pending treatment</span></td><td><span class="todo">TODO</span></td></tr>
+          <tr><td><strong>Default</strong></td><td>Returning customer opens deposit with a default method</td><td>Amount empty awaiting entry, method pre-selected, Deposit disabled until valid</td><td>"£20 min | £200 max" — replace the monetary values based on payment method and limits</td></tr>
+          <tr><td><strong>Loading</strong></td><td>Deposit submitted, awaiting provider or SCA response</td><td>Requires validation</td><td>Visual indicator of loading, if 3DS or other validation is required then show applicable information request / prompt</td></tr>
           <tr><td><strong>Success</strong></td><td>Deposit accepted</td><td>Confirmation with new-balance pill and offer reminder where applicable</td><td>"Deposit success!" / "£{amount} has been added to your account" / "New Balance £35.00"</td></tr>
-          <tr><td><strong>Error</strong></td><td>Amount validation fails or the provider declines</td><td>Inline alert, dialog, or full-screen by severity</td><td>"We cannot accept funds for this account from this card, please use a different method. If funds were deducted from your account they will be refunded in 1–3 days."</td></tr>
-          <tr><td><strong>Warning</strong></td><td>Soft safer-gambling check (unusual frequency / close to loss limit)</td><td>Dismissible dialog with Cancel / Continue</td><td>"You've made more deposits than usual in the past 24 hours…"</td></tr>
+          <tr><td><strong>Error</strong></td><td>Amount validation fails or the provider declines</td><td>Inline alert, dialog, or full-screen by severity</td><td>Ex: "We cannot accept funds for this account from this card, please use a different method. If funds were deducted from your account they will be refunded in 1–3 days."</td></tr>
+          <tr><td><strong>Warning</strong></td><td>Soft safer-gambling check (unusual frequency / close to loss limit)</td><td>Dismissible dialog with Cancel or Continue</td><td>"You've made more deposits than usual in the past 24 hours…"</td></tr>
           <tr><td><strong>Empty</strong></td><td>No amount entered</td><td>Zero/placeholder amount shown, Deposit disabled</td><td>Zero/placeholder amount state</td></tr>
           <tr><td><strong>Disabled</strong></td><td>Amount invalid or method unavailable (e.g. Prepaid)</td><td>CTA and/or method row shown inactive</td><td>"Deposit" disabled; Prepaid listed as Disabled</td></tr>
         </tbody>
       </table>
-      <p class="src">Amount component states (shared with Withdrawals): Valid or Zero · Min error · Max error. Large centred £ value with min/max shown below.</p>
 
       <h3 id="hard-constraints">Hard constraints</h3>
       <div class="constraint"><strong>NEVER</strong> allow a deposit that breaches a customer's monthly loss limit or deposit cap. <span class="layer">(Layer 1)</span></div>
@@ -294,25 +273,13 @@
 
 
       <h3 id="content-messaging">Content &amp; messaging</h3>
-      <p><strong>Verbatim copy (retain exactly):</strong></p>
-      <div class="callout error"><strong>Decline — funds not accepted</strong>"We cannot accept funds for this account from this card, please use a different method. If funds were deducted from your account they will be refunded in 1–3 days." — Contact Support · Change Payment Method.</div>
-      <div class="callout error"><strong>Decline — card blocked (name mismatch)</strong>"The name on this card doesn't match your account details, so it has been blocked. To unblock your card, please visit the 'My Account Details' page within 'My Account' and upload clear copies of the front and back of your card, ensuring the middle 6-digits of the card number and the 3-digit CVV code are covered. Please contact Customer Support if you believe there is an error." — Account Details · Contact Support.</div>
-      <div class="callout info"><strong>Pop-up blocked</strong>"Window blocked from opening — We have detected that your pop-up blocker has stopped the new browser window from opening." — Open window.</div>
-      <div class="callout error"><strong>SCA not completed</strong>"Deposit not completed — You didn't complete the external security check, so this deposit didn't process. Please try again and complete the check, or use a different method."</div>
-      <div class="callout info"><strong>Unusual frequency (soft)</strong>"You've made more deposits than usual in the past 24 hours. To help you stay in control, you may want to set a Gambling Control to limit how much you deposit. Do you want to continue with this deposit?" — Cancel · Continue.</div>
-      <div class="callout info"><strong>Close to loss limit (soft)</strong>"You're close to your monthly loss limit. Your monthly loss limit of £500 will be reset on the first of next month. Your maximum allowed deposit is £XX." — Increase limit · Continue with deposit.</div>
-      <div class="callout warn"><strong>Loss limit reached (hard)</strong>"You've reached your monthly loss limit — Your monthly loss limit of £500 has been reached. This limit will be reset on the first of next month, or you can request an increase to your limit." — Increase limit.</div>
-      <div class="callout warn"><strong>Deposits blocked (hard)</strong>"Deposits blocked — We've temporarily blocked deposits until 07-09-2025 at 13:32 due to higher-than-usual activity. If you'd like more control over how much you deposit, you can set limits with our Gambling Control tools."</div>
-      <div class="callout info"><strong>Success</strong>"Deposit success!" / "£{amount} has been added to your account" / "New Balance £35.00".</div>
-
-      <p style="margin-top:16px"><strong>Required disclosures:</strong></p>
+      <p><strong>Required disclosures:</strong></p>
       <ul>
         <li>"18+ T&amp;Cs apply" on bonus signposting.</li>
         <li>Card storage consent: "Continuing with this deposit confirms your agreement for us to securely store your card details."</li>
         <li>Cross-brand limits note: "These limits protect your spending across all Entain accounts. You can request a review, but changes are not guaranteed."</li>
       </ul>
       <p><strong>Tone:</strong> supportive and control-oriented for RG interventions; factual and specific for declines (state the reason and the next action).</p>
-      <p><strong>Avoid list:</strong> <span class="todo">TODO — confirm prohibited terms with content design.</span></p>
 
       <h2 id="patterns">Patterns</h2>
       <p class="src">Reusable interaction mechanisms this feature relies on. Link to patterns rather than describing them inline where possible.</p>
@@ -336,7 +303,6 @@
       </ul>
 
       <h2 id="examples">Examples</h2>
-      <p class="src">Every positive example is paired with a counter-example that cites the rule or principle it violates (Req 8.6).</p>
 
       <div class="ex-title">Amount below method minimum</div>
       <div class="ex">
